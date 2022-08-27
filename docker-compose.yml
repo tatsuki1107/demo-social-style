@@ -61,7 +61,7 @@ services:
       [
         bash,
         -c,
-        npm upgrade --no-progress --network-timeout 1000000 && npm start
+        npm install && npm upgrade --no-progress --network-timeout 1000000 && npm start
       ]
     networks:
       - frontend_network
