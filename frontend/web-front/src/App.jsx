@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import StartButton from './components/StartButton';
+import Footer from './components/Footer';
 
 const App = () => {
   return (
@@ -21,8 +22,7 @@ const App = () => {
 
           人の言動を単純に4つに分けることはできませんが、大まかな方向性としていずれかのスタイルに分類されるといわれています。</p>
       </div>
-
-      <div className='graph'>
+      {/* <div className='graph'>
         <div class="graf_top">
           <div class="graf_elem tl"><div class="background_tl"></div></div>
           <div class="graf_elem tr"><div class="background_tr"></div></div>
@@ -35,8 +35,8 @@ const App = () => {
         <div class="triangle t_right"></div>
         <div class="triangle t_bottom"></div>
         <div class="triangle t_left"></div>
-      </div>
-
+      </div> */} 
+      <Footer />
     </div>
   );
 }
