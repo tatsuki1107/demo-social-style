@@ -1,7 +1,6 @@
 import React from "react";
 import './index.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { solid, regular, brands, icon } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
 import { faTwitter, faFacebook, faLine, faInstagram, faYoutube} from "@fortawesome/free-brands-svg-icons";
 import logo from '../../img/logo-transparent-cheercareer-white-all.svg';
 
@@ -15,19 +14,19 @@ const Footer = () => {
 				</a>
 			</div>
 			<div className="icon">
-				<a href="" className="icon_content">
+				<a href="https://www.facebook.com/cheercareer.jp" target="_blank" className="icon_content">
 					<FontAwesomeIcon icon={faFacebook} />
 				</a>
-				<a href="" className="icon_content">
+				<a href="https://twitter.com/cheer_career" target="_blank" className="icon_content">
 					<FontAwesomeIcon icon={faTwitter} />
 				</a>
-				<a href="" className="icon_content">
+				<a href="https://lin.ee/noVzheP" target="_blank" className="icon_content">
 					<FontAwesomeIcon icon={faLine}/>
 				</a>
-				<a href="" className="icon_content">
+				<a href="https://www.instagram.com/cheer_career/" target="_blank" className="icon_content">
 					<FontAwesomeIcon icon={faInstagram}/>
 				</a>
-				<a href="" className="icon_content">
+				<a href="https://www.youtube.com/channel/UC8b3YGTUXCjtW3OwAjXTx9A/"  target="_blank" className="icon_content">
 					<FontAwesomeIcon icon={faYoutube}/>
 				</a>
 			</div>
