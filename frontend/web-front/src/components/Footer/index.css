@@ -19,3 +19,16 @@ footer p{
 	font-size: 13px;
 	color: #fff;
 }
+.Footer_info{
+	display: flex;
+}
+.icon{
+	margin-left: auto;
+	margin-right: 50px;
+	margin-top: 10px;
+}
+.icon_content{
+	font-size: 1.5em;
+	margin-left: 19px;
+	color: #fff;
+}
