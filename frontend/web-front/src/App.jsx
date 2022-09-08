@@ -21,7 +21,6 @@ const App = () => {
 
           人の言動を単純に4つに分けることはできませんが、大まかな方向性としていずれかのスタイルに分類されるといわれています。</p>
       </div>
-
       <div className='graph'>
         <div class="graf_top">
           <div class="graf_elem tl"><div class="background_tl"></div></div>
