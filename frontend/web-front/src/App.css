@@ -1,16 +1,15 @@
 .App {
   background-color: #F6F2E8;
-  height: 3944px;
-  width: 1334px;
+  height: 5500px;
   position: relative;
-  margin: auto;
 }
 
 .backImg {
   background: url('./img/ソーシャルスタイル診断_top.png');
   position: relative;
-  width: 1335px;
-  height: 719px;
+  width: 100%;
+  background-size: cover;
+  height: 900px;
   left: -2px;
   top: 91px;
   border-radius: 0px 0px 200px 200px;
@@ -18,20 +17,20 @@
 
 .startButton-1 {
   position: relative;
-  left: 485px;
-  top: 600px;
+  left: 590px;
+  top: 730px;
 }
 
 .explanation {
   position: absolute;
   width: 800px;
   height: 630px;
-  left: 267px;
-  top: 883px;
+  left: 420px;
+  top: 1100px;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
-  font-size: 36px;
+  font-size: 40px;
   line-height: 44px;
   align-items: center;
   text-align: center;
@@ -42,7 +41,6 @@
 
 .emphasis {
   color: #DF7919;
-  display: block;
   font-size: 40px;
   margin-top: 10px;
 }
@@ -51,8 +49,8 @@
   position: absolute;
   width: 800px;
   height: 800px;
-  left: 267px;
-  top: 1600px;
+  left: 435px;
+  top: 1950px;
   background-color: #FFFF;
 }
 
@@ -141,4 +139,105 @@
   border-right: 30px solid #E89B54;
   border-top: 20px solid transparent;
   border-bottom: 20px solid transparent;
+}
+
+.startButton-2 {
+  position: relative;
+  left: 590px;
+  top: 2000px;
+}
+
+.help {
+  position: relative;
+  width: 800px;
+  left: 470px;
+  top: 2300px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 43px;
+  line-height: 44px;
+  padding-left: 20px;
+  color: #000000;
+}
+
+.donNkow {
+  position: relative;
+  width: 1000px;
+  height: 500px;
+  left: 400px;
+  top: 2500px;
+}
+
+.howWork {
+  width: 100%;
+  height: 100px;
+  display: flex;
+}
+
+.bou {
+  position: absolute;
+  background: #DF7919;
+  border-radius: 50px;
+  width: 10px;
+  height: 70px;
+}
+
+.aaa {
+  position: absolute;
+  font-size: 43px;
+  color: #DF7919;
+  margin: 0 0 0 30px;
+}
+
+.bbb {
+  position: absolute;
+  font-size: 40px;
+}
+
+.intern {
+  position: absolute;
+  font-size: 40px;
+  color: #DF7919;
+  margin-top: 330px;
+}
+
+.relationship {
+  position: relative;
+  width: 1000px;
+  height: 700px;
+  left: 400px;
+  top: 2600px;
+}
+
+.startButton-3 {
+  position: relative;
+  top: 2400px;
+  left: 590px;
+}
+
+.backToTop {
+  position: relative;
+  top: 2350px;
+  left: 1400px;
+  width: 200px;
+  height: 200px;
+}
+
+.maru {
+  position: absolute;
+  background: #DF7919;
+  width: 100%;
+  height: 100%;
+  border-radius: 100px;
+}
+
+.sannkaku {
+  position: absolute;
+  left: 23.53%;
+  right: 24.26%;
+  top: 23.53%;
+  bottom: 22.79%;
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  background: #FFFFFF;
 }
