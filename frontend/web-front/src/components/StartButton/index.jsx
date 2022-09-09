@@ -1,9 +1,11 @@
 import React from "react";
 import './index.css'
 
-const StartButton = () => {
+const StartButton = ({ onClick }) => {
   return (
-    <button className="button">今すぐ診断する</button>
+    <button
+      className="button"
+      onClick={onClick}>今すぐ診断する</button>
   );
 };
 
