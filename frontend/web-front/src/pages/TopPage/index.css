@@ -1,25 +1,69 @@
+/* tmp_header */
+header {
+  width: 100%;
+  height: 70px;
+  background-color: #DF7919;
+  position: fixed;
+  /* margin-bottom: 70px; */
+  z-index: 1;
+}
+
 .App {
   background-color: #F6F2E8;
-  height: 5500px;
   width: 100%;
 }
 
-.backImg {
+.Top {
   background: url('../../img/ソーシャルスタイル診断_top.png');
   position: relative;
-  background-size: 100% 900px;
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
   border-radius: 0px 0px 200px 200px;
-  height: 900px;
+  width: 100%;
+  height: 100vh;
 }
 
 .startButton-1 {
   position: absolute;
-  left: 35%;
-  top: 730px;
+  top: 80%;
+  left: 50%;
+  -ms-transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
 }
 
-.explanation {
+.Top_title {
+  position: absolute;
+  color: #fff;
+  width: 100%;
+  top: 60%;
+  left: 50%;
+  -ms-transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.Top_title h1{
+  font-size: 4em;
+}
+
+.Top_title {
+  text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+  .Top {
+    border-radius: 0px;
+  }
+  .Top_title {
+    font-size: 0.6em;
+  }
+}
+
+
+
+/* .explanation {
   position: absolute;
   width: 800px;
   height: 630px;
@@ -35,9 +79,9 @@
   padding-left: 20px;
   color: #000000;
   word-wrap: break-word;
-}
+} */
 
-.emphasis {
+/* .emphasis {
   color: #DF7919;
   font-size: 40px;
   margin-top: 10px;
@@ -238,4 +282,4 @@
   bottom: 22.79%;
   clip-path: polygon(0 100%, 50% 0, 100% 100%);
   background: #FFFFFF;
-}
+} */

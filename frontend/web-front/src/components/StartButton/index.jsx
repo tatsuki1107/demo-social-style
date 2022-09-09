@@ -5,7 +5,9 @@ const StartButton = ({ onClick }) => {
   return (
     <button
       className="button"
-      onClick={onClick}>今すぐ診断する</button>
+      onClick={onClick}>
+      <p className="button_txt">今すぐ診断する</p>
+    </button>
   );
 };
 

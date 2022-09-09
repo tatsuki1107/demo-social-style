@@ -11,10 +11,14 @@ const TopPage = () => {
   }
   return (
     <>
-      <div className="App">
-        <p>Header Component!!</p>
 
-        <div className='backImg'>
+      <div className="App">
+      <header></header>
+        <div className='Top'>
+          <div className="Top_title">
+            <h1>ソーシャルスタイル診断</h1>
+          </div>
+          
           <div className='startButton-1'>
             <StartButton onClick={goNextPage} />
           </div>
@@ -77,9 +81,10 @@ const TopPage = () => {
         <div className='startButton-3'>
           <StartButton onClick={goNextPage} />
         </div>
-
+        
+        <Footer />
       </div>
-      <Footer />
+      
     </>
   );
 }
