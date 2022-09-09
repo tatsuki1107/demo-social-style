@@ -1,7 +1,7 @@
 import './index.css';
 import React from 'react';
 import StartButton from '../../components/StartButton';
-import Footer from '../../components/Footer';
+import Footer from '../../components/Oganisms/Footer';
 import { useNavigate } from 'react-router-dom';
 
 const TopPage = () => {
