@@ -1,23 +1,21 @@
 .App {
   background-color: #F6F2E8;
   height: 5500px;
-  position: relative;
+  width: 100%;
 }
 
 .backImg {
-  background: url('./img/ソーシャルスタイル診断_top.png');
+  background: url('../../img/ソーシャルスタイル診断_top.png');
   position: relative;
-  width: 100%;
-  background-size: cover;
-  height: 900px;
-  left: -2px;
-  top: 91px;
+  background-size: 100% 900px;
+  background-repeat: no-repeat;
   border-radius: 0px 0px 200px 200px;
+  height: 900px;
 }
 
 .startButton-1 {
-  position: relative;
-  left: 590px;
+  position: absolute;
+  left: 35%;
   top: 730px;
 }
 

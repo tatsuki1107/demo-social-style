@@ -42,7 +42,7 @@ services:
       [
         bash,
         -c,
-        npm install && npm upgrade --no-progress --network-timeout 1000000 && npm start
+        npm install && npm upgrade --no-progress --network-timeout 1000000 && npm i react-router-dom && npm start
       ]
     networks:
       - frontend_network
