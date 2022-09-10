@@ -4,7 +4,6 @@ header {
   height: 70px;
   background-color: #DF7919;
   position: fixed;
-  /* margin-bottom: 70px; */
   z-index: 1;
 }
 
@@ -44,106 +43,136 @@ header {
   transform: translate(-50%,-50%);
 }
 
-.Top_title h1{
+.Top_title h1 {
   font-size: 4em;
+  margin-bottom: 0;
+}
+.Top_title h3 {
+  font-size: 2em;
 }
 
 .Top_title {
   text-align: center;
 }
 
-@media screen and (max-width: 800px) {
-  .Top {
-    border-radius: 0px;
-  }
-  .Top_title {
-    font-size: 0.6em;
-  }
+main {
+  width: 800px;
+  margin: 0 auto;
 }
 
+.explanation{
+  margin-top: 100px;
+  margin-bottom: 100px;
+  width: 100%;
+}
 
-
-/* .explanation {
-  position: absolute;
-  width: 800px;
-  height: 630px;
-  left: 420px;
-  top: 1100px;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 40px;
-  line-height: 44px;
-  align-items: center;
+.exp_title {
   text-align: center;
-  padding-left: 20px;
-  color: #000000;
-  word-wrap: break-word;
-} */
-
-/* .emphasis {
-  color: #DF7919;
-  font-size: 40px;
-  margin-top: 10px;
+  font-weight: 600;
 }
 
+.exp_title_txt01{
+  font-size: 2em;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.exp_title_txt02{
+  margin-top: 0;
+  font-size: 2.3em;
+}
+
+.exp_txt {
+  font-size: 1.35em;
+  font-weight: 500;
+}
+
+.emphasis {
+  color: #DF7919;
+}
+
+.graph_area{
+  margin-top: 50px;
+  margin: 0 auto;
+}
 .graph {
-  position: absolute;
-  width: 800px;
+  position: relative;
   height: 800px;
-  left: 435px;
-  top: 1950px;
   background-color: #FFFF;
 }
 
-.graf_top {
+.graph_top {
   margin: 0;
   padding: 0;
-  width: 800px;
   height: 400px;
   display: flex;
 }
 
-.graf_btm {
+.graph_btm {
   margin: 0;
   padding: 0;
-  width: 800px;
   height: 400px;
   display: flex;
 }
 
-.graf_elem {
+.graph_elem {
+  position: relative;
   margin: 0;
   padding: 0;
   width: 400px;
   height: 400px;
 }
+.center_txt {
+  text-align: center;
+  position: absolute;
+}
+.tl_txt{
+  position: absolute;
+  top: 2%;
+  left: 5%;
+}
+.tr_txt{
+  top: 2%;
+  left: 73%;
+}
+.bl_txt {
+  top: 80%;
+  left: 5%;
+}
+.br_txt {
+  top: 80%;
+  left: 58%;
+}
+.graph_txt_p, .graph_txt_h3{
+  margin: 0;
+  padding: 0;
+}
+.graph_txt_h3 {
+  font-weight: 400;
+  font-size: 2.0em;
+}
+.graph_txt_p {
+  font-size: 0.9em;
+}
 
 .tl {
-  border-right: #E89B54 solid 3px;
+  border-right: #E89B54 solid 2px;
   border-bottom: #E89B54 solid 3px;
 }
 
 .tr {
-  border-left: #E89B54 solid 3px;
+  border-left: #E89B54 solid 2px;
   border-bottom: #E89B54 solid 3px;
 }
 
 .bl {
   border-top: #E89B54 solid 3px;
-  border-right: #E89B54 solid 3px;
+  border-right: #E89B54 solid 2px;
 }
 
 .br {
   border-top: #E89B54 solid 3px;
-  border-left: #E89B54 solid 3px;
-}
-
-.background_tr {
-  width: 100%;
-  height: 100%;
-  background-color: #E89B54;
-  opacity: 0.32;
+  border-left: #E89B54 solid 2px;
 }
 
 .triangle {
@@ -152,7 +181,7 @@ header {
 }
 
 .t_top {
-  top: 1.5%;
+  top: 1%;
   left: 50%;
   border-right: 20px solid transparent;
   border-bottom: 30px solid #E89B54;
@@ -161,14 +190,14 @@ header {
 
 .t_right {
   top: 50%;
-  left: 98.5%;
+  left: 99%;
   border-top: 20px solid transparent;
   border-bottom: 20px solid transparent;
   border-left: 30px solid #E89B54;
 }
 
 .t_bottom {
-  top: 98.5%;
+  top: 98.9%;
   left: 50%;
   border-right: 20px solid transparent;
   border-top: 30px solid #E89B54;
@@ -177,19 +206,169 @@ header {
 
 .t_left {
   top: 50%;
-  left: 1.5%;
+  left: 1%;
   border-right: 30px solid #E89B54;
   border-top: 20px solid transparent;
   border-bottom: 20px solid transparent;
 }
 
-.startButton-2 {
-  position: relative;
-  left: 590px;
-  top: 2000px;
+.startButton-2{
+  width: 325px;
+  margin: 0 auto;
+  margin-top: 100px;
 }
 
-.help {
+
+/* レスポンシブ */
+@media all and (max-width: 860px) {
+  .Top {
+    border-radius: 0px;
+  }
+  .Top_title {
+    font-size: 0.6em;
+  }
+  main{
+    width: 90%;
+  }
+  
+  /* graf */
+  .graph_area{
+    width: 600px;
+    margin: 0 auto;
+  }
+  .graph {
+    margin: 0;
+    padding: 0;
+    width: 600px;
+    height: 600px;
+    background-color: #FFFF;
+  }
+  .graph_top, .graph_btm {
+    height: 300px;
+    display: flex;
+  }
+  .graph_elem {
+    width: 300px;
+    height: 300px;
+  }
+  .tr_txt{
+    top: 2%;
+    left: 67%;
+  }
+  .bl_txt {
+    top: 75%;
+    left: 5%;
+  }
+  .br_txt {
+    top: 75%;
+    left: 46%;
+  }
+}
+
+@media all and (max-width: 660px) {
+  .graph_area{
+    width: 400px;
+    margin: 0 auto;
+  }
+  .graph {
+    margin: 0;
+    padding: 0;
+    width: 400px;
+    height: 400px;
+    position: relative;
+    background-color: #FFFF;
+  }
+  .graph_top, .graph_btm {
+    height: 200px;
+    display: flex;
+  }
+  .graph_elem {
+    width: 200px;
+    height: 200px;
+  }
+  .tr_txt{
+    top: 2%;
+    left: 67%;
+  }
+  .bl_txt {
+    top: 75%;
+    left: 5%;
+  }
+  .br_txt {
+    top: 75%;
+    left: 46%;
+  }
+  .graph_txt_p {
+    font-size: 0.7em;
+  }
+  .graph_txt_h3 {
+    font-size: 1.4em;
+  }
+
+  .t_top {
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid #E89B54;
+    border-left: 10px solid transparent;
+  }
+  
+  .t_right {
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 20px solid #E89B54;
+  }
+  
+  .t_bottom {
+    border-right: 10px solid transparent;
+    border-top: 20px solid #E89B54;
+    border-left: 10px solid transparent;
+  }
+  
+  .t_left {
+    border-right: 20px solid #E89B54;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+  }
+  
+  
+}
+
+@media all and (max-width: 440px) {
+  .graph_area{
+    width: 300px;
+    margin: 0 auto;
+  }
+  .graph {
+    margin: 0;
+    padding: 0;
+    width: 300px;
+    height: 300px;
+    position: relative;
+    background-color: #FFFF;
+  }
+  .graph_top, .graph_btm {
+    height: 150px;
+    display: flex;
+  }
+  .graph_elem {
+    width: 150px;
+    height: 150px;
+  }
+  .tr_txt{
+    top: 2%;
+    left: 55%;
+  }
+  .bl_txt {
+    top: 65%;
+    left: 5%;
+  }
+  .br_txt {
+    top: 65%;
+    left: 29%;
+  }
+}
+
+
+/* .help {
   position: relative;
   width: 800px;
   left: 470px;
