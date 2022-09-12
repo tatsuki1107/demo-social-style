@@ -3,6 +3,7 @@ import React from 'react';
 import StartButton from '../../components/StartButton';
 import Footer from '../../components/Oganisms/Footer';
 import { useNavigate } from 'react-router-dom';
+import graph_img from '../../img/SocialStyle_graph.jpg'
 
 const TopPage = () => {
   const navigate = useNavigate();
@@ -39,71 +40,41 @@ const TopPage = () => {
               <p>人の言動を単純に4つに分けることはできませんが、大まかな方向性としていずれかのスタイルに分類されるといわれています。</p>  
             </div>             
           </section>
-          
-          <section className="graph_area">
-            <div className='graph'>
-              <div class="graph_top">
-                <div class="graph_elem tl">
-                  <div className="tl_txt emphasis center_txt">
-                    <p className='graph_txt_p'>アナリティカル</p>
-                    <h3 className='graph_txt_h3'>Analytical</h3>
-                  </div>
-                </div>
-                <div class="graph_elem tr">
-                  <div className="tr_txt emphasis center_txt">
-                    <p className='graph_txt_p'>ドライバー</p>
-                    <h3 className='graph_txt_h3'>Driver</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="graph_btm">
-                <div class="graph_elem bl">
-                  <div className="bl_txt emphasis center_txt">
-                    <p className='graph_txt_p'>エミアブル</p>
-                    <h3 className='graph_txt_h3'>Amiable</h3>
-                  </div>
-                </div>
-                <div class="graph_elem br">
-                  <div className="br_txt emphasis center_txt">
-                    <p className='graph_txt_p'>エクスプレッシブ</p>
-                    <h3 className='graph_txt_h3'>Expressive</h3>
-                  </div>
-                </div>
-              </div>
 
-              <div class="triangle t_top"></div>
-              <div class="triangle t_right"></div>
-              <div class="triangle t_bottom"></div>
-              <div class="triangle t_left"></div>
-            </div>
+          <section className="graph_img">
+            <img src={graph_img} alt="socialStyle_graph" />
           </section>
 
           <div className='startButton-2'>
             <StartButton onClick={goNextPage} />
           </div>
 
-          <div className='help'>
-            <p>こんなお悩みの<span className='emphasis'>手助け</span>になるかも！？</p>
-          </div>
-
-          <div className='donNkow'>
-            <div className='howWork'>
-              <div className='bou'></div>
-              <p className='aaa'>どんな仕事が向いているのか分からない</p>
+          <section className='help'>
+              <div className='help_title'>
+                <h2 className='hl_title_txt01'>こんなお悩みの</h2>
+                <h2 className='hl_title_txt02'><span className='emphasis hl_emphasis'>手助け</span>になるかも！？</h2>
+              </div>
+              
+            <div className='donKnow'>
+              <div className='hl_content_title'>
+                <div className='left_border'></div>
+                <h3>どんな仕事が向いているのか分からない</h3>
+              </div>
+              <p className='hl_content_txt'>この診断では、その性格の方が「一般的に向いている仕事」を知ることが出来ます。<br />
+                それをもとにインターンや説明会に参加すれば、本当に自分に合った仕事・企業に出会えるかも？？
+              </p>
+              <a href='' className='intern emphasis'>インターン・説明会を探す→</a>
             </div>
-            <p className='bbb'>この診断では、その性格の方が「一般的に向いている仕事」を知ることが出来ます。
-              それをもとにインターンや説明会に参加すれば、本当に自分に合った仕事・企業に出会えるかも？？</p>
-            <p className='intern'>インターン・説明会を探す→</p>
-          </div>
 
-          <div className='relationship'>
-            <div className='howWork'>
-              <div className='bou'></div>
-              <p className='aaa'>人間関係が上手くいかない</p>
+            <div className='relationship'>
+              <div className='hl_content_title'>
+                <div className='left_border'></div>
+                <h3>人間関係が上手くいかない</h3>
+              </div>
+              <p className='hl_content_txt'>この診断では、その性格と相性が良くないタイプと、そのタイプとの上手な付き合い方を知ることが出来ます。<br />
+                そのタイプの特性を知ることで、人間関係を良好な状態に保つ努力をすることができます。</p>
             </div>
-            <p className='bbb'>この診断では、その性格と相性が良くないタイプと、そのタイプとの上手な付き合い方を知ることが出来ます。
-              そのタイプの特性を知ることで、人間関係を良好な状態に保つ努力をすることができます。</p>
-          </div>
+          </section>
 
           <div className='backToTop'>
             <div className='maru'><div className='sannkaku'></div></div>
