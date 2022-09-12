@@ -2,55 +2,78 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 const sizeMap = {
-  xs: css`
-    font-size: 12px`,
   s: css`
-    font-size: 14px`,
+    font-size: 1.25em`,
   m: css`
-    font-siza: 16px`,
+    font-size: 1.35em`,
+  l: css`
+    font-size: 1.7em`,
+}
+
+const h3sizeMap = {
+  s: css`
+    font-size: 1.5em`,
+  m: css`
+    font-size: 2.0em`,
 }
 
 const colorsMap = {
   black: '#000000',
   orenge: '#DF7919',
-  white: '#F6F2E8'
+  white: '#fff',
 }
-export const sizes = Object.keys(sizeMap);
-export const colors = Object.keys(colorsMap);
-export const display = ['initial', 'block']
 
 const Text = styled.p`
   color: ${({ color }) => colorsMap[color]};
   ${({ size }) => sizeMap[size]};
-  display: ${({ display }) => display};
+  width: 100%;
+  span {
+    color: #DF7919;
+  }
 `;
 
-const Title = styled.div`
-  display: flex;
-`;
-const radius = styled.div`
-  background: #DF7919;
-  border-radius: 50px;
-`;
-const textTitle = styled.h2`
-  font-size: 43px;
-  color: #DF7919;
-  margin: 0 0 0 30px;
-`;
+const TitleH1 = styled.h1`
+  font-size: 4rem;
+  color: ${({ color }) => colorsMap[color]};
+`
+const TitleH2 = styled.h2`
+  font-size: 2rem;
+  font-weight: 600;
+  span {
+    color: #DF7919;
+    font-size: 2.3rem;
+  }
+`
+const TitleH3 = styled.h3`
+  ${({ size }) => h3sizeMap[size]};
+  color: ${({ color }) => colorsMap[color]};
+  margin: ${({ margin }) => margin};
+`
 
-const Typography = ({ size, color, display, children, type }) => {
+const Typography = ({ size, color, children, type, margin }) => {
   return (
     <>
-      {type === "text" ?
+      {type === "text" &&
         <Text
           size={size}
           color={color}
-          display={display}
         >
           {children}
         </Text>
-        :
-        <Title>{children}</Title>}
+      }
+      {type === "h1" &&
+        <TitleH1 color={color}>{children}</TitleH1>
+      }
+      {type === "h2" &&
+        <TitleH2>{children}</TitleH2>
+      }
+      {type === "h3" &&
+        <TitleH3
+          size={size}
+          color={color}
+          margin={margin}
+        >{children}</TitleH3>
+      }
     </>
   );
 };
