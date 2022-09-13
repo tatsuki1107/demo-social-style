@@ -32,18 +32,11 @@ services:
 
   web-front:
     container_name: react
-    image: node:14.13.1
+    build: ./frontend/web-front/.
     volumes:
-      - ./frontend/web-front:/home/app/frontend
+      - ./frontend/web-front:/home/app/frontend/
     ports:
       - 3000:3000
-    working_dir: /home/app/frontend
-    command:
-      [
-        bash,
-        -c,
-        npm install && npm upgrade --no-progress --network-timeout 1000000 && npm i react-router-dom && npm start
-      ]
     networks:
       - frontend_network
   frontend-server:

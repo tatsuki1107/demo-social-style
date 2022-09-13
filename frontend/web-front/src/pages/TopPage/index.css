@@ -1,219 +1,206 @@
+/* tmp_header */
+header {
+  width: 100%;
+  height: 70px;
+  background-color: #DF7919;
+  position: fixed;
+  z-index: 1;
+}
+
 .App {
   background-color: #F6F2E8;
-  height: 5500px;
   width: 100%;
 }
 
-.backImg {
+.Top {
   background: url('../../img/ソーシャルスタイル診断_top.png');
   position: relative;
-  background-size: 100% 900px;
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
   border-radius: 0px 0px 200px 200px;
-  height: 900px;
+  width: 100%;
+  height: 100vh;
 }
 
 .startButton-1 {
   position: absolute;
-  left: 35%;
-  top: 730px;
+  top: 80%;
+  left: 50%;
+  -ms-transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
 }
 
-.explanation {
+.Top_title {
   position: absolute;
-  width: 800px;
-  height: 630px;
-  left: 420px;
-  top: 1100px;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 40px;
-  line-height: 44px;
-  align-items: center;
+  color: #fff;
+  width: 100%;
+  top: 60%;
+  left: 50%;
+  -ms-transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.Top_title h1 {
+  font-size: 4em;
+  margin-bottom: 0;
+}
+.Top_title h3 {
+  font-size: 2em;
+}
+
+.Top_title {
   text-align: center;
-  padding-left: 20px;
-  color: #000000;
-  word-wrap: break-word;
+}
+
+main {
+  width: 800px;
+  margin: 0 auto;
+}
+
+.explanation{
+  margin-top: 100px;
+  margin-bottom: 100px;
+  width: 100%;
+}
+
+.exp_title {
+  text-align: center;
+  font-weight: 600;
+}
+
+.exp_title_txt01{
+  font-size: 2em;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.exp_title_txt02{
+  margin-top: 0;
+  font-size: 2.3em;
+}
+
+.exp_txt {
+  font-size: 1.35em;
+  font-weight: 500;
 }
 
 .emphasis {
   color: #DF7919;
-  font-size: 40px;
-  margin-top: 10px;
 }
 
-.graph {
-  position: absolute;
-  width: 800px;
-  height: 800px;
-  left: 435px;
-  top: 1950px;
-  background-color: #FFFF;
-}
-
-.graf_top {
-  margin: 0;
-  padding: 0;
-  width: 800px;
-  height: 400px;
-  display: flex;
-}
-
-.graf_btm {
-  margin: 0;
-  padding: 0;
-  width: 800px;
-  height: 400px;
-  display: flex;
-}
-
-.graf_elem {
-  margin: 0;
-  padding: 0;
-  width: 400px;
-  height: 400px;
-}
-
-.tl {
-  border-right: #E89B54 solid 3px;
-  border-bottom: #E89B54 solid 3px;
-}
-
-.tr {
-  border-left: #E89B54 solid 3px;
-  border-bottom: #E89B54 solid 3px;
-}
-
-.bl {
-  border-top: #E89B54 solid 3px;
-  border-right: #E89B54 solid 3px;
-}
-
-.br {
-  border-top: #E89B54 solid 3px;
-  border-left: #E89B54 solid 3px;
-}
-
-.background_tr {
+/* temp_graf */
+.graph_img {
   width: 100%;
-  height: 100%;
-  background-color: #E89B54;
-  opacity: 0.32;
+  text-align: center;
+}
+.graph_img img{
+  width: 85%;
+  height: 85%;
 }
 
-.triangle {
-  position: absolute;
-  transform: translate(-50%, -50%);
-}
-
-.t_top {
-  top: 1.5%;
-  left: 50%;
-  border-right: 20px solid transparent;
-  border-bottom: 30px solid #E89B54;
-  border-left: 20px solid transparent;
-}
-
-.t_right {
-  top: 50%;
-  left: 98.5%;
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
-  border-left: 30px solid #E89B54;
-}
-
-.t_bottom {
-  top: 98.5%;
-  left: 50%;
-  border-right: 20px solid transparent;
-  border-top: 30px solid #E89B54;
-  border-left: 20px solid transparent;
-}
-
-.t_left {
-  top: 50%;
-  left: 1.5%;
-  border-right: 30px solid #E89B54;
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
-}
-
-.startButton-2 {
-  position: relative;
-  left: 590px;
-  top: 2000px;
-}
-
+/* help */
 .help {
-  position: relative;
-  width: 800px;
-  left: 470px;
-  top: 2300px;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 43px;
-  line-height: 44px;
-  padding-left: 20px;
-  color: #000000;
-}
-
-.donNkow {
-  position: relative;
-  width: 1000px;
-  height: 500px;
-  left: 400px;
-  top: 2500px;
-}
-
-.howWork {
+  margin-top: 100px;
+  margin-bottom: 50px;
   width: 100%;
-  height: 100px;
+}
+
+.help_title {
+  text-align: center;
+  font-weight: 600;
+}
+
+.hl_title_txt01 {
+  font-size: 2em;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.hl_title_txt02 {
+  font-size: 2em;
+  width: 100%;
+  margin-top: 0;
+}
+.hl_emphasis {
+  font-size: 1.3em;
+}
+
+.startButton-2{
+  width: 325px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.donKnow {
+  width: 100%;
+  margin-bottom: 50px;
+}
+.hl_content_title {
   display: flex;
+  height: 30px
+}
+.left_border {
+  width: 5px;
+  height: 50px;
+  background-color: #DF7919;
+  margin-right: 10px;
+  border-radius: 5px;
 }
 
-.bou {
-  position: absolute;
-  background: #DF7919;
-  border-radius: 50px;
-  width: 10px;
-  height: 70px;
-}
-
-.aaa {
-  position: absolute;
-  font-size: 43px;
+.hl_content_title h3{
+  margin: 6px 0px 0px 0px;
+  padding: 0;
+  height: 30px;
   color: #DF7919;
-  margin: 0 0 0 30px;
+  font-size: 1.5em;
 }
 
-.bbb {
-  position: absolute;
-  font-size: 40px;
+.hl_content_txt{
+  font-size: 1.25em;
+  margin-left: 15px;
+  margin-top: 30px;
 }
 
 .intern {
-  position: absolute;
-  font-size: 40px;
-  color: #DF7919;
-  margin-top: 330px;
+  font-size: 1.25em;
+  margin-left: 15px;
 }
 
-.relationship {
-  position: relative;
-  width: 1000px;
-  height: 700px;
-  left: 400px;
-  top: 2600px;
+.startButton-3{
+  width: 325px;
+  margin: 0 auto;
+  margin-bottom: 50px;
 }
 
-.startButton-3 {
-  position: relative;
-  top: 2400px;
-  left: 590px;
+
+
+/* レスポンシブ */
+@media all and (max-width: 860px) {
+  .Top {
+    border-radius: 0px;
+  }
+  .Top_title {
+    font-size: 0.6em;
+  }
+  main{
+    width: 90%;
+  }
 }
 
+@media all and (max-width: 660px) {
+  .graph_img img{
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media all and (max-width: 440px) {}
+
+/* 追加で作成するため、一時コメントアウト */
+/* 
 .backToTop {
   position: relative;
   top: 2350px;
@@ -238,4 +225,4 @@
   bottom: 22.79%;
   clip-path: polygon(0 100%, 50% 0, 100% 100%);
   background: #FFFFFF;
-}
+}  */
