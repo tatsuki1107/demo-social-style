@@ -1,52 +1,24 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+import Typography from "../Typography";
 
-const colorsMap = {
-  black: '#000000',
-  orenge: '#DF7919',
-  white: '#F6F2E8'
-}
-export const size = ['s', 'm', 'l'];
-export const colors = Object.keys(colorsMap);
-
-const Root = styled.button`
-  border: 0;
-  color: ${({ color }) => colorsMap[color]};
-  background: ${({ background }) => colorsMap[background]};
-  ${({ size }) => {
-    switch (size) {
-      case 's':
-        return css`
-            font-size: 12px
-            width 0px
-            height: 0px
-        `;
-      case 'm':
-        return css`
-            font-size: 18px
-            width 0px
-            height: 0px
-        `;
-      case 'l':
-        return css`
-           font-size: 20px
-           width 0px
-           height: 0px
-        `;
-    }
-  }};
+const StartButton = styled.button`
+border: 0;
+background-color: #DF7919;
+color: #FFFFFF;
+width: 325px;
+height: 78px;
+filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+display: flex;
+border-radius: 20px;
+align-items: center;
 `;
 
-const Button = ({ cildren, size, onClick, color, background }) => {
+const Button = ({ onClick, children }) => {
   return (
-    <Root
-      size={size}
-      color={color}
-      background={background}
-      onClick={onClick}
-    >
-      {cildren}
-    </Root>
+    <StartButton onClick={onClick}>
+      <Typography type="text" size="l">{children}</Typography>
+    </StartButton>
   );
 };
 
