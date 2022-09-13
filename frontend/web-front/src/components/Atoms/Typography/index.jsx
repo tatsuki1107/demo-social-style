@@ -41,7 +41,7 @@ const TitleH2 = styled.h2`
   font-weight: 600;
   span {
     color: #DF7919;
-    font-size: 2.3em;
+    font-size: 1.3em;
   }
 `
 const TitleH3 = styled.h3`
