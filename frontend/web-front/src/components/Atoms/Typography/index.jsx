@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-const sizeMap = {
+const textSizeMap = {
   s: css`
     font-size: 1.25em`,
   m: css`
@@ -25,7 +25,7 @@ const colorsMap = {
 
 const Text = styled.p`
   color: ${({ color }) => colorsMap[color]};
-  ${({ size }) => sizeMap[size]};
+  ${({ size }) => textSizeMap[size]};
   width: 100%;
   span {
     color: #DF7919;
@@ -33,15 +33,15 @@ const Text = styled.p`
 `;
 
 const TitleH1 = styled.h1`
-  font-size: 4rem;
+  font-size: 4.0em;
   color: ${({ color }) => colorsMap[color]};
 `
 const TitleH2 = styled.h2`
-  font-size: 2rem;
+  font-size: 2em;
   font-weight: 600;
   span {
     color: #DF7919;
-    font-size: 2.3rem;
+    font-size: 2.3em;
   }
 `
 const TitleH3 = styled.h3`

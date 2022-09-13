@@ -78,7 +78,9 @@ const TopPage = () => {
                   それをもとにインターンや説明会に参加すれば、本当に自分に合った仕事・企業に出会えるかも？？
                 </Typography>
               </div>
-              <a href='' className='intern emphasis'>インターン・説明会を探す→</a>
+              <a href='' className='intern empasis'>
+                インターン・説明会を探す→
+              </a>
             </div>
 
             <div className='relationship'>
