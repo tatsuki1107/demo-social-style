@@ -1,11 +1,11 @@
 import './index.css';
 import React from 'react';
 import Button from '../../components/Atoms/Button';
-import Footer from '../../components/Oganisms/Footer';
 import { useNavigate } from 'react-router-dom';
 import graph_img from '../../img/SocialStyle_graph.jpg'
 
 // components
+import Template, { Main } from '../../components/Templates';
 import Typography from '../../components/Atoms/Typography';
 import ContentTitle from '../../components/Atoms/ContentTitle';
 
@@ -16,11 +16,7 @@ const TopPage = () => {
   }
   return (
     <>
-
-      <div className="App">
-
-        <header></header>
-
+      <Template>
         <div className='Top'>
           <div className="Top_title">
             <Typography type="h1" color="white">
@@ -35,8 +31,7 @@ const TopPage = () => {
             <Button onClick={goNextPage}>今すぐ診断する</Button>
           </div>
         </div>
-
-        <main>
+        <Main>
           <section className='explanation'>
             <div className="exp_title">
               <Typography type="h2">
@@ -102,10 +97,8 @@ const TopPage = () => {
           <div className='startButton-3'>
             <Button onClick={goNextPage}>今すぐ診断する</Button>
           </div>
-        </main>
-        <Footer />
-      </div>
-
+        </Main>
+      </Template>
     </>
   );
 }
