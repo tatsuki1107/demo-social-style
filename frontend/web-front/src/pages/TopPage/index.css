@@ -29,6 +29,15 @@
   text-align: center;
 }
 
+/* デザイン修正の為設定 */
+.Top_title h1{
+  margin-bottom: 0;
+}
+.Top_title h3{
+  margin-top: 10px;
+}
+/* #################### */
+
 .explanation {
   margin-top: 100px;
   margin-bottom: 100px;
@@ -85,6 +94,9 @@
 .intern {
   font-size: 1.25em;
   margin-left: 15px;
+}
+.intern:hover{
+  opacity: 0.7;
 }
 
 .empasis {

@@ -14,15 +14,15 @@ border-radius: 20px;
 align-items: center;
 cursor: pointer;
 transition: background-color 0.75s ease-out;
-:hover{
-  background-color: #f1a35a;
-}
-:active{
-  -webkit-transform: translate(0,2px);
-	-moz-transform: translate(0,2px);
-	transform: translate(0,2px);
-	filter:none;
-}
+  :hover{
+    background-color: #f1a35a;
+  }
+  :active{
+    -webkit-transform: translate(0,2px);
+    -moz-transform: translate(0,2px);
+    transform: translate(0,2px);
+    filter:none;
+  }
 `;
 
 const Button = ({ onClick, children }) => {
