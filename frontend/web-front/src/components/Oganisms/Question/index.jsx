@@ -33,21 +33,31 @@ const QandT = styled.div`
   justify-content: space-between;
 `;
 
-const Question = ({ type, id, question, children }) => {
+const Question = React.memo(({ type, id, question, children, countUp }) => {
   const [yes, setYes] = useState(false);
   const [no, setNo] = useState(false);
+  const [flag, setFlag] = useState(false);
   const onYes = () => {
     setYes(!yes)
     if (no === true) {
       setNo(false)
-    };
+    }
+    if (flag === false) {
+      setFlag(true);
+      countUp();
+    }
   };
   const onNo = () => {
     setNo(!no)
     if (yes === true) {
       setYes(false)
     };
+    if (flag === false) {
+      setFlag(true);
+      countUp();
+    }
   };
+
   return (
     <>
       {type === "top" ?
@@ -61,12 +71,12 @@ const Question = ({ type, id, question, children }) => {
             {question}
           </Typography>
           <QandT>
-            <Button type={`${yes}`} onClick={onYes}>Yes</Button>
-            <Button type={`${no}`} onClick={onNo}>No</Button>
+            <Button disabled={yes} type={`${yes}`} onClick={onYes}>Yes</Button>
+            <Button disabled={no} type={`${no}`} onClick={onNo}>No</Button>
           </QandT>
         </Root>}
     </>
   );
-};
+});
 
 export default Question;
