@@ -29,6 +29,7 @@ ${({ type }) => {
         color: #FFFFFF;
         width: 325px;
         height: 78px;
+
       `
       case "true":
         return css`
