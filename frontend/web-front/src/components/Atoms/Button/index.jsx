@@ -11,7 +11,7 @@ border-radius: 20px;
 align-items: center;
 margin: 0 auto;
 cursor: pointer;
-transition: background-color 0.75s ease-out;
+transition: background-color 0.75s ease-out, color 0.5s ease-out;
 :hover{
   background-color: #f1a35a;
 }
@@ -37,6 +37,12 @@ ${({ type }) => {
           width: 250px;
           height: 60px;
           filter: none;
+          -webkit-transform: translate(0,2px);
+          -moz-transform: translate(0,2px);
+          transform: translate(0,2px);
+          :hover{
+          background-color: #DF7919;
+        }
         `
       case "false":
         return css`
@@ -44,6 +50,9 @@ ${({ type }) => {
         color: #000000;
         width: 250px;
         height: 60px;
+        :hover{
+          color: #FFFFFF;
+        }
       `
       case "maru":
         return css`
