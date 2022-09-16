@@ -39,6 +39,7 @@ const TitleH1 = styled.h1`
 const TitleH2 = styled.h2`
   font-size: 2em;
   font-weight: 600;
+  margin: ${({ margin }) => margin};
   span {
     color: #DF7919;
     font-size: 1.3em;
@@ -65,7 +66,7 @@ const Typography = ({ size, color, children, type, margin }) => {
         <TitleH1 color={color}>{children}</TitleH1>
       }
       {type === "h2" &&
-        <TitleH2>{children}</TitleH2>
+        <TitleH2 margin={margin}>{children}</TitleH2>
       }
       {type === "h3" &&
         <TitleH3

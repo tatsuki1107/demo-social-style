@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Template, { Main } from "../../components/Templates";
 import styled from "styled-components";
 
 // components
 import Question from "../../components/Oganisms/Question";
+import Result from "../../components/Oganisms/Result";
 import Typography from "../../components/Atoms/Typography";
 import Button from "../../components/Atoms/Button";
 
@@ -30,9 +31,22 @@ const Buttonzorn = styled.div`
 
 const Diagnosis = () => {
   const [data, setData] = useState([]);
+  const [count, setCount] = useState(0);
+  const [flag, setFlag] = useState(false);
   const navigate = useNavigate();
   const goTopPage = () => {
     navigate('/');
+  };
+  const countUp = useCallback(() => {
+    setCount(num => num + 1)
+  }, [count]);
+  const onResult = () => {
+    // ここで結果をバックエンドにPOST
+    if (count === 22) {
+      setFlag(true);
+    } else {
+      alert('未回答の問題があります')
+    }
   };
   useEffect(() => {
     (async () => {
@@ -72,17 +86,19 @@ const Diagnosis = () => {
                 key={q.id}
                 id={q.id}
                 question={q.question}
+                countUp={countUp}
               />
             )
           })}
 
           <Underline />
           <Buttonzorn>
-            <Button type="start">
+            <Button type="start" onClick={onResult}>
               診断する
             </Button>
             <Button type="maru" onClick={goTopPage}>Social Style診断とは</Button>
           </Buttonzorn>
+          {flag && <Result />}
         </Main>
       </Template>
     </>

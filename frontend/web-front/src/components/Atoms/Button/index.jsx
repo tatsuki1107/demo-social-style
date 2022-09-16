@@ -57,9 +57,9 @@ ${({ type }) => {
   }}
 `;
 
-const Button = ({ onClick, children, type }) => {
+const Button = ({ onClick, children, type, disabled }) => {
   return (
-    <Root onClick={onClick} type={type}>
+    <Root onClick={onClick} type={type} disabled={disabled}>
       <Typography type="text" size="l">{children}</Typography>
     </Root>
   );
