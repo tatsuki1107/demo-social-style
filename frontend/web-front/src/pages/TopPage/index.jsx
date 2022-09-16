@@ -28,7 +28,9 @@ const TopPage = () => {
           </div>
 
           <div className='startButton-1'>
-            <Button onClick={goNextPage}>今すぐ診断する</Button>
+            <Button onClick={goNextPage} type="start">
+              今すぐ診断する
+            </Button>
           </div>
         </div>
         <Main>
@@ -55,7 +57,9 @@ const TopPage = () => {
           </section>
 
           <div className='startButton-2'>
-            <Button onClick={goNextPage}>今すぐ診断する</Button>
+            <Button onClick={goNextPage} type="start">
+              今すぐ診断する
+            </Button>
           </div>
 
           <section className='help'>
@@ -95,7 +99,9 @@ const TopPage = () => {
           </div>
 
           <div className='startButton-3'>
-            <Button onClick={goNextPage}>今すぐ診断する</Button>
+            <Button onClick={goNextPage} type="start">
+              今すぐ診断する
+            </Button>
           </div>
         </Main>
       </Template>
