@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Template, { Main } from "../../components/Templates";
 import styled from "styled-components";
 
@@ -29,6 +30,10 @@ const Buttonzorn = styled.div`
 
 const Diagnosis = () => {
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
+  const goTopPage = () => {
+    navigate('/');
+  };
   useEffect(() => {
     (async () => {
       try {
@@ -76,7 +81,7 @@ const Diagnosis = () => {
             <Button type="start">
               診断する
             </Button>
-            <Button type="maru">Social Style診断とは</Button>
+            <Button type="maru" onClick={goTopPage}>Social Style診断とは</Button>
           </Buttonzorn>
         </Main>
       </Template>
