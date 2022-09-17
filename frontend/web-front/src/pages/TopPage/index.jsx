@@ -2,7 +2,8 @@ import './index.css';
 import React from 'react';
 import Button from '../../components/Atoms/Button';
 import { useNavigate } from 'react-router-dom';
-import graph_img from '../../img/SocialStyle_graph.jpg'
+// import graph_img from '../../img/SocialStyle_graph.jpg'
+import tmp_graph_img from '../../img/graph.jpg'
 
 // components
 import Template, { Main } from '../../components/Templates';
@@ -53,7 +54,7 @@ const TopPage = () => {
           </section>
 
           <section className="graph_img">
-            <img src={graph_img} alt="socialStyle_graph" />
+            <img src={tmp_graph_img} alt="socialStyle_graph" />
           </section>
 
           <div className='startButton-2'>
