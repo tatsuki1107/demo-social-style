@@ -29,7 +29,9 @@ ${({ type }) => {
         color: #FFFFFF;
         width: 325px;
         height: 78px;
-
+				@media all and (max-width: 600px) {
+						width: 270px;
+				}	
       `
       case "true":
         return css`
@@ -42,8 +44,11 @@ ${({ type }) => {
           -moz-transform: translate(0,2px);
           transform: translate(0,2px);
           :hover{
-          background-color: #DF7919;
-        }
+          	background-color: #DF7919;					
+        	}
+					@media all and (max-width: 600px) {
+						width: 150px;
+					}	
         `
       case "false":
         return css`
@@ -54,13 +59,22 @@ ${({ type }) => {
         :hover{
           color: #FFFFFF;
         }
+				@media all and (max-width: 600px) {
+						width: 150px;
+				}
       `
       case "maru":
         return css`
         background-color: #DF7919;
         color: #FFFFFF;
         width: 325px;
-        height: 25px;
+        height: 40px;
+				/* 「Social Style診断とは」ボタン内の fontsize調整 */
+				font-size: 0.7em;
+				
+				@media all and (max-width: 600px) {
+					width: 270px;
+				}
         `
     }
   }}
