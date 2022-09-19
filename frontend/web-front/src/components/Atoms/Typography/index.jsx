@@ -28,6 +28,7 @@ const Text = styled.p`
   color: ${({ color }) => colorsMap[color]};
   ${({ size }) => textSizeMap[size]};
   width: 100%;
+  margin: ${({ margin }) => margin};
   span {
     color: #DF7919;
   }
@@ -67,6 +68,7 @@ const Typography = ({ size, color, children, type, margin }) => {
         <Text
           size={size}
           color={color}
+          margin={margin}
         >
           {children}
         </Text>

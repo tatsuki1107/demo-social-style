@@ -10,7 +10,10 @@ import Result from "../../components/Oganisms/Result";
 import Typography from "../../components/Atoms/Typography";
 import Button from "../../components/Atoms/Button";
 
-// APIで問題をもらってきた前提
+// Hooks
+import useStyleCounter from "../../Hooks/useStyleCounter";
+
+// APIで問題をもらってきた前提のdata
 import { questions } from "../../data";
 
 // img import
@@ -42,27 +45,57 @@ const Buttonzorn = styled.div`
 
 const Diagnosis = () => {
   const [data, setData] = useState([]);
-  const [count, setCount] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
   const [flag, setFlag] = useState(false);
+  const { aCount, bCount, cCount, dCount, calcuCount } = useStyleCounter()
+
   const navigate = useNavigate();
   const goTopPage = () => {
     navigate('/');
   };
-  const countUp = useCallback(() => {
-    setCount(num => num + 1)
-  }, [count]);
-  const onResult = () => {
-    // ここで結果をバックエンドにPOST
-    if (count === 22) {
-      setFlag(true);
+  const totalCountUp = useCallback(() => {
+    setTotalCount(num => num + 1)
+  }, [totalCount]);
+
+  const onResult = async () => {
+    if (totalCount === 18) {
+      // %表記 (小数点第一で四捨五入)
+      const X = Math.round(((totalCount / 2 + (aCount - bCount)) / totalCount) * 100);
+      const Y = Math.round(((totalCount / 2 + (cCount - dCount)) / totalCount) * 100);
+      let style;
+      console.log(`x軸: ${X}, y軸: ${Y}`);
+      if (X > 50) {
+        if (Y > 50) {
+          style = 'エクスプレッシブ';
+        } else {
+          style = 'ドライビング';
+        }
+      } else {
+        if (Y > 50) {
+          style = 'エミアブル';
+        } else {
+          style = 'アナリティカル';
+        }
+      }
+
+      try {
+        // ここでPOSTするかな 各結果は状態管理しなくてもよさそうだから
+        console.log({ userId: "001", タイプ: style, X: X, y: Y, created: new Date() })
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setFlag(true);
+      }
     } else {
       alert('未回答の問題があります')
     }
   };
+
   useEffect(() => {
     (async () => {
       try {
         // APIでGET予定
+        //[{Id, question}]でもらいたい
         setData(questions);
       } catch (e) {
         console.error(e)
@@ -99,7 +132,8 @@ const Diagnosis = () => {
                 key={q.id}
                 id={q.id}
                 question={q.question}
-                countUp={countUp}
+                totalCountUp={totalCountUp}
+                calcuCount={calcuCount}
               />
             )
           })}

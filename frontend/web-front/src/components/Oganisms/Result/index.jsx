@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 // components
@@ -6,6 +6,9 @@ import Typography from "../../Atoms/Typography";
 import ContentTitle from "../../Atoms/ContentTitle";
 // img
 import graph_img from '../../../img/result.png';
+// APIでもらってきた前提のdata
+import { style_result } from "../../../data";
+
 
 const ResultArea = styled.div`
   width: 100%;
@@ -53,9 +56,22 @@ const Maru = styled.div`
   height: 30px;
   border-radius: 100px;
   background-color: #DF7919;
-`
+`;
 
+// Dateを指定して結果を表示。診断後の結果表示はデータベースに格納されている一番最新をもらう
 const Result = () => {
+  // result, タイプに紐付いた仕事と特徴をAPIでもらう
+  const [result, setResult] = useState({});
+  useEffect(() => {
+    (async () => {
+      try {
+        setResult(style_result)
+      } catch (e) {
+        console.error(e)
+      }
+    })()
+  }, [])
+
   return (
     <ResultArea>
       <Underline />
@@ -65,29 +81,37 @@ const Result = () => {
         </Typography>
       </DiaResult>
       <Typography type="text" size="l">
-        あなたは<br /><span>XXXX</span>の傾向が強いようです
+        あなたは<br /><span>{result.style}</span>の傾向が強いようです
       </Typography>
       <Typography type="text" size="l" color="orenge">
-        意見主張度 XX% : 感情表現度 : YY%
+        {`意見主張度 ${result.x}% : 感情表現度 : ${result.y}%`}
       </Typography>
       <GraphImage>
         <ImgArea src={graph_img} alt="socialStyle_graph" />
       </GraphImage>
       <Feature>
         <ContentTitle>診断結果が似ている方の特徴</ContentTitle>
-        <Typography type="text" size="m">
-          ・ここに当てはまる特徴を記載します<br />
-          ・ここに当てはまる特徴を記載します<br />
-          ・ここに当てはまる特徴を記載します
-        </Typography>
+        <Feature>
+          {result.feature?.map((f) => {
+            return (
+              <Typography type="text" size="m" margin={0} key={f.id}>
+                {`・${f.character}`}
+              </Typography>
+            )
+          })}
+        </Feature>
       </Feature>
       <Feature>
         <ContentTitle>診断結果が似ている方に多い就いている仕事</ContentTitle>
-        <Typography type="text" size="m">
-          ・ここに向いている職種を記載します<br />
-          ・ここに向いている職種を記載します<br />
-          ・ここに向いている職種を記載します
-        </Typography>
+        <Feature>
+          {result.work?.map((w) => {
+            return (
+              <Typography type="text" size="m" key={w.id} margin={0}>
+                {`・${w.job}`}
+              </Typography>
+            )
+          })}
+        </Feature>
       </Feature>
       <Feature>
         <ContentTitle>タイプ別の上手な関わり方</ContentTitle>
