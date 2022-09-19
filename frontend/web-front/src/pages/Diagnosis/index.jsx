@@ -1,3 +1,4 @@
+import './index.css';
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Template, { Main } from "../../components/Templates";
@@ -12,9 +13,19 @@ import Button from "../../components/Atoms/Button";
 // APIで問題をもらってきた前提
 import { questions } from "../../data";
 
-const QandT = styled.div`
+// img import
+import check_icon from "../../img/check.jpg";
+import timer_icon from "../../img/timer.jpg";
+
+const Icon_flex = styled.div`
+  width: 100px;
+  margin: 0px 40px;
   display: flex;
   justify-content: space-between;
+`;
+const QandT = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 const Underline = styled.div`
   width: 100%;
@@ -64,19 +75,21 @@ const Diagnosis = () => {
       <Template>
         <Main>
           <Question type="top">
-            <Typography type="h1" color="black">
+            <Typography type="Q_h1" color="black">
               診断スタート
             </Typography>
-            <Typography type="text" size="m">
+            <Typography type="text" size="m" >
               自分が周りにどう思われているのか<br />直感的に選択してください
             </Typography>
             <QandT>
-              <Typography type="text" size="s" color="orenge">
-                20問
-              </Typography>
-              <Typography type="text" size="s" color="orenge">
-                3:00
-              </Typography>
+              <Icon_flex>
+                <img src={check_icon} className="question_icon" alt="question_icon" />
+                <Typography type="text" size="m" color="orenge">20問</Typography>
+              </Icon_flex>
+              <Icon_flex>
+                <img src={timer_icon} className="question_icon" alt="timer_icon" />
+                <Typography type="text" size="m" color="orenge">3:00</Typography>
+              </Icon_flex>
             </QandT>
           </Question>
 

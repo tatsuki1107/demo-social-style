@@ -17,6 +17,9 @@ const Root = styled.div`
           background-color: #FFFFFF;
           padding-top: 150px;
           height: 400px;
+          @media all and (max-width: 450px) {
+            height: 300px;
+          }
         `
       default:
         return css`
