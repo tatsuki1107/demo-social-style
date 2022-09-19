@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { questions } from "../../../data";
 
 const textSizeMap = {
   s: css`
@@ -37,6 +38,14 @@ const TitleH1 = styled.h1`
   font-size: 4.0em;
   color: ${({ color }) => colorsMap[color]};
 `
+const Q_TitleH1 = styled.h1`
+  font-size: 4.0em;
+  color: ${({ color }) => colorsMap[color]};
+  @media all and (max-width: 450px) {
+    font-size: 2.0em;
+  }
+`
+
 const TitleH2 = styled.h2`
   font-size: 2em;
   font-weight: 600;
@@ -76,6 +85,9 @@ const Typography = ({ size, color, children, type, margin }) => {
           color={color}
           margin={margin}
         >{children}</TitleH3>
+      }
+      {type === "Q_h1" &&
+        <Q_TitleH1 color={color}>{children}</Q_TitleH1>
       }
     </>
   );

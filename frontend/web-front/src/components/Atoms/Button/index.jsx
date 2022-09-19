@@ -11,7 +11,7 @@ border-radius: 20px;
 align-items: center;
 margin: 0 auto;
 cursor: pointer;
-transition: background-color 0.75s ease-out;
+transition: background-color 0.75s ease-out, color 0.5s ease-out;
 :hover{
   background-color: #f1a35a;
 }
@@ -29,7 +29,9 @@ ${({ type }) => {
         color: #FFFFFF;
         width: 325px;
         height: 78px;
-
+				@media all and (max-width: 600px) {
+						width: 270px;
+				}	
       `
       case "true":
         return css`
@@ -38,6 +40,15 @@ ${({ type }) => {
           width: 250px;
           height: 60px;
           filter: none;
+          -webkit-transform: translate(0,2px);
+          -moz-transform: translate(0,2px);
+          transform: translate(0,2px);
+          :hover{
+          	background-color: #DF7919;					
+        	}
+					@media all and (max-width: 600px) {
+						width: 150px;
+					}	
         `
       case "false":
         return css`
@@ -45,13 +56,25 @@ ${({ type }) => {
         color: #000000;
         width: 250px;
         height: 60px;
+        :hover{
+          color: #FFFFFF;
+        }
+				@media all and (max-width: 600px) {
+						width: 150px;
+				}
       `
       case "maru":
         return css`
         background-color: #DF7919;
         color: #FFFFFF;
         width: 325px;
-        height: 25px;
+        height: 40px;
+				/* 「Social Style診断とは」ボタン内の fontsize調整 */
+				font-size: 0.7em;
+				
+				@media all and (max-width: 600px) {
+					width: 270px;
+				}
         `
     }
   }}

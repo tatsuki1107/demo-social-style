@@ -2,7 +2,7 @@ import './index.css';
 import React from 'react';
 import Button from '../../components/Atoms/Button';
 import { useNavigate } from 'react-router-dom';
-import graph_img from '../../img/SocialStyle_graph.jpg'
+import tmp_graph_img from '../../img/graph.jpg'
 
 // components
 import Template, { Main } from '../../components/Templates';
@@ -32,6 +32,7 @@ const TopPage = () => {
               今すぐ診断する
             </Button>
           </div>
+          <div class="scrolldown1"><span>Scroll</span></div>
         </div>
         <Main>
           <section className='explanation'>
@@ -53,7 +54,7 @@ const TopPage = () => {
           </section>
 
           <section className="graph_img">
-            <img src={graph_img} alt="socialStyle_graph" />
+            <img src={tmp_graph_img} alt="socialStyle_graph" />
           </section>
 
           <div className='startButton-2'>
@@ -77,7 +78,7 @@ const TopPage = () => {
                   それをもとにインターンや説明会に参加すれば、本当に自分に合った仕事・企業に出会えるかも？？
                 </Typography>
               </div>
-              <a href='' className='intern empasis'>
+              <a href='https://cheercareer.jp/search/offer_list' className='intern empasis' target="_blank">
                 インターン・説明会を探す→
               </a>
             </div>
