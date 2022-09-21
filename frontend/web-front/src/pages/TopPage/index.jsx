@@ -1,18 +1,25 @@
 import './index.css';
 import React from 'react';
-import Button from '../../components/Atoms/Button';
 import { useNavigate } from 'react-router-dom';
-import tmp_graph_img from '../../img/graph.jpg'
+import tmp_graph_img from '../../img/graph.jpg';
+import { useAuth } from '../../Routings/AuthService';
 
 // components
+import Button from '../../components/Atoms/Button';
 import Template, { Main } from '../../components/Templates';
 import Typography from '../../components/Atoms/Typography';
 import ContentTitle from '../../components/Atoms/ContentTitle';
 
 const TopPage = () => {
+  const { user } = useAuth();
+  console.log(user);
   const navigate = useNavigate();
   const goNextPage = () => {
-    navigate('/diagnosis')
+    if (user === null) {
+      navigate('/temporaryLogin')
+    } else {
+      navigate('/diagnosis')
+    }
   }
   return (
     <>
@@ -28,11 +35,16 @@ const TopPage = () => {
           </div>
 
           <div className='startButton-1'>
-            <Button onClick={goNextPage} type="start">
-              今すぐ診断する
-            </Button>
+            {user === null ?
+              <Button onClick={goNextPage} type="start">
+                ログインして診断する
+              </Button>
+              :
+              <Button onClick={goNextPage} type="start">
+                今すぐ診断する
+              </Button>}
           </div>
-          <div class="scrolldown1"><span>Scroll</span></div>
+          <div className="scrolldown1"><span>Scroll</span></div>
         </div>
         <Main>
           <section className='explanation'>
@@ -58,9 +70,14 @@ const TopPage = () => {
           </section>
 
           <div className='startButton-2'>
-            <Button onClick={goNextPage} type="start">
-              今すぐ診断する
-            </Button>
+            {user === null ?
+              <Button onClick={goNextPage} type="start">
+                ログインして診断する
+              </Button>
+              :
+              <Button onClick={goNextPage} type="start">
+                今すぐ診断する
+              </Button>}
           </div>
 
           <section className='help'>
@@ -100,9 +117,14 @@ const TopPage = () => {
           </div>
 
           <div className='startButton-3'>
-            <Button onClick={goNextPage} type="start">
-              今すぐ診断する
-            </Button>
+            {user === null ?
+              <Button onClick={goNextPage} type="start">
+                ログインして診断する
+              </Button>
+              :
+              <Button onClick={goNextPage} type="start">
+                今すぐ診断する
+              </Button>}
           </div>
         </Main>
       </Template>
