@@ -6,12 +6,12 @@ import { useAuth } from "../../Routings/AuthService";
 const items = ["ユーザー001", "ユーザー002", "ユーザー003"];
 
 const TemporaryLogin = () => {
-  const [cheerId, setCheerId] = useState('');
+  const [sessionId, setSessionId] = useState('');
   const { user, createUser } = useAuth();
   const navigate = useNavigate();
 
   const onSubmit = () => {
-    createUser(cheerId);
+    createUser(sessionId);
     navigate('/diagnosis');
   };
 
@@ -27,8 +27,8 @@ const TemporaryLogin = () => {
                   id={item}
                   type="radio"
                   value={item}
-                  onChange={(e) => setCheerId(e.target.value)}
-                  checked={item === cheerId}
+                  onChange={(e) => setSessionId(e.target.value)}
+                  checked={item === sessionId}
                 />
                 <label htmlFor={item}>{item}</label>
               </div>

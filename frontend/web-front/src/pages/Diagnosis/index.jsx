@@ -48,7 +48,6 @@ const Diagnosis = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [flag, setFlag] = useState(false);
   const { aCount, bCount, cCount, dCount, calcuCount } = useStyleCounter()
-
   const navigate = useNavigate();
   const goTopPage = () => {
     navigate('/');
@@ -58,12 +57,13 @@ const Diagnosis = () => {
   }, [totalCount]);
 
   const onResult = async () => {
-    if (totalCount === 18) {
+    if (totalCount === data.length) {
       // %表記 (小数点第一で四捨五入)
       const X = Math.round(((totalCount / 2 + (aCount - bCount)) / totalCount) * 100);
       const Y = Math.round(((totalCount / 2 + (cCount - dCount)) / totalCount) * 100);
       let style;
-      console.log(`x軸: ${X}, y軸: ${Y}`);
+
+      // ここの処理はDjango予定
       if (X > 50) {
         if (Y > 50) {
           style = 'エクスプレッシブ';
@@ -79,8 +79,8 @@ const Diagnosis = () => {
       }
 
       try {
-        // ここでPOSTするかな 各結果は状態管理しなくてもよさそうだから
-        console.log({ userId: "001", タイプ: style, X: X, y: Y, created: new Date() })
+        // API: POST, { "X": float, "Y": float }
+        console.log({ X: X, Y: Y, style: style })
       } catch (e) {
         console.error(e);
       } finally {
@@ -95,7 +95,7 @@ const Diagnosis = () => {
     (async () => {
       try {
         // APIでGET予定
-        //[{Id, question}]でもらいたい
+        // { "question": string, "select-type": int, "pos": string }
         setData(questions);
       } catch (e) {
         console.error(e)
@@ -117,7 +117,7 @@ const Diagnosis = () => {
             <QandT>
               <Icon_flex>
                 <img src={check_icon} className="question_icon" alt="question_icon" />
-                <Typography type="text" size="m" color="orenge">20問</Typography>
+                <Typography type="text" size="m" color="orenge">{data.length}問</Typography>
               </Icon_flex>
               <Icon_flex>
                 <img src={timer_icon} className="question_icon" alt="timer_icon" />
@@ -126,11 +126,12 @@ const Diagnosis = () => {
             </QandT>
           </Question>
 
-          {data.map((q) => {
+          {data.map((q, index) => {
             return (
               <Question
-                key={q.id}
-                id={q.id}
+                key={index}
+                index={index + 1}
+                pos={q.pos}
                 question={q.question}
                 totalCountUp={totalCountUp}
                 calcuCount={calcuCount}
