@@ -17,7 +17,7 @@ const TemporaryLogin = () => {
 
   return (
     <>
-      {user === null ?
+      {user.token === "" ?
         <div>
           <h1>仮ログインページ（cheer careerのログインページだと思って）</h1>
           {items.map((item) => {

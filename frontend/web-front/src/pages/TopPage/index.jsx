@@ -15,7 +15,7 @@ const TopPage = () => {
   console.log(user);
   const navigate = useNavigate();
   const goNextPage = () => {
-    if (user === null) {
+    if (user.token === "") {
       navigate('/temporaryLogin')
     } else {
       navigate('/diagnosis')
@@ -35,7 +35,7 @@ const TopPage = () => {
           </div>
 
           <div className='startButton-1'>
-            {user === null ?
+            {user.token === "" ?
               <Button onClick={goNextPage} type="start">
                 ログインして診断する
               </Button>
@@ -70,7 +70,7 @@ const TopPage = () => {
           </section>
 
           <div className='startButton-2'>
-            {user === null ?
+            {user.token === "" ?
               <Button onClick={goNextPage} type="start">
                 ログインして診断する
               </Button>
@@ -117,7 +117,7 @@ const TopPage = () => {
           </div>
 
           <div className='startButton-3'>
-            {user === null ?
+            {user.token === "" ?
               <Button onClick={goNextPage} type="start">
                 ログインして診断する
               </Button>
