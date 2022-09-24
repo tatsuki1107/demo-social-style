@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
+import './index.css'
 // components
 import Typography from "../../Atoms/Typography";
 import ContentTitle from "../../Atoms/ContentTitle";
 // img
-import graph_img from '../../../img/result.png';
+// import graph_img from '../../../img/StyleGraph.jpg';
+import graph_img from '../../../img/StyleGraph_w.jpg';
 // APIでもらってきた前提のdata
 import { style_result } from "../../../data";
 
@@ -30,10 +31,9 @@ const DiaResult = styled.div`
 
 const GraphImage = styled.div`
   width: 100%;
-  
 `;
 
-const ImgArea = styled.img`
+const ImgArea = styled.div`
   width: 85%;
   height: 85%;
   @media (max-width: 660px) {
@@ -86,9 +86,11 @@ const Result = () => {
       <Typography type="text" size="l" color="orenge">
         {`意見主張度 ${result.x}% : 感情表現度 : ${result.y}%`}
       </Typography>
+
       <GraphImage>
-        <ImgArea src={graph_img} alt="socialStyle_graph" />
+        <img src={graph_img} alt="" />
       </GraphImage>
+      
       <Feature>
         <ContentTitle>診断結果が似ている方の特徴</ContentTitle>
         <Feature>
