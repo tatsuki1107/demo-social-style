@@ -5,8 +5,8 @@ import './index.css'
 import Typography from "../../Atoms/Typography";
 import ContentTitle from "../../Atoms/ContentTitle";
 // img
-// import graph_img from '../../../img/StyleGraph.jpg';
 import graph_img from '../../../img/StyleGraph_w.jpg';
+import pointer from '../../../img/point.svg';
 // APIでもらってきた前提のdata
 import { style_result } from "../../../data";
 
@@ -30,16 +30,29 @@ const DiaResult = styled.div`
 `;
 
 const GraphImage = styled.div`
-  width: 100%;
-`;
-
-const ImgArea = styled.div`
+  position: relative;
+  margin: 0 auto;
   width: 85%;
-  height: 85%;
   @media (max-width: 660px) {
     width: 100%;
     height: 100%;
   }
+`;
+
+const ImgArea = styled.img`
+  width: 100%;
+  height: 100%;
+
+`;
+
+const Pointer = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 15%;
+  height: 15%;
+  transform: translate(-50%, -50%);
+  transition: top 2s 1s, left 2s 1s;
 `;
 
 const Feature = styled.div`
@@ -88,7 +101,8 @@ const Result = () => {
       </Typography>
 
       <GraphImage>
-        <img src={graph_img} alt="" />
+        <ImgArea src={graph_img} alt="" />
+        <Pointer src={pointer} style={{top: `${result.y}%`, left:`${result.x}%`}} alt="" />
       </GraphImage>
       
       <Feature>

@@ -25,7 +25,7 @@ export const questions = [
 export const style_result = {
   // [ x軸, y軸]
   x: 70,
-  y: 60,
+  y: 30,
   // socialstyle
   style: "ドライバー",
   // 特徴
