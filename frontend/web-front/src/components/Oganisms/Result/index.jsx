@@ -51,8 +51,21 @@ const Pointer = styled.img`
   left: 50%;
   width: 15%;
   height: 15%;
+  animation: flash 2s linear infinite;
   transform: translate(-50%, -50%);
   transition: top 2s 1s, left 2s 1s;
+
+  @keyframes flash {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 `;
 
 const Feature = styled.div`
