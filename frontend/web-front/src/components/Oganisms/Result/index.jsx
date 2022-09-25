@@ -51,8 +51,8 @@ const Pointer = styled.img`
   left: 50%;
   width: 15%;
   height: 15%;
-  animation: flash 2s linear infinite;
-  transform: translate(-50%, -50%);
+  animation: flash 2s ease-out infinite;
+  transform: translate(-48%, -50%);
   transition: top 2s 1s, left 2s 1s;
 
   @keyframes flash {
@@ -114,8 +114,8 @@ const Result = () => {
       </Typography>
 
       <GraphImage>
-        <ImgArea src={graph_img} alt="" />
-        <Pointer src={pointer} style={{top: `${result.y}%`, left:`${result.x}%`}} alt="" />
+        <ImgArea src={graph_img} alt="graph_img" />
+        <Pointer src={pointer} style={{top: `${result.y}%`, left:`${result.x}%`}} alt="pointer" />
       </GraphImage>
       
       <Feature>
