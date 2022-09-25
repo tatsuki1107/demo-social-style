@@ -144,7 +144,7 @@ const Diagnosis = () => {
             <Button type="start" onClick={onResult}>
               診断する
             </Button>
-            <Button type="maru" onClick={goTopPage}>Social Style診断とは</Button>
+            <Button type="maru" size="m" onClick={goTopPage}>Social Style診断とは</Button>
           </Buttonzorn>
           {flag && <Result />}
         </Main>

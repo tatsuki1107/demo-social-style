@@ -7,6 +7,7 @@ const defaultValue = {
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(defaultValue);
+  const [loading, setLoading] = useState(true);
 
   const createUser = (sessionId) => {
     // 仮トークン発行
@@ -22,15 +23,16 @@ const AuthProvider = ({ children }) => {
       } else {
         setUser(sessionStorage.getItem('user'));
       }
+      setLoading(false);
     };
     return () => {
       unsubscribed()
     }
   }, [])
 
-  // if (!loading) {
-  return <AuthContext.Provider value={{ user, createUser }}>{children}</AuthContext.Provider>;
-  // }
+  if (!loading) {
+    return <AuthContext.Provider value={{ user, createUser }}>{children}</AuthContext.Provider>;
+  }
 };
 
 export default AuthProvider;
