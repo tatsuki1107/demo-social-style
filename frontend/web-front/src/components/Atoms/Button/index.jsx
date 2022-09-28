@@ -83,6 +83,10 @@ ${({ type }) => {
           height: 80px;
           border-radius: 50px;
           font-size: 1.5em;
+          :disabled {
+            background-color: #FFFFFF;
+            color: #000000;
+          }
 
           @media all and (max-width: 500px) {
             font-size: 0.9em;

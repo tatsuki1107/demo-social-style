@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 // components
@@ -6,8 +6,8 @@ import Typography from "../../Atoms/Typography";
 import ContentTitle from "../../Atoms/ContentTitle";
 // img
 import graph_img from '../../../img/result.png';
-// APIでもらってきた前提のdata
-import { style_result, style_result_2 } from "../../../data";
+// hooks
+import useResult from "../../../Hooks/useResult";
 
 
 const ResultArea = styled.div`
@@ -60,34 +60,18 @@ const Maru = styled.div`
 
 // Dateを指定して結果を表示。診断後の結果表示はデータベースに格納されている一番最新をもらう
 const Result = ({ date }) => {
-  console.log(date);
-  const [result, setResult] = useState({});
-  useEffect(() => {
-    // APIでGET /get_result/{date}
-    // { "date": "string", "X": float, "Y": float, "feature": [string], "Profession": [string], "Relational_description":[[string]]}
-    (async () => {
-      try {
-        if (date === undefined) {
-          setResult(style_result);
-        } else {
-          setResult(style_result_2);
-        }
-      } catch (e) {
-        console.error(e)
-      }
-    })()
-  }, [])
+  const { result, style } = useResult(date);
 
   return (
     <ResultArea>
       <Underline />
       <DiaResult>
         <Typography type="h2" margin={0}>
-          診断結果
+          {result.date}<br />診断結果
         </Typography>
       </DiaResult>
       <Typography type="text" size="l">
-        あなたは<br /><span>{"ドライバー"}</span>の傾向が強いようです
+        あなたは<br /><span>{style}</span>の傾向が強いようです
       </Typography>
       <Typography type="text" size="l" color="orenge">
         {`意見主張度 ${result.X}% : 感情表現度 : ${result.Y}%`}

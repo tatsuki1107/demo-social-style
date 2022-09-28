@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Template, { Main } from "../../components/Templates";
 import styled from "styled-components";
-// 仮データ
-import { style_result } from "../../data";
 // components
 import Button from "../../components/Atoms/Button";
 import Result from "../../components/Oganisms/Result";
+// Hooks
+import useResult from "../../Hooks/useResult";
 
 const ButtonArea = styled.div`
   padding-top: 150px;
   padding-bottom: 100px;
   width: 100%;
-  height: 300px;
+  height: 500px;
   display:flex;
   flex-flow: column;
 `;
@@ -20,43 +20,49 @@ const Block = styled.div`
 `
 
 const PastResult = () => {
-  const [dates, setDates] = useState([]);
-  const [openFlg, setOpenFlg] = useState(false);
-  const [resultDate, setResultDate] = useState('');
+  const [resultDate, setResultDate] = useState("");
+  const { result } = useResult("");
 
   const onClick = (date) => {
     setResultDate(date);
-    setOpenFlg(true);
   }
-  useEffect(() => {
-    (async () => {
-      try {
-        // APIでGET予定 /get_result
-        setDates(style_result.previous)
-      } catch (e) {
-        console.error(e)
-      }
-    })()
-  }, [])
+  const setDisabled = (date) => {
+    if (date === resultDate) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   return (
     <>
       <Template>
         <Main>
           <ButtonArea>
-            {dates.map((date, index) => {
+            {result.previous?.map((date, index) => {
               return (
                 <Block key={index}>
                   <Button
                     type="pastDate"
                     onClick={() => onClick(date)}
+                    disabled={setDisabled(date)}
                   >
                     {`${date} 診断結果`}
                   </Button>
                 </Block>
               )
             })}
+            <Block>
+              <Button
+                type="pastDate"
+                onClick={() => onClick('')}
+                disabled={setDisabled('')}
+              >
+                {`${result.date} 診断結果`}
+              </Button>
+            </Block>
           </ButtonArea>
-          {openFlg && <Result date={resultDate} />}
+          <Result date={resultDate} />
         </Main>
       </Template>
     </>
