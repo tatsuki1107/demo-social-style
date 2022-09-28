@@ -63,7 +63,6 @@ const Diagnosis = () => {
       const Y = Math.round(((totalCount / 2 + (cCount - dCount)) / totalCount) * 100);
       let style;
 
-      // ここの処理はDjango予定
       if (X > 50) {
         if (Y > 50) {
           style = 'エクスプレッシブ';
@@ -146,7 +145,7 @@ const Diagnosis = () => {
             </Button>
             <Button type="maru" size="m" onClick={goTopPage}>Social Style診断とは</Button>
           </Buttonzorn>
-          {flag && <Result />}
+          {flag && <Result date="" />}
         </Main>
       </Template>
     </>
