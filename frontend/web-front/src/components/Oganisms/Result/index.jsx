@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import './index.css'
 // components
@@ -7,8 +7,8 @@ import ContentTitle from "../../Atoms/ContentTitle";
 // img
 import graph_img from '../../../img/StyleGraph_w.jpg';
 import pointer from '../../../img/point.svg';
-// APIでもらってきた前提のdata
-import { style_result } from "../../../data";
+// hooks
+import useResult from "../../../Hooks/useResult";
 
 
 const ResultArea = styled.div`
@@ -85,32 +85,22 @@ const Maru = styled.div`
 `;
 
 // Dateを指定して結果を表示。診断後の結果表示はデータベースに格納されている一番最新をもらう
-const Result = () => {
-  // result, タイプに紐付いた仕事と特徴をAPIでもらう
-  const [result, setResult] = useState({});
-  useEffect(() => {
-    (async () => {
-      try {
-        setResult(style_result)
-      } catch (e) {
-        console.error(e)
-      }
-    })()
-  }, [])
+const Result = ({ date }) => {
+  const { result, style } = useResult(date);
 
   return (
     <ResultArea>
       <Underline />
       <DiaResult>
         <Typography type="h2" margin={0}>
-          診断結果
+          {result.date}<br />診断結果
         </Typography>
       </DiaResult>
       <Typography type="text" size="l">
-        あなたは<br /><span>{result.style}</span>の傾向が強いようです
+        あなたは<br /><span>{style}</span>の傾向が強いようです
       </Typography>
       <Typography type="text" size="l" color="orenge">
-        {`意見主張度 ${result.x}% : 感情表現度 : ${result.y}%`}
+        {`意見主張度 ${result.X}% : 感情表現度 : ${result.Y}%`}
       </Typography>
 
       <GraphImage>
@@ -121,10 +111,10 @@ const Result = () => {
       <Feature>
         <ContentTitle>診断結果が似ている方の特徴</ContentTitle>
         <Feature>
-          {result.feature?.map((f) => {
+          {result.feature?.map((output, index) => {
             return (
-              <Typography type="text" size="m" margin={0} key={f.id}>
-                {`・${f.character}`}
+              <Typography type="text" size="m" margin={0} key={index}>
+                {`・${output}`}
               </Typography>
             )
           })}
@@ -133,10 +123,10 @@ const Result = () => {
       <Feature>
         <ContentTitle>診断結果が似ている方に多い就いている仕事</ContentTitle>
         <Feature>
-          {result.work?.map((w) => {
+          {result.Profession?.map((output, index) => {
             return (
-              <Typography type="text" size="m" key={w.id} margin={0}>
-                {`・${w.job}`}
+              <Typography type="text" size="m" key={index} margin={0}>
+                {`・${output}`}
               </Typography>
             )
           })}
@@ -152,9 +142,7 @@ const Result = () => {
             </Typography>
           </Type>
           <Typography type="text" size="m">
-            エミアブルタイプは○○○○で△△△な性格を持ち合わせた方が多いです。といった形で対象のタイプの簡単な説明を入れます。<br />
-            XXXXXタイプとのかかわり方として、とてもOOOOでYYYYだとおもいますが、△△△の場面において考え方に違いが生まれる可能性が高いので注意が必要です。といったようなをこ、
-            関わることによるメリットと関わる際の注意点をここに記述します。(いいところ・注意すべき点といったように分けてもいいかも)
+            {result.Relational_description?.[0]}
           </Typography>
         </Feature>
         <Feature>
@@ -165,8 +153,7 @@ const Result = () => {
             </Typography>
           </Type>
           <Typography type="text" size="m">
-            ドライバータイプは○○○○で△△△な性格を持ち合わせた方が多いです。といった形で対象のタイプの簡単な説明を入れます。<br />
-            XXXXXタイプとのかかわり方として、とてもOOOOでYYYYだとおもいますが、△△△の場面において考え方に違いが生まれる可能性が高いので注意が必要です。といったような,、かかわることによるメリットと、かかわる際の注意点をここに記述します。(いいところ・注意すべき点といったように分けてもいいかも)
+            {result?.Relational_description?.[1]}
           </Typography>
         </Feature>
         <Feature>
@@ -177,8 +164,7 @@ const Result = () => {
             </Typography>
           </Type>
           <Typography type="text" size="m">
-            アナリティカルタイプは○○○○で△△△な性格を持ち合わせた方が多いです。といった形で対象のタイプの簡単な説明を入れます。<br />
-            XXXXXタイプとのかかわり方として、とてもOOOOでYYYYだとおもいますが、△△△の場面において考え方に違いが生まれる可能性が高いので注意が必要です。といったような,、かかわることによるメリットと、かかわる際の注意点をここに記述します。(いいところ・注意すべき点といったように分けてもいいかも)
+            {result?.Relational_description?.[2]}
           </Typography>
         </Feature>
         <Feature>
@@ -189,8 +175,7 @@ const Result = () => {
             </Typography>
           </Type>
           <Typography type="text" size="m">
-            エクスプレッシブタイプは○○○○で△△△な性格を持ち合わせた方が多いです。といった形で対象のタイプの簡単な説明を入れます。<br />
-            XXXXXタイプとのかかわり方として、とてもOOOOでYYYYだとおもいますが、△△△の場面において考え方に違いが生まれる可能性が高いので注意が必要です。といったような,、かかわることによるメリットと、かかわる際の注意点をここに記述します。(いいところ・注意すべき点といったように分けてもいいかも)
+            {result?.Relational_description?.[3]}
           </Typography>
         </Feature>
       </Feature>

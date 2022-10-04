@@ -2,7 +2,6 @@ import React from "react";
 import styled, { css } from "styled-components";
 import Typography from "../Typography";
 
-
 const Root = styled.button`
 border: 0;
 filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
@@ -75,6 +74,23 @@ ${({ type }) => {
 				@media all and (max-width: 600px) {
 					width: 270px;
 				}
+      `
+      case "pastDate":
+        return css`
+          background-color: #DF7919;
+          color: #FFFFFF;
+          width: 100%;
+          height: 80px;
+          border-radius: 50px;
+          font-size: 1.5em;
+          :disabled {
+            background-color: #FFFFFF;
+            color: #000000;
+          }
+
+          @media all and (max-width: 500px) {
+            font-size: 0.9em;
+          }
         `
     }
   }}

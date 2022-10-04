@@ -36,7 +36,7 @@ const QandT = styled.div`
   justify-content: space-between;
 `;
 
-const Question = React.memo(({ type, id, question, children, totalCountUp, calcuCount }) => {
+const Question = React.memo(({ type, pos, index, question, children, totalCountUp, calcuCount }) => {
   const [yes, setYes] = useState(false);
   const [no, setNo] = useState(false);
   // 「yes」か「no」どちらか１回押したらtrueにする
@@ -46,17 +46,17 @@ const Question = React.memo(({ type, id, question, children, totalCountUp, calcu
     if (yesNo === "yes") {
       if (no === true) {
         setNo(false);
-        calcuCount(id, "no", "down");
+        calcuCount(pos, "no", "down");
       }
       setYes(true);
-      calcuCount(id, "yes", "up");
+      calcuCount(pos, "yes", "up");
     } else {
       if (yes === true) {
         setYes(false);
-        calcuCount(id, "yes", "down");
+        calcuCount(pos, "yes", "down");
       }
       setNo(true);
-      calcuCount(id, "no", "up");
+      calcuCount(pos, "no", "up");
     }
     if (flag === false) {
       setFlag(true);
@@ -71,7 +71,7 @@ const Question = React.memo(({ type, id, question, children, totalCountUp, calcu
         :
         <Root>
           <Typography type="text" size="m" color="orenge">
-            問{id}
+            問{index}
           </Typography>
           <Typography type="text" size="m" color="black">
             {question}

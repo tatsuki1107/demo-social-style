@@ -7,9 +7,9 @@ const useStyleCounter = () => {
   const [dCount, setDCount] = useState(0);
 
   // ４つのカウント
-  const calcuCount = useCallback((id, yesNo, upDown) => {
+  const calcuCount = useCallback((pos, yesNo, upDown) => {
     if (upDown === "up") {
-      if (id > 0 && id < 10) {
+      if (pos === "X") {
         if (yesNo === "yes") {
           setACount(num => num + 1);
         } else {
@@ -23,7 +23,7 @@ const useStyleCounter = () => {
         }
       }
     } else {
-      if (id > 0 && id < 10) {
+      if (pos === "X") {
         if (yesNo === "yes") {
           setACount(num => num - 1);
         } else {
