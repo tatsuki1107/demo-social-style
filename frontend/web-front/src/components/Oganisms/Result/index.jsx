@@ -5,7 +5,7 @@ import './index.css'
 import Typography from "../../Atoms/Typography";
 import ContentTitle from "../../Atoms/ContentTitle";
 // img
-import graph_img from '../../../img/StyleGraph_w.jpg';
+import graph_img from '../../../img/StyleGraph_t.jpg';
 import pointer from '../../../img/point.svg';
 // hooks
 import useResult from "../../../Hooks/useResult";
@@ -42,7 +42,6 @@ const GraphImage = styled.div`
 const ImgArea = styled.img`
   width: 100%;
   height: 100%;
-
 `;
 
 const Pointer = styled.img`
@@ -51,8 +50,8 @@ const Pointer = styled.img`
   left: 50%;
   width: 15%;
   height: 15%;
-  animation: flash 2s ease-out infinite;
-  transform: translate(-48%, -50%);
+  animation: flash 0.7s ease-out infinite;
+  transform: translate(-49.5%, -50%);
   transition: top 2s 1s, left 2s 1s;
 
   @keyframes flash {
@@ -105,7 +104,7 @@ const Result = ({ date }) => {
 
       <GraphImage>
         <ImgArea src={graph_img} alt="graph_img" />
-        <Pointer src={pointer} style={{top: `${result.y}%`, left:`${result.x}%`}} alt="pointer" />
+        <Pointer src={pointer} style={{top: `${result.X}%`, left:`${result.Y}%`}} alt="pointer" />
       </GraphImage>
       
       <Feature>
