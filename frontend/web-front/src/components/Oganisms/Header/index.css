@@ -1,0 +1,48 @@
+header{
+    width: 100%;
+    height: 70px;
+    background-color: #DF7919;
+    position: fixed;
+    z-index: 1;
+    display: flex;
+}
+.logo img{
+    height: 120%;
+    margin-left: 20px;
+    transform: translateY(-7%);
+}
+.page{
+    display: flex;
+    margin-top: 17px;
+    margin-left: 50px;
+}
+.page div{
+    color: #fff;
+    margin-left: 70px;
+    font-size: 25px
+}
+.hIcon{
+    margin-left: auto;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+.CheerCareer{
+    margin-left: 60px;
+    font-size: 20px;
+    color: #fff;
+}
+
+
+
+.page a{
+    margin-left:50px;
+    font-size: 25px;
+    color: #fff;
+}
+.a :hover{
+    opacity: 0.7;
+}
+.logo2 img{
+    margin-top: 20px;
+    margin-left: 590px;
+}
