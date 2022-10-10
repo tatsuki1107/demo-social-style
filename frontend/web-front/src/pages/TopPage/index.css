@@ -1,0 +1,207 @@
+.Top {
+  background: url('../../img/ソーシャルスタイル診断_top.png');
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 0px 0px 200px 200px;
+  width: 100%;
+  height: 100vh;
+}
+
+.startButton-1 {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.Top_title {
+  position: absolute;
+  width: 100%;
+  top: 60%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* デザイン修正の為設定 */
+.Top_title h1{
+  margin-bottom: 0;
+}
+.Top_title h3{
+  margin-top: 10px;
+}
+/* #################### */
+
+/* スクロールを促すアニメーション */
+.scrolldown1{
+  position:absolute;
+  left:50%;
+  bottom:10px;
+  height:50px;
+}
+
+.scrolldown1 span{
+  position: absolute;
+  left: -17px;
+  top: -17px;
+  color: #eee;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+.scrolldown1::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 30px;
+  background: #eee;
+  animation: pathmove 1.4s ease-in-out infinite;
+  opacity:0;
+}
+
+/*高さ・位置・透過が変化して線が上から下に動く*/
+@keyframes pathmove{
+  0%{
+    height:0;
+    top:0;
+    opacity: 0;
+  }
+  30%{
+    height:30px;
+    opacity: 1;
+  }
+  100%{
+    height:0;
+    top:50px;
+    opacity: 0;
+  }
+}
+
+/* #################### */
+.explanation {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  width: 100%;
+}
+
+.exp_title {
+  text-align: center;
+}
+
+.exp_txt {
+  font-weight: 500;
+}
+
+/* temp_graf */
+.graph_img {
+  width: 100%;
+  text-align: center;
+}
+
+.graph_img img {
+  width: 85%;
+  height: 85%;
+}
+
+/* help */
+.help {
+  margin-top: 100px;
+  margin-bottom: 50px;
+  width: 100%;
+}
+
+.help_title {
+  text-align: center;
+}
+
+.startButton-2 {
+  width: 325px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.donKnow {
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+
+.hl_content_txt {
+  margin-left: 15px;
+  margin-top: 30px;
+}
+
+.intern {
+  font-size: 1.25em;
+  margin-left: 15px;
+}
+.intern:hover{
+  opacity: 0.7;
+}
+
+.empasis {
+  color: #DF7919;
+}
+
+.startButton-3 {
+  width: 325px;
+  margin: 0 auto;
+  margin-bottom: 50px;
+}
+
+
+
+/* レスポンシブ */
+@media all and (max-width: 860px) {
+  .Top {
+    border-radius: 0px;
+  }
+
+  .Top_title {
+    font-size: 0.6em;
+  }
+}
+
+@media all and (max-width: 660px) {
+  .graph_img img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media all and (max-width: 440px) {}
+
+/* 追加で作成するため、一時コメントアウト */
+/* 
+.backToTop {
+  position: relative;
+  top: 2350px;
+  left: 1400px;
+  width: 200px;
+  height: 200px;
+}
+
+.maru {
+  position: absolute;
+  background: #DF7919;
+  width: 100%;
+  height: 100%;
+  border-radius: 100px;
+}
+
+.sannkaku {
+  position: absolute;
+  left: 23.53%;
+  right: 24.26%;
+  top: 23.53%;
+  bottom: 22.79%;
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  background: #FFFFFF;
+}  */
