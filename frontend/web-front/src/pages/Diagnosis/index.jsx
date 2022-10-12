@@ -1,5 +1,5 @@
 import './index.css';
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef, useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Template, { Main } from "../../components/Templates";
 import styled from "styled-components";
@@ -100,7 +100,16 @@ const Diagnosis = () => {
         console.error(e)
       }
     })()
-  }, [])
+  }, []);
+
+
+  // const scrollRef = useRef<HTMLDivElement>(null);
+  // useLayoutEffect(() => {
+  //     if(scrollRef && scrollRef.current) {
+  //       scrollRef.current.scrollIntoView();
+  //     }
+  // }, []);
+  
 
   return (
     <>

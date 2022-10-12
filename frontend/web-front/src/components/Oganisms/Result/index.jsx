@@ -103,11 +103,10 @@ const Disc_logo = styled.img`
 // Dateを指定して結果を表示。診断後の結果表示はデータベースに格納されている一番最新をもらう
 const Result = ({ date }) => {
   const { result, style } = useResult(date);
-
   return (
-    <ResultArea>
+    <ResultArea >
       <Underline />
-      <DiaResult>
+      <DiaResult >
         <Typography type="h2" margin={0}>
           {result.date}<br />診断結果
         </Typography>
