@@ -9,13 +9,6 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(defaultValue);
   const [loading, setLoading] = useState(true);
 
-  const createUser = (sessionId) => {
-    // 仮トークン発行
-    const random = Math.random().toString(32).substring(2)
-    sessionStorage.setItem("user", JSON.stringify({ session_ID: sessionId, token: random }));
-    setUser({ session_ID: sessionId, token: random });
-  };
-
   useEffect(() => {
     const unsubscribed = () => {
       if (sessionStorage.getItem('user') === null) {
@@ -31,7 +24,7 @@ const AuthProvider = ({ children }) => {
   }, [])
 
   if (!loading) {
-    return <AuthContext.Provider value={{ user, createUser }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>;
   }
 };
 

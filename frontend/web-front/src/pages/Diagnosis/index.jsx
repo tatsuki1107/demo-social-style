@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Template, { Main } from "../../components/Templates";
 import styled from "styled-components";
+import axios from "axios";
 
 // components
 import Question from "../../components/Oganisms/Question";
@@ -12,9 +13,7 @@ import Button from "../../components/Atoms/Button";
 
 // Hooks
 import useStyleCounter from "../../Hooks/useStyleCounter";
-
-// APIで問題をもらってきた前提のdata
-import { questions } from "../../data";
+import { useAuth } from '../../Routings/AuthService';
 
 // img import
 import check_icon from "../../img/check.jpg";
@@ -44,6 +43,7 @@ const Buttonzorn = styled.div`
 `;
 
 const Diagnosis = () => {
+  const { user } = useAuth();
   const [data, setData] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [flag, setFlag] = useState(false);
@@ -93,9 +93,10 @@ const Diagnosis = () => {
   useEffect(() => {
     (async () => {
       try {
-        // APIでGET予定
+        // APIでGET
         // { "question": string, "select-type": int, "pos": string }
-        setData(questions);
+        console.log(user);
+        await axios.post('http://localhost/api/questions', user).then((res) => { setData(res?.data) })
       } catch (e) {
         console.error(e)
       }
@@ -131,7 +132,7 @@ const Diagnosis = () => {
                 key={index}
                 index={index + 1}
                 pos={q.pos}
-                question={q.question}
+                question={q.questions}
                 totalCountUp={totalCountUp}
                 calcuCount={calcuCount}
               />
