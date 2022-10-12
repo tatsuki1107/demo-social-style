@@ -1,5 +1,5 @@
 import './index.css';
-import React, { useState, useEffect, useCallback, useRef, useLayoutEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef, useLayoutEffect, createRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Template, { Main } from "../../components/Templates";
 import styled from "styled-components";
@@ -47,12 +47,22 @@ const Diagnosis = () => {
   const [data, setData] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [flag, setFlag] = useState(false);
-  const { aCount, bCount, cCount, dCount, calcuCount } = useStyleCounter()
+  const { aCount, bCount, cCount, dCount, calcuCount } = useStyleCounter();
+  const scrollBottomRef = useRef(null);
+  const questionRefContent = useRef([]);
+  const windowHeight = window.innerHeight;
+  console.log(windowHeight);
   const navigate = useNavigate();
   const goTopPage = () => {
     navigate('/');
   };
-  const totalCountUp = useCallback(() => {
+  const totalCountUp = useCallback((index) => {
+    console.log(index);
+    var contentRect = questionRefContent.current[index].getBoundingClientRect();
+
+    if (windowHeight - contentRect.bottom < 130) {
+      questionRefContent[index].current.scrollIntoView();
+    }
     setTotalCount(num => num + 1)
   }, [totalCount]);
 
@@ -102,14 +112,15 @@ const Diagnosis = () => {
     })()
   }, []);
 
-
-  // const scrollRef = useRef<HTMLDivElement>(null);
-  // useLayoutEffect(() => {
-  //     if(scrollRef && scrollRef.current) {
-  //       scrollRef.current.scrollIntoView();
-  //     }
-  // }, []);
+  useLayoutEffect(() => {
+    if(scrollBottomRef && scrollBottomRef.current) {
+      scrollBottomRef.current.scrollIntoView();
+    }
+  }, [flag]);
   
+  data.forEach((_, index)=>{
+    questionRefContent.current[index] = createRef();
+  });
 
   return (
     <>
@@ -136,14 +147,16 @@ const Diagnosis = () => {
 
           {data.map((q, index) => {
             return (
-              <Question
-                key={index}
-                index={index + 1}
-                pos={q.pos}
-                question={q.question}
-                totalCountUp={totalCountUp}
-                calcuCount={calcuCount}
-              />
+              <div ref={questionRefContent.current[index]}>
+                <Question
+                  key={index}
+                  index={index + 1}
+                  pos={q.pos}
+                  question={q.question}
+                  totalCountUp={totalCountUp}
+                  calcuCount={calcuCount}
+                />
+              </div>
             )
           })}
 
@@ -154,7 +167,7 @@ const Diagnosis = () => {
             </Button>
             <Button type="maru" size="m" onClick={goTopPage}>Social Style診断とは</Button>
           </Buttonzorn>
-          {flag && <Result date="" />}
+          {flag && <div ref={scrollBottomRef}><Result date="" /></div> }
         </Main>
       </Template>
     </>

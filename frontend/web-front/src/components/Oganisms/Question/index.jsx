@@ -60,7 +60,7 @@ const Question = React.memo(({ type, pos, index, question, children, totalCountU
     }
     if (flag === false) {
       setFlag(true);
-      totalCountUp();
+      totalCountUp(index);
     };
   };
 
