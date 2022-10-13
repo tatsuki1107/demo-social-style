@@ -56,12 +56,23 @@ const Diagnosis = () => {
   const goTopPage = () => {
     navigate('/');
   };
-  const totalCountUp = useCallback((index) => {
-    console.log(index);
-    var contentRect = questionRefContent.current[index].getBoundingClientRect();
 
-    if (windowHeight - contentRect.bottom < 130) {
-      questionRefContent[index].current.scrollIntoView();
+  function getRect(elm) {
+    return elm.current.getBoundingClientRect();
+  }
+
+  const totalCountUp = useCallback((index) => {
+    debugger;
+    const contentRect = getRect(questionRefContent.current[index - 1]);
+    if (windowHeight - contentRect.top < 500) {
+      const offset = window.pageYOffset;
+      const scrollCountentRect = getRect(questionRefContent.current[index]);
+      const gap = 80;
+      const target = offset + scrollCountentRect.top - gap;
+      window.scrollTo({
+        top: target,
+        behavior: 'smooth'
+      });
     }
     setTotalCount(num => num + 1)
   }, [totalCount]);
@@ -117,9 +128,9 @@ const Diagnosis = () => {
       scrollBottomRef.current.scrollIntoView();
     }
   }, [flag]);
-  
+
   data.forEach((_, index)=>{
-    questionRefContent.current[index] = createRef();
+    questionRefContent.current[index] = createRef(null);
   });
 
   return (
