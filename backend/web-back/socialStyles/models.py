@@ -1,5 +1,7 @@
 from django.db import models
-#socialStyle_IDは第一象限,第二象限,第三象限,第四象限に相当する。
+# socialStyle_IDは第一象限,第二象限,第三象限,第四象限に相当する。
+
+
 class User(models.Model):
     User_ID = models.BigAutoField(primary_key=True)
     Cheer_ID = models.BigIntegerField()
@@ -26,12 +28,12 @@ class Profession(models.Model):
 
 
 class Feature(models.Model):
-    Feature_Explanation=models.TextField()
+    Feature_Explanation = models.TextField()
     SocialStyle_ID = models.IntegerField(null=False)
 
 
 class Relational(models.Model):
-    #relational_typeは相性が良ければTrue,わるければFalse
+    # relational_typeは相性が良ければTrue,わるければFalse
     Relational_ID = models.BigAutoField(primary_key=True)
     Relational_Description = models.TextField(null=False)
     MySocialStyle_ID = models.IntegerField(null=False)

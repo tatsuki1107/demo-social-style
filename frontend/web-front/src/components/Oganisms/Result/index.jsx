@@ -102,18 +102,18 @@ const Disc_logo = styled.img`
 
 // Dateを指定して結果を表示。診断後の結果表示はデータベースに格納されている一番最新をもらう
 const Result = ({ date }) => {
-  const { result, style } = useResult(date);
+  const { result } = useResult(date);
 
   return (
     <ResultArea>
       <Underline />
       <DiaResult>
         <Typography type="h2" margin={0}>
-          {result.date}<br />診断結果
+          {result.Time}<br />診断結果
         </Typography>
       </DiaResult>
       <Typography type="text" size="l">
-        あなたは<br /><span>{style}</span>の傾向が強いようです
+        あなたは<br /><span>{result.socialStyle}</span>の傾向が強いようです
       </Typography>
       <Typography type="text" size="l" color="orenge">
         {`意見主張度 ${result.X}% : 感情表現度 : ${result.Y}%`}
@@ -121,13 +121,13 @@ const Result = ({ date }) => {
 
       <GraphImage>
         <ImgArea src={graph_img} alt="graph_img" />
-        <Pointer src={pointer} style={{top: `${result.X}%`, left:`${result.Y}%`}} alt="pointer" />
+        <Pointer src={pointer} style={{ top: `${result.X}%`, left: `${result.Y}%` }} alt="pointer" />
       </GraphImage>
-      
+
       <Feature>
         <ContentTitle>診断結果が似ている方の特徴</ContentTitle>
         <Feature_content>
-          {result.feature?.map((output, index) => {
+          {result.Feature?.map((output, index) => {
             return (
               <Typography type="text" size="m" margin={0} key={index}>
                 {`・${output}`}

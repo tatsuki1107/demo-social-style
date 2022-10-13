@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
       if (sessionStorage.getItem('user') === null) {
         setUser(defaultValue);
       } else {
-        setUser(sessionStorage.getItem('user'));
+        setUser(JSON.parse(sessionStorage.getItem('user')));
       }
       setLoading(false);
     };

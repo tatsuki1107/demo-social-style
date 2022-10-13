@@ -58,32 +58,23 @@ const Diagnosis = () => {
 
   const onResult = async () => {
     if (totalCount === data.length) {
-      // %表記 (小数点第一で四捨五入)
-      const X = Math.round(((totalCount / 2 + (aCount - bCount)) / totalCount) * 100);
-      const Y = Math.round(((totalCount / 2 + (cCount - dCount)) / totalCount) * 100);
-      let style;
-
-      if (X > 50) {
-        if (Y > 50) {
-          style = 'エクスプレッシブ';
-        } else {
-          style = 'ドライビング';
-        }
-      } else {
-        if (Y > 50) {
-          style = 'エミアブル';
-        } else {
-          style = 'アナリティカル';
-        }
-      }
+      // %表記 
+      const X = (((totalCount / 2) + (aCount - bCount)) / totalCount) * 100;
+      const Y = (((totalCount / 2) + (cCount - dCount)) / totalCount) * 100;
 
       try {
         // API: POST, { "X": float, "Y": float }
-        console.log({ X: X, Y: Y, style: style })
+        const data = { "session_ID": user.session_ID, "token": user.token, "X": X, "Y": Y }
+        await axios.post('http://localhost/api/send_param', data)
+          .then((res) => {
+            if (res.status === 200) {
+              setFlag(true)
+            } else if (res.status === 500) {
+              window.location.href = "http://localhost/test_auth"
+            }
+          });
       } catch (e) {
         console.error(e);
-      } finally {
-        setFlag(true);
       }
     } else {
       alert('未回答の問題があります')
@@ -95,7 +86,6 @@ const Diagnosis = () => {
       try {
         // APIでGET
         // { "question": string, "select-type": int, "pos": string }
-        console.log(user);
         await axios.post('http://localhost/api/questions', user).then((res) => { setData(res?.data) })
       } catch (e) {
         console.error(e)
