@@ -1,44 +1,34 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useAuth } from "../Routings/AuthService";
 // 仮データ
-import { style_result, style_result_2 } from "../data";
+// transform
+import { toUnixTransform } from "../data/transform";
 
 const useResult = (date) => {
   const [result, setResult] = useState({});
-  const [style, setStyle] = useState('');
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // APIでGET /get_result/{date}
     // { "date": "string", "X": float, "Y": float, "feature": [string], "Profession": [string], "Relational_description":[[string]]}
     (async () => {
       try {
+        const data = { ...user }
         if (date !== "") {
-          setResult(style_result_2);
-        } else {
-          setResult(style_result);
+          data["time"] = toUnixTransform(date);
         }
+        await axios.post('http://localhost/api/get_result', data).then((res) => setResult((res?.data)))
       } catch (e) {
-        console.error(e)
+        alert(`エラーが発生しました。エラーコード: ${e.response.status}`)
+        navigate('/')
       }
     })()
   }, [date]);
 
-  useEffect(() => {
-    if (result.X > 50) {
-      if (result.Y > 50) {
-        setStyle('エクスプレッシブ');
-      } else {
-        setStyle('ドライバー');
-      }
-    } else {
-      if (result.Y > 50) {
-        setStyle('エミアブル');
-      } else {
-        setStyle('アナリティカル');
-      }
-    }
-  }, [result])
-
-  return { result, style };
+  return { result };
 };
 
 export default useResult;

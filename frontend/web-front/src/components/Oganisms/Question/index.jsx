@@ -36,33 +36,26 @@ const QandT = styled.div`
   justify-content: space-between;
 `;
 
-const Question = React.memo(({ type, pos, index, question, children, totalCountUp, calcuCount }) => {
+const Question = React.memo(({ type, index, item, children, totalCountUp, calcuCount }) => {
   const [yes, setYes] = useState(false);
   const [no, setNo] = useState(false);
   // 「yes」か「no」どちらか１回押したらtrueにする
   const [flag, setFlag] = useState(false);
 
   const onClick = (yesNo) => {
+    calcuCount(yesNo, item.pos);
     if (yesNo === "yes") {
-      if (no === true) {
-        setNo(false);
-        calcuCount(pos, "no", "down");
-      }
       setYes(true);
-      calcuCount(pos, "yes", "up");
-    } else {
-      if (yes === true) {
-        setYes(false);
-        calcuCount(pos, "yes", "down");
-      }
+      setNo(false);
+    } else if (yesNo === "no") {
+      setYes(false);
       setNo(true);
-      calcuCount(pos, "no", "up");
-    }
+    };
     if (flag === false) {
       setFlag(true);
-      totalCountUp();
-    };
-  };
+      totalCountUp()
+    }
+  }
 
   return (
     <>
@@ -74,7 +67,7 @@ const Question = React.memo(({ type, pos, index, question, children, totalCountU
             問{index}
           </Typography>
           <Typography type="text" size="m" color="black">
-            {question}
+            {item.questions}
           </Typography>
           <QandT>
             <Button disabled={yes} type={`${yes}`} onClick={() => onClick("yes")}>Yes</Button>

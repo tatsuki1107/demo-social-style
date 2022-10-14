@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Template, { Main } from "../../components/Templates";
 import styled from "styled-components";
+import axios from "axios";
 
 // components
 import Question from "../../components/Oganisms/Question";
@@ -12,9 +13,7 @@ import Button from "../../components/Atoms/Button";
 
 // Hooks
 import useStyleCounter from "../../Hooks/useStyleCounter";
-
-// APIで問題をもらってきた前提のdata
-import { questions } from "../../data";
+import { useAuth } from '../../Routings/AuthService';
 
 // img import
 import check_icon from "../../img/check.jpg";
@@ -44,10 +43,11 @@ const Buttonzorn = styled.div`
 `;
 
 const Diagnosis = () => {
+  const { user } = useAuth();
   const [data, setData] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [flag, setFlag] = useState(false);
-  const { aCount, bCount, cCount, dCount, calcuCount } = useStyleCounter()
+  const { calcuCount, xyCaluculation } = useStyleCounter()
   const navigate = useNavigate();
   const goTopPage = () => {
     navigate('/');
@@ -58,32 +58,14 @@ const Diagnosis = () => {
 
   const onResult = async () => {
     if (totalCount === data.length) {
-      // %表記 (小数点第一で四捨五入)
-      const X = Math.round(((totalCount / 2 + (aCount - bCount)) / totalCount) * 100);
-      const Y = Math.round(((totalCount / 2 + (cCount - dCount)) / totalCount) * 100);
-      let style;
-
-      if (X > 50) {
-        if (Y > 50) {
-          style = 'エクスプレッシブ';
-        } else {
-          style = 'ドライビング';
-        }
-      } else {
-        if (Y > 50) {
-          style = 'エミアブル';
-        } else {
-          style = 'アナリティカル';
-        }
-      }
-
+      const coordinate = xyCaluculation(totalCount);
       try {
-        // API: POST, { "X": float, "Y": float }
-        console.log({ X: X, Y: Y, style: style })
+        const data = { ...user, ...coordinate };
+        await axios.post('http://localhost/api/send_param', data)
+          .then(() => { setFlag(true) });
       } catch (e) {
-        console.error(e);
-      } finally {
-        setFlag(true);
+        alert(`エラーが発生しました。再度診断してください。エラーコード: ${e.response.status}`)
+        navigate('/')
       }
     } else {
       alert('未回答の問題があります')
@@ -93,11 +75,10 @@ const Diagnosis = () => {
   useEffect(() => {
     (async () => {
       try {
-        // APIでGET予定
-        // { "question": string, "select-type": int, "pos": string }
-        setData(questions);
+        await axios.post('http://localhost/api/questions', user).then((res) => { setData(res?.data) })
       } catch (e) {
-        console.error(e)
+        alert(`エラーが発生しました。エラーコード:${e.response.status}`)
+        navigate('/');
       }
     })()
   }, [])
@@ -125,22 +106,22 @@ const Diagnosis = () => {
             </QandT>
           </Question>
 
-          {data.map((q, index) => {
+          {data.map((item, index) => {
             return (
-              <Question
-                key={index}
-                index={index + 1}
-                pos={q.pos}
-                question={q.question}
-                totalCountUp={totalCountUp}
-                calcuCount={calcuCount}
-              />
+              <div key={index}>
+                <Question
+                  index={index + 1}
+                  item={item}
+                  totalCountUp={totalCountUp}
+                  calcuCount={calcuCount}
+                />
+              </div>
             )
           })}
 
           <Underline />
           <Buttonzorn>
-            <Button type="start" onClick={onResult}>
+            <Button type="start" onClick={onResult} disabled={flag}>
               診断する
             </Button>
             <Button type="maru" size="m" onClick={goTopPage}>Social Style診断とは</Button>

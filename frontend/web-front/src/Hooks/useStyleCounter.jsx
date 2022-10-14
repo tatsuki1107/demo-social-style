@@ -1,45 +1,33 @@
 import { useState, useCallback } from "react"
 
 const useStyleCounter = () => {
-  const [aCount, setACount] = useState(0);
-  const [bCount, setBCount] = useState(0);
-  const [cCount, setCCount] = useState(0);
-  const [dCount, setDCount] = useState(0);
-
-  // ４つのカウント
-  const calcuCount = useCallback((pos, yesNo, upDown) => {
-    if (upDown === "up") {
+  const [Xcount, setXCount] = useState(0);
+  const [Ycount, setYCount] = useState(0);
+  const calcuCount = useCallback((yesNo, pos) => {
+    if (yesNo === "yes") {
       if (pos === "X") {
-        if (yesNo === "yes") {
-          setACount(num => num + 1);
-        } else {
-          setBCount(num => num + 1);
-        }
-      } else {
-        if (yesNo === "yes") {
-          setCCount(num => num + 1);
-        } else {
-          setDCount(num => num + 1)
-        }
+        setXCount(num => num + 1);
+      } else if (pos === "Y") {
+        setYCount(num => num + 1);
       }
-    } else {
+    } else if (yesNo === "no") {
       if (pos === "X") {
-        if (yesNo === "yes") {
-          setACount(num => num - 1);
-        } else {
-          setBCount(num => num - 1);
-        }
-      } else {
-        if (yesNo === "yes") {
-          setCCount(num => num - 1);
-        } else {
-          setDCount(num => num - 1);
-        }
+        setXCount(num => num - 1);
+      } else if (pos === "Y") {
+        setYCount(num => num - 1);
       }
     }
-  }, [aCount, bCount, cCount, dCount]);
+  }, [Xcount, Ycount]);
 
-  return { aCount, bCount, cCount, dCount, calcuCount };
+  const xyCaluculation = (totalCount) => {
+    // %表記 
+    const X = (((totalCount / 2) + Xcount) / totalCount) * 100;
+    const Y = (((totalCount / 2) + Ycount) / totalCount) * 100;
+
+    return { "X": X, "Y": Y };
+  }
+
+  return { calcuCount, xyCaluculation };
 };
 
 export default useStyleCounter;
