@@ -1,3 +1,5 @@
+from cmath import nan
+from sqlite3 import Date
 import django.db.utils
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
@@ -95,20 +97,20 @@ def questions(request):
         # セッションの確認が取れた場合質問内容と差し替えたtokenを発行し返す。
         questions = [{"questions": "聞くよりも話すほうが好きだ", "select-type": 2, "pos": "X"}, {"questions": "自分はせっかちなほうだ", "select-type": 2, "pos": "X"},
                      {"questions": "人をまとめるのが得意だ", "select-type": 2, "pos": "X"}, {
-                         "questions": "相手の目を見て話す方だ", "select-type": 2, "pos": "X"},
-                     {"questions": "人を動かすことができる", "select-type": 2, "pos": "X"}, {
-                         "questions": "思ったことがすぐ口から出てしまう方だ", "select-type": 2, "pos": "X"},
-                     {"questions": "組体操より、かけっこが好きだ", "select-type": 2,
-                         "pos": "X"}, {"questions": "他人と話すのが好きだ", "select-type": 2, "pos": "X"},
-                     {"questions": "話し合いでは、みんなの意見を尊重するより自分の意見を主張する方だ", "select-type": 2,
-                         "pos": "X"}, {"questions": "自分は感情豊かだ", "select-type": 2, "pos": "Y"},
-                     {"questions": "「元気だね」とよく言われる", "select-type": 2, "pos": "Y"}, {
-                         "questions": "仕事よりプライベートを大事にしたい", "select-type": 2, "pos": "Y"},
-                     {"questions": "自分はクールだと言われない", "select-type": 2, "pos": "Y"}, {
-                         "questions": "自分の気持ちを表すのが得意だ", "select-type": 2, "pos": "Y"},
-                     {"questions": "自分は陽気な方だと思う", "select-type": 2, "pos": "Y"}, {
-                         "questions": "データより人の意見を信じる方だ", "select-type": 2, "pos": "Y"},
-                     {"questions": "自分は感情豊かで涙もろいほうと思う", "select-type": 2, "pos": "Y"}, {"questions": "会話では、抑揚つけて話す方だ", "select-type": 2, "pos": "Y"}]
+            "questions": "相手の目を見て話す方だ", "select-type": 2, "pos": "X"},
+            {"questions": "人を動かすことができる", "select-type": 2, "pos": "X"}, {
+            "questions": "思ったことがすぐ口から出てしまう方だ", "select-type": 2, "pos": "X"},
+            {"questions": "組体操より、かけっこが好きだ", "select-type": 2,
+             "pos": "X"}, {"questions": "他人と話すのが好きだ", "select-type": 2, "pos": "X"},
+            {"questions": "話し合いでは、みんなの意見を尊重するより自分の意見を主張する方だ", "select-type": 2,
+             "pos": "X"}, {"questions": "自分は感情豊かだ", "select-type": 2, "pos": "Y"},
+            {"questions": "「元気だね」とよく言われる", "select-type": 2, "pos": "Y"}, {
+            "questions": "仕事よりプライベートを大事にしたい", "select-type": 2, "pos": "Y"},
+            {"questions": "自分はクールだと言われない", "select-type": 2, "pos": "Y"}, {
+            "questions": "自分の気持ちを表すのが得意だ", "select-type": 2, "pos": "Y"},
+            {"questions": "自分は陽気な方だと思う", "select-type": 2, "pos": "Y"}, {
+            "questions": "データより人の意見を信じる方だ", "select-type": 2, "pos": "Y"},
+            {"questions": "自分は感情豊かで涙もろいほうと思う", "select-type": 2, "pos": "Y"}, {"questions": "会話では、抑揚つけて話す方だ", "select-type": 2, "pos": "Y"}]
         howMany = len(questions)
 
         if howMany <= 20:
@@ -147,7 +149,7 @@ def submit_to_history(request):
             return HttpResponse(status=401)
         elif ((type(res["X"]) != float) or (type(res["Y"]) != float) or (not (0 <= res["X"] <= 100)) or (
                 not (0 <= res["Y"] <= 100)) or (type(res["session_ID"]) != str) or (type(res["token"]) != str)):
-            return HttpResponse(status=402)
+            return HttpResponse(status=400)
         else:
             sessiontoken = res["session_ID"] + res["token"]
             tokendb = redis.Redis(
@@ -170,7 +172,7 @@ def submit_to_history(request):
                     User_ID=userid, SocialStyle_ID=socialStyle, X=res["X"], Y=res["Y"], Date=now)
                 return HttpResponse(status=200)
             except:
-                return HttpResponse(type(now))
+                return HttpResponse(status=500)
     else:
         return HttpResponse(status=400)
 
@@ -218,13 +220,17 @@ def getresult(request):
             response_body["Time"] = result.Date
             response_body["X"] = result.X
             response_body["Y"] = result.Y
-            response_body["Feature"] = feature.Feature_Explanation
-            response_body["Profession"] = profession.Profession_Name
-            response_body["Relational_Description"] = relation.Relational_Description
+            response_body["Feature"] = list(
+                feature.values_list('Feature_Explanation', flat=True))
+            response_body["Profession"] = list(
+                profession.values_list('Profession_Name', flat=True))
+            response_body["Relational_Description"] = list(
+                relation.values_list('Relational_Description', flat=True)
+            )
             response_body["Explanation"] = socialStyle.Type_Explanation
             response_body["SocialStyle"] = socialStyle.Type_Name
             res_json = json.dumps(response_body)
-            return JsonResponse(res_json)
+            return HttpResponse(res_json)
         else:
             try:
                 result = Result.objects.filter(User_ID=userid).all()
@@ -244,17 +250,24 @@ def getresult(request):
                     MySocialStyle_ID__exact=SocialStyle_ID).all()
                 socialStyle = SocialStyle.objects.get(
                     SocialStyle_ID=SocialStyle_ID)
+                result = Result.objects.get(
+                    Date=latest
+                )
             except:
-                return HttpResponse(status=500)
+                return HttpResponse(status=501)
             response_body = {}
             response_body["Time"] = result.Date
             response_body["X"] = result.X
             response_body["Y"] = result.Y
-            response_body["Feature"] = feature.Feature_Explanation
-            response_body["Profession"] = profession.Profession_Name
-            response_body["Relational_Description"] = relation.Relational_Description
+            response_body["Feature"] = list(
+                feature.values_list('Feature_Explanation', flat=True))
+            response_body["Profession"] = list(
+                profession.values_list('Profession_Name', flat=True))
+            response_body["Relational_Description"] = list(
+                relation.values_list('Relational_Description', flat=True)
+            )
             response_body["Explanation"] = socialStyle.Type_Explanation
             response_body["SocialStyle"] = socialStyle.Type_Name
             response_body["Previous"] = dates
             res_json = json.dumps(response_body)
-            return JsonResponse(res_json)
+            return HttpResponse(res_json)

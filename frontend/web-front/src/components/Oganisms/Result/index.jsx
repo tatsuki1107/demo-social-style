@@ -13,6 +13,11 @@ import sankaku from '../../../img/sankaku.svg';
 import maru from '../../../img/maru.svg';
 // hooks
 import useResult from "../../../Hooks/useResult";
+// transform
+import { toDateTransform } from "../../../data/transform";
+
+const border = [maru, sikaku, sankaku, hosi];
+const allStyle = ["Amiable(エミアブル)", "Driver(ドライバー)", "Analytical(アナリティカル)", "Expressibe(エクスプレッシブ)"];
 
 
 const ResultArea = styled.div`
@@ -109,14 +114,14 @@ const Result = ({ date }) => {
       <Underline />
       <DiaResult>
         <Typography type="h2" margin={0}>
-          {result.Time}<br />診断結果
+          {toDateTransform(result.Time)}<br />診断結果
         </Typography>
       </DiaResult>
       <Typography type="text" size="l">
-        あなたは<br /><span>{result.socialStyle}</span>の傾向が強いようです
+        あなたは<br /><span>{result.SocialStyle}</span>の傾向が強いようです
       </Typography>
       <Typography type="text" size="l" color="orenge">
-        {`意見主張度 ${result.X}% : 感情表現度 : ${result.Y}%`}
+        {`意見主張度 ${Math.round(result.X)}% : 感情表現度 : ${Math.round(result.Y)}%`}
       </Typography>
 
       <GraphImage>
@@ -150,58 +155,23 @@ const Result = ({ date }) => {
       </Feature>
       <Feature>
         <ContentTitle>タイプ別の上手な関わり方</ContentTitle>
-        <Feature>
-          <Type>
-            <Disc_logo src={maru} />
-            <Typography type="h3" size="s" color="orenge" margin={0}>
-              Amiable(エミアブル)タイプ
-            </Typography>
-          </Type>
-          <Typography type="text" size="m" >
-            <Discription>
-              {result.Relational_description?.[0]}
-            </Discription>
-          </Typography>
-        </Feature>
-        <Feature>
-          <Type>
-            <Disc_logo src={sikaku} />
-            <Typography type="h3" size="s" color="orenge" margin={0}>
-              Driver(ドライバー)タイプ
-            </Typography>
-          </Type>
-          <Typography type="text" size="m">
-            <Discription>
-              {result.Relational_description?.[1]}
-            </Discription>
-          </Typography>
-        </Feature>
-        <Feature>
-          <Type>
-            <Disc_logo src={sankaku} />
-            <Typography type="h3" size="s" color="orenge" margin={0}>
-              Analytical(アナリティカル)タイプ
-            </Typography>
-          </Type>
-          <Typography type="text" size="m">
-            <Discription>
-              {result.Relational_description?.[2]}
-            </Discription>
-          </Typography>
-        </Feature>
-        <Feature>
-          <Type>
-            <Disc_logo src={hosi} />
-            <Typography type="h3" size="s" color="orenge" margin={0}>
-              Expressibe(エクスプレッシブ)タイプ
-            </Typography>
-          </Type>
-          <Typography type="text" size="m">
-            <Discription>
-              {result.Relational_description?.[3]}
-            </Discription>
-          </Typography>
-        </Feature>
+        {result.Relational_Description?.map((description, index) => {
+          return (
+            <Feature key={index}>
+              <Type>
+                <Disc_logo src={border[index]} />
+                <Typography type="h3" size="s" color="orenge" margin={0}>
+                  {`${allStyle[index]}タイプ`}
+                </Typography>
+              </Type>
+              <Discription>
+                <Typography type="text" size="m" >
+                  {description}
+                </Typography>
+              </Discription>
+            </Feature>
+          )
+        })}
       </Feature>
     </ResultArea>
   );

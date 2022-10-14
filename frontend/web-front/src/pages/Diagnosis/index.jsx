@@ -47,7 +47,7 @@ const Diagnosis = () => {
   const [data, setData] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [flag, setFlag] = useState(false);
-  const { aCount, bCount, cCount, dCount, calcuCount } = useStyleCounter()
+  const { calcuCount, xyCaluculation } = useStyleCounter()
   const navigate = useNavigate();
   const goTopPage = () => {
     navigate('/');
@@ -58,23 +58,14 @@ const Diagnosis = () => {
 
   const onResult = async () => {
     if (totalCount === data.length) {
-      // %表記 
-      const X = (((totalCount / 2) + (aCount - bCount)) / totalCount) * 100;
-      const Y = (((totalCount / 2) + (cCount - dCount)) / totalCount) * 100;
-
+      const coordinate = xyCaluculation(totalCount);
       try {
-        // API: POST, { "X": float, "Y": float }
-        const data = { "session_ID": user.session_ID, "token": user.token, "X": X, "Y": Y }
+        const data = { ...user, ...coordinate };
         await axios.post('http://localhost/api/send_param', data)
-          .then((res) => {
-            if (res.status === 200) {
-              setFlag(true)
-            } else if (res.status === 500) {
-              window.location.href = "http://localhost/test_auth"
-            }
-          });
+          .then(() => { setFlag(true) });
       } catch (e) {
-        console.error(e);
+        alert(`エラーが発生しました。再度診断してください。エラーコード: ${e.response.status}`)
+        navigate('/')
       }
     } else {
       alert('未回答の問題があります')
@@ -84,11 +75,10 @@ const Diagnosis = () => {
   useEffect(() => {
     (async () => {
       try {
-        // APIでGET
-        // { "question": string, "select-type": int, "pos": string }
         await axios.post('http://localhost/api/questions', user).then((res) => { setData(res?.data) })
       } catch (e) {
-        console.error(e)
+        alert(`エラーが発生しました。エラーコード:${e.response.status}`)
+        navigate('/');
       }
     })()
   }, [])
@@ -116,22 +106,22 @@ const Diagnosis = () => {
             </QandT>
           </Question>
 
-          {data.map((q, index) => {
+          {data.map((item, index) => {
             return (
-              <Question
-                key={index}
-                index={index + 1}
-                pos={q.pos}
-                question={q.questions}
-                totalCountUp={totalCountUp}
-                calcuCount={calcuCount}
-              />
+              <div key={index}>
+                <Question
+                  index={index + 1}
+                  item={item}
+                  totalCountUp={totalCountUp}
+                  calcuCount={calcuCount}
+                />
+              </div>
             )
           })}
 
           <Underline />
           <Buttonzorn>
-            <Button type="start" onClick={onResult}>
+            <Button type="start" onClick={onResult} disabled={flag}>
               診断する
             </Button>
             <Button type="maru" size="m" onClick={goTopPage}>Social Style診断とは</Button>

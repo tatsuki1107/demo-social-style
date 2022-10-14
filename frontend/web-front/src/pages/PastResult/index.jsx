@@ -6,6 +6,8 @@ import Button from "../../components/Atoms/Button";
 import Result from "../../components/Oganisms/Result";
 // Hooks
 import useResult from "../../Hooks/useResult";
+// transform
+import { toDateTransform } from "../../data/transform";
 
 const ButtonArea = styled.div`
   padding-top: 150px;
@@ -20,13 +22,13 @@ const Block = styled.div`
 `
 
 const PastResult = () => {
-  const [resultDate, setResultDate] = useState("");
   const { result } = useResult("");
+  const [resultDate, setResultDate] = useState("");
 
-  const onClick = (date) => {
-    setResultDate(date);
-  }
-  const setDisabled = (date) => {
+  const setDisabled = (date, index) => {
+    if (resultDate === "" && index === result.Previous.length - 1) {
+      return true
+    }
     if (date === resultDate) {
       return true
     } else {
@@ -39,28 +41,22 @@ const PastResult = () => {
       <Template>
         <Main>
           <ButtonArea>
-            {result.previous?.map((date, index) => {
+            {result.Previous?.map((prev, index) => {
+              let date = toDateTransform(prev)
               return (
                 <Block key={index}>
                   <Button
                     type="pastDate"
-                    onClick={() => onClick(date)}
-                    disabled={setDisabled(date)}
+                    onClick={() =>
+                      setResultDate(date)
+                    }
+                    disabled={setDisabled(date, index)}
                   >
                     {`${date} 診断結果`}
                   </Button>
                 </Block>
               )
             })}
-            <Block>
-              <Button
-                type="pastDate"
-                onClick={() => onClick('')}
-                disabled={setDisabled('')}
-              >
-                {`${result.date} 診断結果`}
-              </Button>
-            </Block>
           </ButtonArea>
           <Result date={resultDate} />
         </Main>
