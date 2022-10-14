@@ -51,7 +51,6 @@ const Diagnosis = () => {
   const scrollBottomRef = useRef(null);
   const questionRefContent = useRef([]);
   const windowHeight = window.innerHeight;
-  console.log(windowHeight);
   const navigate = useNavigate();
   const goTopPage = () => {
     navigate('/');
@@ -64,10 +63,10 @@ const Diagnosis = () => {
   const totalCountUp = useCallback((index) => {
     debugger;
     const contentRect = getRect(questionRefContent.current[index - 1]);
-    if (windowHeight - contentRect.top < 500) {
+    if (windowHeight - contentRect.top < 500 && index < 18) {
       const offset = window.pageYOffset;
       const scrollCountentRect = getRect(questionRefContent.current[index]);
-      const gap = 80;
+      const gap = windowHeight < 700 ? 50 : 80;
       const target = offset + scrollCountentRect.top - gap;
       window.scrollTo({
         top: target,
