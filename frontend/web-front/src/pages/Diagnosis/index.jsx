@@ -71,7 +71,8 @@ const Diagnosis = () => {
       const target = offset + scrollCountentRect.top - gap;
       window.scrollTo({
         top: target,
-        behavior: 'smooth'
+        // 不具合発生中の為、一時コメントアウト
+        // behavior: 'smooth' 
       });
     }
     setTotalCount(num => num + 1)
