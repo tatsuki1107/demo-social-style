@@ -44,10 +44,10 @@ const Question = React.memo(({ type, index, item, children, totalCountUp, calcuC
 
   const onClick = (yesNo) => {
     calcuCount(yesNo, item.pos);
-    if (yesNo === "yes") {
+    if (yesNo === 1) {
       setYes(true);
       setNo(false);
-    } else if (yesNo === "no") {
+    } else if (yesNo === -1) {
       setYes(false);
       setNo(true);
     };
@@ -70,8 +70,8 @@ const Question = React.memo(({ type, index, item, children, totalCountUp, calcuC
             {item.questions}
           </Typography>
           <QandT>
-            <Button disabled={yes} type={`${yes}`} onClick={() => onClick("yes")}>Yes</Button>
-            <Button disabled={no} type={`${no}`} onClick={() => onClick("no")}>No</Button>
+            <Button disabled={yes} type={`${yes}`} onClick={() => onClick(1)}>Yes</Button>
+            <Button disabled={no} type={`${no}`} onClick={() => onClick(-1)}>No</Button>
           </QandT>
         </Root>}
     </>

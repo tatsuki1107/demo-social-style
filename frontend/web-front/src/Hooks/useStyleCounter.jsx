@@ -3,19 +3,11 @@ import { useState, useCallback } from "react"
 const useStyleCounter = () => {
   const [Xcount, setXCount] = useState(0);
   const [Ycount, setYCount] = useState(0);
-  const calcuCount = useCallback((yesNo, pos) => {
-    if (yesNo === "yes") {
-      if (pos === "X") {
-        setXCount(num => num + 1);
-      } else if (pos === "Y") {
-        setYCount(num => num + 1);
-      }
-    } else if (yesNo === "no") {
-      if (pos === "X") {
-        setXCount(num => num - 1);
-      } else if (pos === "Y") {
-        setYCount(num => num - 1);
-      }
+  const calcuCount = useCallback((yesNoNum, pos) => {
+    if (pos === "X") {
+      setXCount(num => num + yesNoNum);
+    } else if (pos === "Y") {
+      setYCount(num => num + yesNoNum);
     }
   }, [Xcount, Ycount]);
 
