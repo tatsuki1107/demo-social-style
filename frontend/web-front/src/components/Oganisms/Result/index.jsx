@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import './index.css'
 // components
+import Loading from "../../Atoms/Loading";
 import Typography from "../../Atoms/Typography";
 import ContentTitle from "../../Atoms/ContentTitle";
 // img
@@ -14,7 +15,7 @@ import maru from '../../../img/maru.svg';
 // hooks
 import useResult from "../../../Hooks/useResult";
 // transform
-import { toDateTransform } from "../../../data/transform";
+import { toDateTransform } from "../../../js/transform";
 
 const border = [maru, sikaku, sankaku, hosi];
 const allStyle = ["Amiable(エミアブル)", "Driver(ドライバー)", "Analytical(アナリティカル)", "Expressibe(エクスプレッシブ)"];
@@ -23,6 +24,7 @@ const allStyle = ["Amiable(エミアブル)", "Driver(ドライバー)", "Analyt
 const ResultArea = styled.div`
   width: 100%;
   text-align: center;
+  margin-bottom: 50px;
 `;
 
 const Underline = styled.div`
@@ -110,70 +112,72 @@ const Result = ({ date }) => {
   const { result } = useResult(date);
 
   return (
-    <ResultArea>
-      <Underline />
-      <DiaResult>
-        <Typography type="h2" margin={0}>
-          {toDateTransform(result.Time)}<br />診断結果
+    <>
+      <ResultArea>
+        <Underline />
+        <DiaResult>
+          <Typography type="h2" margin={0}>
+            {toDateTransform(result.Time)}<br />診断結果
+          </Typography>
+        </DiaResult>
+        <Typography type="text" size="l">
+          あなたは<br /><span>{result.SocialStyle}</span>の傾向が強いようです
         </Typography>
-      </DiaResult>
-      <Typography type="text" size="l">
-        あなたは<br /><span>{result.SocialStyle}</span>の傾向が強いようです
-      </Typography>
-      <Typography type="text" size="l" color="orenge">
-        {`意見主張度 ${Math.round(result.X)}% : 感情表現度 : ${Math.round(result.Y)}%`}
-      </Typography>
+        <Typography type="text" size="l" color="orenge">
+          {`意見主張度 ${Math.round(result.X)}% : 感情表現度 : ${Math.round(result.Y)}%`}
+        </Typography>
 
-      <GraphImage>
-        <ImgArea src={graph_img} alt="graph_img" />
-        <Pointer src={pointer} style={{ top: `${result.X}%`, left: `${result.Y}%` }} alt="pointer" />
-      </GraphImage>
+        <GraphImage>
+          <ImgArea src={graph_img} alt="graph_img" />
+          <Pointer src={pointer} style={{ top: `${result.X}%`, left: `${result.Y}%` }} alt="pointer" />
+        </GraphImage>
 
-      <Feature>
-        <ContentTitle>診断結果が似ている方の特徴</ContentTitle>
-        <Feature_content>
-          {result.Feature?.map((output, index) => {
+        <Feature>
+          <ContentTitle>診断結果が似ている方の特徴</ContentTitle>
+          <Feature_content>
+            {result.Feature?.map((output, index) => {
+              return (
+                <Typography type="text" size="m" margin={0} key={index}>
+                  {`・${output}`}
+                </Typography>
+              )
+            })}
+          </Feature_content>
+        </Feature>
+        <Feature>
+          <ContentTitle>診断結果が似ている方に多い就いている仕事</ContentTitle>
+          <Feature_content>
+            {result.Profession?.map((output, index) => {
+              return (
+                <Typography type="text" size="m" key={index} margin={0}>
+                  {`・${output}`}
+                </Typography>
+              )
+            })}
+          </Feature_content>
+        </Feature>
+        <Feature>
+          <ContentTitle>タイプ別の上手な関わり方</ContentTitle>
+          {result.Relational_Description?.map((description, index) => {
             return (
-              <Typography type="text" size="m" margin={0} key={index}>
-                {`・${output}`}
-              </Typography>
+              <Feature key={index}>
+                <Type>
+                  <Disc_logo src={border[index]} />
+                  <Typography type="h3" size="s" color="orenge" margin={0}>
+                    {`${allStyle[index]}タイプ`}
+                  </Typography>
+                </Type>
+                <Discription>
+                  <Typography type="text" size="m" >
+                    {description}
+                  </Typography>
+                </Discription>
+              </Feature>
             )
           })}
-        </Feature_content>
-      </Feature>
-      <Feature>
-        <ContentTitle>診断結果が似ている方に多い就いている仕事</ContentTitle>
-        <Feature_content>
-          {result.Profession?.map((output, index) => {
-            return (
-              <Typography type="text" size="m" key={index} margin={0}>
-                {`・${output}`}
-              </Typography>
-            )
-          })}
-        </Feature_content>
-      </Feature>
-      <Feature>
-        <ContentTitle>タイプ別の上手な関わり方</ContentTitle>
-        {result.Relational_Description?.map((description, index) => {
-          return (
-            <Feature key={index}>
-              <Type>
-                <Disc_logo src={border[index]} />
-                <Typography type="h3" size="s" color="orenge" margin={0}>
-                  {`${allStyle[index]}タイプ`}
-                </Typography>
-              </Type>
-              <Discription>
-                <Typography type="text" size="m" >
-                  {description}
-                </Typography>
-              </Discription>
-            </Feature>
-          )
-        })}
-      </Feature>
-    </ResultArea>
+        </Feature>
+      </ResultArea>
+    </>
   );
 };
 

@@ -8,15 +8,14 @@ import Button from "../../Atoms/Button";
 const Root = styled.div`
   width: 100%;
   background-clip: content-box;
-  padding-top: 150px;
   text-align: center;
   ${({ type }) => {
     switch (type) {
       case 'top':
         return css`
           background-color: #FFFFFF;
-          padding-top: 150px;
           height: 400px;
+          padding-top: 150px;
           @media all and (max-width: 450px) {
             height: 300px;
           }
@@ -37,26 +36,24 @@ const QandT = styled.div`
 `;
 
 const Question = React.memo(({ type, index, item, children, totalCountUp, calcuCount }) => {
-  const [yes, setYes] = useState(false);
-  const [no, setNo] = useState(false);
-  // 「yes」か「no」どちらか１回押したらtrueにする
-  const [flag, setFlag] = useState(false);
+  // 「yes」か「no」どちらか１回押したら数字(-1,1)にする
+  const [state, setState] = useState(0);
 
   const onClick = (yesNo) => {
     calcuCount(yesNo, item.pos);
-    if (yesNo === "yes") {
-      setYes(true);
-      setNo(false);
-    } else if (yesNo === "no") {
-      setYes(false);
-      setNo(true);
-    };
-    if (flag === false) {
-      setFlag(true);
+    if (state === 0) {
       totalCountUp()
     }
+    setState(yesNo);
   }
 
+  const setDisabled = (num) => {
+    if (state === num) {
+      return true
+    } else {
+      return false
+    }
+  }
   return (
     <>
       {type === "top" ?
@@ -70,8 +67,8 @@ const Question = React.memo(({ type, index, item, children, totalCountUp, calcuC
             {item.questions}
           </Typography>
           <QandT>
-            <Button disabled={yes} type={`${yes}`} onClick={() => onClick("yes")}>Yes</Button>
-            <Button disabled={no} type={`${no}`} onClick={() => onClick("no")}>No</Button>
+            <Button disabled={setDisabled(1)} type="yesNo" onClick={() => onClick(1)}>Yes</Button>
+            <Button disabled={setDisabled(-1)} type="yesNo" onClick={() => onClick(-1)}>No</Button>
           </QandT>
         </Root>}
     </>
