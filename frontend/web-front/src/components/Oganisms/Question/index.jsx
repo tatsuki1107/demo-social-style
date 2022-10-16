@@ -37,26 +37,24 @@ const QandT = styled.div`
 `;
 
 const Question = React.memo(({ type, index, item, children, totalCountUp, calcuCount }) => {
-  const [yes, setYes] = useState(false);
-  const [no, setNo] = useState(false);
-  // 「yes」か「no」どちらか１回押したらtrueにする
-  const [flag, setFlag] = useState(false);
+  // 「yes」か「no」どちらか１回押したら数字(-1,1)にする
+  const [state, setState] = useState(0);
 
   const onClick = (yesNo) => {
     calcuCount(yesNo, item.pos);
-    if (yesNo === 1) {
-      setYes(true);
-      setNo(false);
-    } else if (yesNo === -1) {
-      setYes(false);
-      setNo(true);
-    };
-    if (flag === false) {
-      setFlag(true);
+    if (state === 0) {
       totalCountUp()
     }
+    setState(yesNo);
   }
 
+  const setDisabled = (num) => {
+    if (state === num) {
+      return true
+    } else {
+      return false
+    }
+  }
   return (
     <>
       {type === "top" ?
@@ -70,8 +68,8 @@ const Question = React.memo(({ type, index, item, children, totalCountUp, calcuC
             {item.questions}
           </Typography>
           <QandT>
-            <Button disabled={yes} type={`${yes}`} onClick={() => onClick(1)}>Yes</Button>
-            <Button disabled={no} type={`${no}`} onClick={() => onClick(-1)}>No</Button>
+            <Button disabled={setDisabled(1)} type="yesNo" onClick={() => onClick(1)}>Yes</Button>
+            <Button disabled={setDisabled(-1)} type="yesNo" onClick={() => onClick(-1)}>No</Button>
           </QandT>
         </Root>}
     </>
