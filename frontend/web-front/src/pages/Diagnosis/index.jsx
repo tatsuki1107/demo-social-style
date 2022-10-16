@@ -18,6 +18,7 @@ import { useAuth } from '../../Routings/AuthService';
 // img import
 import check_icon from "../../img/check.jpg";
 import timer_icon from "../../img/timer.jpg";
+import Loading from '../../components/Atoms/Loading';
 
 const Icon_flex = styled.div`
   width: 100px;
@@ -43,10 +44,11 @@ const Buttonzorn = styled.div`
 `;
 
 const Diagnosis = () => {
-  const { user } = useAuth();
+  const { user, handleError } = useAuth();
   const [data, setData] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [flag, setFlag] = useState(false);
+  const [loading, setLoading] = useState(true)
   const { calcuCount, xyCaluculation } = useStyleCounter()
   const navigate = useNavigate();
   const goTopPage = () => {
@@ -64,8 +66,7 @@ const Diagnosis = () => {
         await axios.post('http://localhost/api/send_param', data)
           .then(() => { setFlag(true) });
       } catch (e) {
-        alert(`エラーが発生しました。再度診断してください。エラーコード: ${e.response.status}`)
-        navigate('/')
+        handleError(e.response.status);
       }
     } else {
       alert('未回答の問題があります')
@@ -76,9 +77,9 @@ const Diagnosis = () => {
     (async () => {
       try {
         await axios.post('http://localhost/api/questions', user).then((res) => { setData(res?.data) })
+        setLoading(false);
       } catch (e) {
-        alert(`エラーが発生しました。エラーコード:${e.response.status}`)
-        navigate('/');
+        handleError(e.response.status);
       }
     })()
   }, [])
@@ -87,46 +88,48 @@ const Diagnosis = () => {
     <>
       <Template>
         <Main>
-          <Question type="top">
-            <Typography type="Q_h1" color="black">
-              診断スタート
-            </Typography>
-            <Typography type="text" size="m" >
-              自分が周りにどう思われているのか<br />直感的に選択してください
-            </Typography>
-            <QandT>
-              <Icon_flex>
-                <img src={check_icon} className="question_icon" alt="question_icon" />
-                <Typography type="text" size="m" color="orenge">{data.length}問</Typography>
-              </Icon_flex>
-              <Icon_flex>
-                <img src={timer_icon} className="question_icon" alt="timer_icon" />
-                <Typography type="text" size="m" color="orenge">3:00</Typography>
-              </Icon_flex>
-            </QandT>
-          </Question>
+          {loading ? <Loading /> :
+            <>
+              <Question type="top">
+                <Typography type="Q_h1" color="black">
+                  診断スタート
+                </Typography>
+                <Typography type="text" size="m" >
+                  自分が周りにどう思われているのか<br />直感的に選択してください
+                </Typography>
+                <QandT>
+                  <Icon_flex>
+                    <img src={check_icon} className="question_icon" alt="question_icon" />
+                    <Typography type="text" size="m" color="orenge">{data.length}問</Typography>
+                  </Icon_flex>
+                  <Icon_flex>
+                    <img src={timer_icon} className="question_icon" alt="timer_icon" />
+                    <Typography type="text" size="m" color="orenge">3:00</Typography>
+                  </Icon_flex>
+                </QandT>
+              </Question>
 
-          {data.map((item, index) => {
-            return (
-              <div key={index}>
-                <Question
-                  index={index + 1}
-                  item={item}
-                  totalCountUp={totalCountUp}
-                  calcuCount={calcuCount}
-                />
-              </div>
-            )
-          })}
-
-          <Underline />
-          <Buttonzorn>
-            <Button type="start" onClick={onResult} disabled={flag}>
-              診断する
-            </Button>
-            <Button type="maru" size="m" onClick={goTopPage}>Social Style診断とは</Button>
-          </Buttonzorn>
-          {flag && <Result date="" />}
+              {data.map((item, index) => {
+                return (
+                  <div key={index}>
+                    <Question
+                      index={index + 1}
+                      item={item}
+                      totalCountUp={totalCountUp}
+                      calcuCount={calcuCount}
+                    />
+                  </div>
+                )
+              })}
+              <Underline />
+              <Buttonzorn>
+                <Button type="start" onClick={onResult} disabled={flag}>
+                  診断する
+                </Button>
+                <Button type="maru" size="m" onClick={goTopPage}>Social Style診断とは</Button>
+              </Buttonzorn>
+              {flag && <Result date="" />}
+            </>}
         </Main>
       </Template>
     </>

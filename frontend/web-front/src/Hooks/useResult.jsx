@@ -1,19 +1,22 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../Routings/AuthService";
-// 仮データ
 // transform
-import { toUnixTransform } from "../data/transform";
+import { toUnixTransform } from "../js/transform";
+
+const defaultState = {
+  Time: '', X: null, Y: null,
+  Feature: [],
+  Profession: [],
+  Relational_Description: [],
+  SocialStyle: ''
+};
 
 const useResult = (date) => {
-  const [result, setResult] = useState({});
-  const { user } = useAuth();
-  const navigate = useNavigate();
+  const [result, setResult] = useState(defaultState);
+  const { user, handleError } = useAuth();
 
   useEffect(() => {
-    // APIでGET /get_result/{date}
-    // { "date": "string", "X": float, "Y": float, "feature": [string], "Profession": [string], "Relational_description":[[string]]}
     (async () => {
       try {
         const data = { ...user }
@@ -22,8 +25,7 @@ const useResult = (date) => {
         }
         await axios.post('http://localhost/api/get_result', data).then((res) => setResult((res?.data)))
       } catch (e) {
-        alert(`エラーが発生しました。エラーコード: ${e.response.status}`)
-        navigate('/')
+        handleError(e.response.status)
       }
     })()
   }, [date]);

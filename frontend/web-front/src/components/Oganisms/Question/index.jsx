@@ -8,15 +8,14 @@ import Button from "../../Atoms/Button";
 const Root = styled.div`
   width: 100%;
   background-clip: content-box;
-  padding-top: 150px;
   text-align: center;
   ${({ type }) => {
     switch (type) {
       case 'top':
         return css`
           background-color: #FFFFFF;
-          padding-top: 150px;
           height: 400px;
+          padding-top: 150px;
           @media all and (max-width: 450px) {
             height: 300px;
           }
