@@ -54,6 +54,7 @@ const Question = React.memo(({ type, index, item, children, totalCountUp, calcuC
       return false
     }
   }
+
   return (
     <>
       {type === "top" ?

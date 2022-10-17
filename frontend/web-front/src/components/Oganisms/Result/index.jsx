@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import './index.css'
 // components
-import Loading from "../../Atoms/Loading";
 import Typography from "../../Atoms/Typography";
 import ContentTitle from "../../Atoms/ContentTitle";
 // img
@@ -19,7 +18,6 @@ import { toDateTransform } from "../../../js/transform";
 
 const border = [maru, sikaku, sankaku, hosi];
 const allStyle = ["Amiable(エミアブル)", "Driver(ドライバー)", "Analytical(アナリティカル)", "Expressibe(エクスプレッシブ)"];
-
 
 const ResultArea = styled.div`
   width: 100%;
@@ -178,6 +176,7 @@ const Result = ({ date }) => {
         </Feature>
       </ResultArea>
     </>
+
   );
 };
 

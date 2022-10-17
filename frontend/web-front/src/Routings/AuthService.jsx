@@ -15,6 +15,7 @@ const AuthProvider = ({ children }) => {
     if (status === 500) {
       alert('セッションが切れました。ログインし直してください');
       sessionStorage.removeItem('user');
+      setUser(defaultValue);
     } else {
       alert(`エラーが発生しました。再度診断してください。エラーコード: ${status}`);
     };

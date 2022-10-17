@@ -4,21 +4,18 @@ import { useNavigate } from "react-router-dom";
 import Template, { Main } from "../../components/Templates";
 import styled from "styled-components";
 import axios from "axios";
-
 // components
+import Loading from '../../components/Atoms/Loading';
 import Question from "../../components/Oganisms/Question";
 import Result from "../../components/Oganisms/Result";
 import Typography from "../../components/Atoms/Typography";
 import Button from "../../components/Atoms/Button";
-
 // Hooks
 import useStyleCounter from "../../Hooks/useStyleCounter";
 import { useAuth } from '../../Routings/AuthService';
-
 // img import
 import check_icon from "../../img/check.jpg";
 import timer_icon from "../../img/timer.jpg";
-import Loading from '../../components/Atoms/Loading';
 
 const Icon_flex = styled.div`
   width: 100px;
@@ -50,6 +47,7 @@ const Diagnosis = () => {
   const [flag, setFlag] = useState(false);
   const [loading, setLoading] = useState(true)
   const { calcuCount, xyCaluculation } = useStyleCounter()
+
   const navigate = useNavigate();
   const goTopPage = () => {
     navigate('/');

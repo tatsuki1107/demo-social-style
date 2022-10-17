@@ -8,14 +8,15 @@ import TopPage from "../pages/TopPage";
 import Diagnosis from "../pages/Diagnosis";
 import PastResult from "../pages/PastResult";
 
-
 const Routing = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
         <Routes>
+          <Route path="/" element={<TopPage />} />
+
           <Route
-            path="/diagnosis"
+            path="diagnosis"
             element={
               <LoggedInRoute>
                 <Diagnosis />
@@ -23,14 +24,12 @@ const Routing = () => {
             } />
 
           <Route
-            path="/past_result"
+            path="past_result"
             element={
               <LoggedInRoute>
                 <PastResult />
               </LoggedInRoute>
             } />
-
-          <Route path="/" element={<TopPage />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
