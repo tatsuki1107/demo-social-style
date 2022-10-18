@@ -1,7 +1,9 @@
-from django.urls import path, include
-from .views import ListSocialStyle, DetailSocialStyle
+from django.urls import path
+from . import views
 
 urlpatterns = [
-    path('<int:pk>/', DetailSocialStyle.as_view()),
-    path('', ListSocialStyle.as_view())
+    path('token', views.token),
+    path('questions',views.questions),
+    path('send_param',views.submit_to_history),
+    path('get_result',views.getresult)
 ]

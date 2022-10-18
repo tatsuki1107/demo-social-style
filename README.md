@@ -9,10 +9,10 @@
 ### run server
 social-stylesディレクトリにて実行
 
-・M1チップのmacを使ってたらおそらくMySQLコンテナが走らないので、MySQLコンテナをbuild(M1以外のPCなら飛ばしてOK)
-```
-docker build --platform linux/amd64 ./mysql
-```
+~~・M1チップのmacを使ってたらおそらくMySQLコンテナが走らないので、MySQLコンテナをbuild(M1以外のPCなら飛ばしてOK)~~
+
+~~docker build --platform linux/amd64 ./mysql~~  
+(2022/9/4追記:M1であっても上記作業は不要になりました。)  
 ・コンテナを立てる
 
 ```
