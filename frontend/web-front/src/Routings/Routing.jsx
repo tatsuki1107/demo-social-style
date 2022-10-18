@@ -6,9 +6,7 @@ import LoggedInRoute from "./LoggedInRoute";
 // pages 
 import TopPage from "../pages/TopPage";
 import Diagnosis from "../pages/Diagnosis";
-import TemporaryLogin from "../pages/TemporaryLogin";
 import PastResult from "../pages/PastResult";
-
 
 const Routing = () => {
   return (
@@ -32,11 +30,6 @@ const Routing = () => {
                 <PastResult />
               </LoggedInRoute>
             } />
-
-          <Route
-            path="temporaryLogin"
-            element={<TemporaryLogin />}
-          />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

@@ -1,6 +1,5 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { questions } from "../../../data";
 
 const textSizeMap = {
   s: css`

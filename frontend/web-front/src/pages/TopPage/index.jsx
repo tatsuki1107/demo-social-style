@@ -16,7 +16,7 @@ const TopPage = () => {
   const navigate = useNavigate();
   const goNextPage = () => {
     if (user.token === "") {
-      navigate('/temporaryLogin')
+      window.location.href = 'http://localhost/test_auth';
     } else {
       navigate('/diagnosis')
     }
