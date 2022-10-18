@@ -1,5 +1,5 @@
 import './index.css';
-import React, { useState, useEffect, useCallback, useRef, useLayoutEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef, useLayoutEffect, createRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Template, { Main } from "../../components/Templates";
 import styled from "styled-components";
@@ -46,13 +46,34 @@ const Diagnosis = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [flag, setFlag] = useState(false);
   const [loading, setLoading] = useState(true)
-  const { calcuCount, xyCaluculation } = useStyleCounter()
-
+  const { xyCaluculation } = useStyleCounter()
+  const { aCount, bCount, cCount, dCount, calcuCount } = useStyleCounter();
+  const scrollBottomRef = useRef(null);
+  const questionRefContent = useRef([]);
+  const windowHeight = window.innerHeight;
   const navigate = useNavigate();
   const goTopPage = () => {
     navigate('/');
   };
-  const totalCountUp = useCallback(() => {
+
+  function getRect(elm) {
+    return elm.current.getBoundingClientRect();
+  }
+
+  const totalCountUp = useCallback((index) => {
+    debugger;
+    const contentRect = getRect(questionRefContent.current[index - 1]);
+    if (windowHeight - contentRect.top < 500 && index < 18) {
+      const offset = window.pageYOffset;
+      const scrollCountentRect = getRect(questionRefContent.current[index]);
+      const gap = windowHeight < 700 ? 50 : 80;
+      const target = offset + scrollCountentRect.top - gap;
+      window.scrollTo({
+        top: target,
+        // 不具合発生中の為、一時コメントアウト
+        // behavior: 'smooth' 
+      });
+    }
     setTotalCount(num => num + 1)
   }, [totalCount]);
 
@@ -82,14 +103,15 @@ const Diagnosis = () => {
     })()
   }, []);
 
+  useLayoutEffect(() => {
+    if(scrollBottomRef && scrollBottomRef.current) {
+      scrollBottomRef.current.scrollIntoView();
+    }
+  }, [flag]);
 
-  // const scrollRef = useRef<HTMLDivElement>(null);
-  // useLayoutEffect(() => {
-  //     if(scrollRef && scrollRef.current) {
-  //       scrollRef.current.scrollIntoView();
-  //     }
-  // }, []);
-  
+  data.forEach((_, index)=>{
+    questionRefContent.current[index] = createRef(null);
+  });
 
   return (
     <>
@@ -116,27 +138,29 @@ const Diagnosis = () => {
                 </QandT>
               </Question>
 
-              {data.map((item, index) => {
-                return (
-                  <div key={index}>
-                    <Question
-                      index={index + 1}
-                      item={item}
-                      totalCountUp={totalCountUp}
-                      calcuCount={calcuCount}
-                    />
-                  </div>
-                )
-              })}
-              <Underline />
-              <Buttonzorn>
-                <Button type="start" onClick={onResult} disabled={flag}>
-                  診断する
-                </Button>
-                <Button type="maru" size="m" onClick={goTopPage}>Social Style診断とは</Button>
-              </Buttonzorn>
-              {flag && <Result date="" />}
-            </>}
+          {data.map((q, index) => {
+            return (
+              <div ref={questionRefContent.current[index]}>
+                <Question
+                  key={index}
+                  index={index + 1}
+                  pos={q.pos}
+                  question={q.question}
+                  totalCountUp={totalCountUp}
+                  calcuCount={calcuCount}
+                />
+              </div>
+            )
+          })}
+
+          <Underline />
+          <Buttonzorn>
+            <Button type="start" onClick={onResult}>
+              診断する
+            </Button>
+            <Button type="maru" size="m" onClick={goTopPage}>Social Style診断とは</Button>
+          </Buttonzorn>
+          {flag && <div ref={scrollBottomRef}><Result date="" /></div>}</>}
         </Main>
       </Template>
     </>

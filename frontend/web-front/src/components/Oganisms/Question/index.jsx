@@ -44,6 +44,7 @@ const Question = React.memo(({ type, index, item, children, totalCountUp, calcuC
     if (state === 0) {
       totalCountUp()
     }
+<<<<<<< HEAD
     setState(yesNo);
   }
 
@@ -54,6 +55,13 @@ const Question = React.memo(({ type, index, item, children, totalCountUp, calcuC
       return false
     }
   }
+=======
+    if (flag === false) {
+      setFlag(true);
+      totalCountUp(index);
+    };
+  };
+>>>>>>> 2b03a2e158634624942c2c39fab510c96b6cf754
 
   return (
     <>
