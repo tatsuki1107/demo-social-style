@@ -127,7 +127,7 @@ const Result = ({ date }) => {
 
         <GraphImage>
           <ImgArea src={graph_img} alt="graph_img" />
-          <Pointer src={pointer} style={{ top: `${result.X}%`, left: `${result.Y}%` }} alt="pointer" />
+          <Pointer src={pointer} style={{ top: `${result.Y}%`, left: `${result.X}%` }} alt="pointer" />
         </GraphImage>
 
         <Feature>
