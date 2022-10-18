@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
+// デフォルトは何も指定しない
 const textSizeMap = {
   s: css`
     font-size: 1.25em`,

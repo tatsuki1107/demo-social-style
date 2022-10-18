@@ -28,6 +28,7 @@ const QandT = styled.div`
   justify-content: center;
 `;
 const Underline = styled.div`
+  margin-top: 120px;
   width: 100%;
   border: 4px dashed #DF7919;
 `;
@@ -59,6 +60,7 @@ const Diagnosis = () => {
   const onResult = async () => {
     if (totalCount === data.length) {
       const coordinate = xyCaluculation(totalCount);
+      console.log(coordinate)
       try {
         const data = { ...user, ...coordinate };
         await axios.post('http://localhost/api/send_param', data)

@@ -4,6 +4,9 @@ import styled, { css } from "styled-components";
 // components
 import Typography from "../../Atoms/Typography";
 import Button from "../../Atoms/Button";
+import AnswerBorder from "../../Atoms/AnswerBorder";
+
+const pointMap = [-2, -1, 1, 2];
 
 const Root = styled.div`
   width: 100%;
@@ -22,7 +25,7 @@ const Root = styled.div`
         `
       default:
         return css`
-          padding-top: 30px;
+          padding-top: 80px;
           height: 300px;
         `
     }
@@ -35,8 +38,10 @@ const QandT = styled.div`
   justify-content: space-between;
 `;
 
+
+
 const Question = React.memo(({ type, index, item, children, totalCountUp, calcuCount }) => {
-  // 「yes」か「no」どちらか１回押したら数字(-1,1)にする
+  // 4択ボタン１回押したらその時の数字(-2, -1, 1, 2)にする
   const [state, setState] = useState(0);
 
   const onClick = (yesNo) => {
@@ -68,9 +73,16 @@ const Question = React.memo(({ type, index, item, children, totalCountUp, calcuC
             {item.questions}
           </Typography>
           <QandT>
-            <Button disabled={setDisabled(1)} type="yesNo" onClick={() => onClick(1)}>Yes</Button>
-            <Button disabled={setDisabled(-1)} type="yesNo" onClick={() => onClick(-1)}>No</Button>
+            {pointMap.map((point) => {
+              return <Button
+                key={point}
+                disabled={setDisabled(point)}
+                type="yesNo"
+                onClick={() => onClick(point)}
+              />
+            })}
           </QandT>
+          <AnswerBorder />
         </Root>}
     </>
   );

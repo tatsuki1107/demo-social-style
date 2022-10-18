@@ -13,8 +13,8 @@ const useStyleCounter = () => {
 
   const xyCaluculation = (totalCount) => {
     // %表記 
-    const X = (((totalCount / 2) + Xcount) / totalCount) * 100;
-    const Y = (((totalCount / 2) + Ycount) / totalCount) * 100;
+    const X = ((totalCount + Xcount) / (2 * totalCount)) * 100;
+    const Y = ((totalCount + Ycount) / (2 * totalCount)) * 100;
 
     return { "X": X, "Y": Y };
   }
