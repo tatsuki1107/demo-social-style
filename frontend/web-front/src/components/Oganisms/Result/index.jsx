@@ -107,15 +107,6 @@ const Disc_logo = styled.img`
 
 // Dateを指定して結果を表示。診断後の結果表示はデータベースに格納されている一番最新をもらう
 const Result = ({ date }) => {
-<<<<<<< HEAD
-  const { result, style } = useResult(date);
-  return (
-    <ResultArea >
-      <Underline />
-      <DiaResult >
-        <Typography type="h2" margin={0}>
-          {result.date}<br />診断結果
-=======
   const { result } = useResult(date);
 
   return (
@@ -132,7 +123,6 @@ const Result = ({ date }) => {
         </Typography>
         <Typography type="text" size="l" color="orenge">
           {`意見主張度 ${Math.round(result.X)}% : 感情表現度 : ${Math.round(result.Y)}%`}
->>>>>>> 045e4a2dbc4a1ba1c79a44cee4814596e3dd7499
         </Typography>
 
         <GraphImage>
