@@ -7,7 +7,6 @@ const Backtotop = styled.div`
   left: 1400px;
   width: 200px;
   height: 200px;
-  onClick: ${({ onClick }) => onClick}
 `;
 
 const Maru = styled.div`

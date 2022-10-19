@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import Template, { Main } from "../../components/Templates";
 import styled from "styled-components";
 // components
+import Loading from "../../components/Atoms/Loading";
 import Button from "../../components/Atoms/Button";
 import Result from "../../components/Oganisms/Result";
 // Hooks
 import useResult from "../../Hooks/useResult";
+// transform
+import { toDateTransform } from "../../js/transform";
 
 const ButtonArea = styled.div`
-  padding-top: 150px;
-  padding-bottom: 100px;
+  padding: 150px 0 50px 0;
   width: 100%;
-  height: 500px;
+  min-height: 100px;
   display:flex;
   flex-flow: column;
 `;
@@ -20,13 +22,13 @@ const Block = styled.div`
 `
 
 const PastResult = () => {
-  const [resultDate, setResultDate] = useState("");
   const { result } = useResult("");
+  const [resultDate, setResultDate] = useState("");
 
-  const onClick = (date) => {
-    setResultDate(date);
-  }
-  const setDisabled = (date) => {
+  const setDisabled = (date, index) => {
+    if (resultDate === "" && index === result.Previous.length - 1) {
+      return true
+    }
     if (date === resultDate) {
       return true
     } else {
@@ -38,31 +40,28 @@ const PastResult = () => {
     <>
       <Template>
         <Main>
-          <ButtonArea>
-            {result.previous?.map((date, index) => {
-              return (
-                <Block key={index}>
-                  <Button
-                    type="pastDate"
-                    onClick={() => onClick(date)}
-                    disabled={setDisabled(date)}
-                  >
-                    {`${date} 診断結果`}
-                  </Button>
-                </Block>
-              )
-            })}
-            <Block>
-              <Button
-                type="pastDate"
-                onClick={() => onClick('')}
-                disabled={setDisabled('')}
-              >
-                {`${result.date} 診断結果`}
-              </Button>
-            </Block>
-          </ButtonArea>
-          <Result date={resultDate} />
+          {!result.Previous ? <Loading /> :
+            <>
+              <ButtonArea>
+                {result.Previous.map((prev, index) => {
+                  let date = toDateTransform(prev)
+                  return (
+                    <Block key={index}>
+                      <Button
+                        type="pastDate"
+                        onClick={() =>
+                          setResultDate(date)
+                        }
+                        disabled={setDisabled(date, index)}
+                      >
+                        {`${date} 診断結果`}
+                      </Button>
+                    </Block>
+                  )
+                })}
+              </ButtonArea>
+              <Result date={resultDate} />
+            </>}
         </Main>
       </Template>
     </>

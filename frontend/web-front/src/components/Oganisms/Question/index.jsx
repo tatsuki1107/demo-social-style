@@ -8,15 +8,14 @@ import Button from "../../Atoms/Button";
 const Root = styled.div`
   width: 100%;
   background-clip: content-box;
-  padding-top: 150px;
   text-align: center;
   ${({ type }) => {
     switch (type) {
       case 'top':
         return css`
           background-color: #FFFFFF;
-          padding-top: 150px;
           height: 400px;
+          padding-top: 150px;
           @media all and (max-width: 450px) {
             height: 300px;
           }
@@ -36,33 +35,25 @@ const QandT = styled.div`
   justify-content: space-between;
 `;
 
-const Question = React.memo(({ type, pos, index, question, children, totalCountUp, calcuCount }) => {
-  const [yes, setYes] = useState(false);
-  const [no, setNo] = useState(false);
-  // 「yes」か「no」どちらか１回押したらtrueにする
-  const [flag, setFlag] = useState(false);
+const Question = React.memo(({ type, index, item, children, totalCountUp, calcuCount }) => {
+  // 「yes」か「no」どちらか１回押したら数字(-1,1)にする
+  const [state, setState] = useState(0);
 
   const onClick = (yesNo) => {
-    if (yesNo === "yes") {
-      if (no === true) {
-        setNo(false);
-        calcuCount(pos, "no", "down");
-      }
-      setYes(true);
-      calcuCount(pos, "yes", "up");
-    } else {
-      if (yes === true) {
-        setYes(false);
-        calcuCount(pos, "yes", "down");
-      }
-      setNo(true);
-      calcuCount(pos, "no", "up");
+    calcuCount(yesNo, item.pos);
+    if (state === 0) {
+      totalCountUp(index)
     }
-    if (flag === false) {
-      setFlag(true);
-      totalCountUp(index);
-    };
-  };
+    setState(yesNo);
+  }
+
+  const setDisabled = (num) => {
+    if (state === num) {
+      return true
+    } else {
+      return false
+    }
+  }
 
   return (
     <>
@@ -74,11 +65,11 @@ const Question = React.memo(({ type, pos, index, question, children, totalCountU
             問{index}
           </Typography>
           <Typography type="text" size="m" color="black">
-            {question}
+            {item.questions}
           </Typography>
           <QandT>
-            <Button disabled={yes} type={`${yes}`} onClick={() => onClick("yes")}>Yes</Button>
-            <Button disabled={no} type={`${no}`} onClick={() => onClick("no")}>No</Button>
+            <Button disabled={setDisabled(1)} type="yesNo" onClick={() => onClick(1)}>Yes</Button>
+            <Button disabled={setDisabled(-1)} type="yesNo" onClick={() => onClick(-1)}>No</Button>
           </QandT>
         </Root>}
     </>

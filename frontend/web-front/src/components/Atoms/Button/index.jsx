@@ -32,24 +32,7 @@ ${({ type }) => {
 						width: 270px;
 				}	
       `
-      case "true":
-        return css`
-          background-color: #DF7919;
-          color: #FFFFFF;
-          width: 250px;
-          height: 60px;
-          filter: none;
-          -webkit-transform: translate(0,2px);
-          -moz-transform: translate(0,2px);
-          transform: translate(0,2px);
-          :hover{
-          	background-color: #DF7919;					
-        	}
-					@media all and (max-width: 600px) {
-						width: 150px;
-					}	
-        `
-      case "false":
+      case "yesNo":
         return css`
         background-color: #FFFFFF;
         color: #000000;
@@ -57,6 +40,14 @@ ${({ type }) => {
         height: 60px;
         :hover{
           color: #FFFFFF;
+        }
+        :disabled{
+          background-color: #DF7919;
+          color: #FFFFFF;
+          filter: none;
+          -webkit-transform: translate(0,2px);
+          -moz-transform: translate(0,2px);
+          transform: translate(0,2px);
         }
 				@media all and (max-width: 600px) {
 						width: 150px;
@@ -87,7 +78,6 @@ ${({ type }) => {
             background-color: #FFFFFF;
             color: #000000;
           }
-
           @media all and (max-width: 500px) {
             font-size: 0.9em;
           }
