@@ -215,7 +215,7 @@ def getresult(request):
                 socialStyle = SocialStyle.objects.get(
                     SocialStyle_ID__exact=result.SocialStyle_ID)
             except:
-                return HttpResponse(status=500)
+                return HttpResponse(json.dumps({}))
             response_body = {}
             response_body["Time"] = result.Date
             response_body["X"] = result.X
@@ -254,7 +254,7 @@ def getresult(request):
                     Date=latest
                 )
             except:
-                return HttpResponse(status=501)
+                return HttpResponse(json.dumps({}))
             response_body = {}
             response_body["Time"] = result.Date
             response_body["X"] = result.X
