@@ -7,6 +7,8 @@ const App = styled.div`
   background-color: #F6F2E8;
   width: 100%;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Main = styled.div`
