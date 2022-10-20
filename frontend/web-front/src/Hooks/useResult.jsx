@@ -9,11 +9,13 @@ const defaultState = {
   Feature: [],
   Profession: [],
   Relational_Description: [],
-  SocialStyle: ''
+  SocialStyle: '',
+  Previous: [],
 };
 
 const useResult = (date) => {
   const [result, setResult] = useState(defaultState);
+  const [loading, setLoading] = useState(true)
   const { user, handleError } = useAuth();
 
   useEffect(() => {
@@ -23,14 +25,17 @@ const useResult = (date) => {
         if (date !== "") {
           data["time"] = toUnixTransform(date);
         }
-        await axios.post('http://localhost/api/get_result', data).then((res) => setResult((res?.data)))
+        await axios.post('http://localhost/api/get_result', data).then((res) => {
+          setResult((res?.data))
+          setLoading(false);
+        })
       } catch (e) {
         handleError(e.response.status)
       }
     })()
   }, [date]);
 
-  return { result };
+  return { result, loading };
 };
 
 export default useResult;

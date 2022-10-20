@@ -32,7 +32,8 @@ services:
     container_name: react
     build: ./frontend/web-front/.
     volumes:
-      - ./frontend/web-front:/home/app/frontend/
+      - ./frontend/web-front/public:/home/app/frontend/public
+      - ./frontend/web-front/src:/home/app/frontend/src
     ports:
       - 3000:3000
     networks:
