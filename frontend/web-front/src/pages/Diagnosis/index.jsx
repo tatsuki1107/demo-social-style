@@ -45,12 +45,12 @@ const Diagnosis = () => {
   const [data, setData] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [flag, setFlag] = useState(false);
-  const [loading, setLoading] = useState(true)
-  const { xyCaluculation } = useStyleCounter()
-  const { aCount, bCount, cCount, dCount, calcuCount } = useStyleCounter();
   const scrollBottomRef = useRef(null);
   const questionRefContent = useRef([]);
   const windowHeight = window.innerHeight;
+  const [loading, setLoading] = useState(true)
+  const { calcuCount, xyCaluculation } = useStyleCounter()
+
   const navigate = useNavigate();
   const goTopPage = () => {
     navigate('/');
@@ -138,29 +138,27 @@ const Diagnosis = () => {
                 </QandT>
               </Question>
 
-          {data.map((q, index) => {
-            return (
-              <div ref={questionRefContent.current[index]}>
-                <Question
-                  key={index}
-                  index={index + 1}
-                  pos={q.pos}
-                  question={q.question}
-                  totalCountUp={totalCountUp}
-                  calcuCount={calcuCount}
-                />
-              </div>
-            )
-          })}
-
-          <Underline />
-          <Buttonzorn>
-            <Button type="start" onClick={onResult}>
-              診断する
-            </Button>
-            <Button type="maru" size="m" onClick={goTopPage}>Social Style診断とは</Button>
-          </Buttonzorn>
-          {flag && <div ref={scrollBottomRef}><Result date="" /></div>}</>}
+              {data.map((item, index) => {
+                return (
+                  <div key={index} ref={questionRefContent.current[index]}>
+                    <Question
+                      index={index + 1}
+                      item={item}
+                      totalCountUp={totalCountUp}
+                      calcuCount={calcuCount}
+                    />
+                  </div>
+                )
+              })}
+              <Underline />
+              <Buttonzorn>
+                <Button type="start" onClick={onResult} disabled={flag}>
+                  診断する
+                </Button>
+                <Button type="maru" size="m" onClick={goTopPage}>Social Style診断とは</Button>
+              </Buttonzorn>
+              {flag && <div ref={scrollBottomRef}><Result date="" /></div>}
+            </>}
         </Main>
       </Template>
     </>
