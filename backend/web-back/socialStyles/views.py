@@ -143,11 +143,13 @@ def submit_to_history(request):
     elif request.method == 'POST':
         try:
             res = json.loads(request.body)
+            res["X"] = float(res["X"])
+            res["Y"] = float(res["Y"])
         except:
             return HttpResponse(status=400)
         if (("X" not in res) or ("Y" not in res) or ("session_ID" not in res) or ("token" not in res)):
             return HttpResponse(status=401)
-        elif ((type(res["X"]) != float) or (type(res["Y"]) != float) or (not (0 <= res["X"] <= 100)) or (
+        elif ((not (0 <= res["X"] <= 100)) or (
                 not (0 <= res["Y"] <= 100)) or (type(res["session_ID"]) != str) or (type(res["token"]) != str)):
             return HttpResponse(status=400)
         else:
