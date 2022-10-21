@@ -1,5 +1,5 @@
 import './index.css';
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef, useLayoutEffect, createRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Template, { Main } from "../../components/Templates";
 import styled from "styled-components";
@@ -46,6 +46,9 @@ const Diagnosis = () => {
   const [data, setData] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [flag, setFlag] = useState(false);
+  const scrollBottomRef = useRef(null);
+  const questionRefContent = useRef([]);
+  const windowHeight = window.innerHeight;
   const [loading, setLoading] = useState(true)
   const { calcuCount, xyCaluculation } = useStyleCounter()
 
@@ -53,7 +56,25 @@ const Diagnosis = () => {
   const goTopPage = () => {
     navigate('/');
   };
-  const totalCountUp = useCallback(() => {
+
+  function getRect(elm) {
+    return elm.current.getBoundingClientRect();
+  }
+
+  const totalCountUp = useCallback((index) => {
+    debugger;
+    const contentRect = getRect(questionRefContent.current[index - 1]);
+    if (windowHeight - contentRect.top < 500 && index < 18) {
+      const offset = window.pageYOffset;
+      const scrollCountentRect = getRect(questionRefContent.current[index]);
+      const gap = windowHeight < 700 ? 50 : 80;
+      const target = offset + scrollCountentRect.top - gap;
+      window.scrollTo({
+        top: target,
+        // 不具合発生中の為、一時コメントアウト
+        // behavior: 'smooth' 
+      });
+    }
     setTotalCount(num => num + 1)
   }, [totalCount]);
 
@@ -82,7 +103,17 @@ const Diagnosis = () => {
         handleError(e.response.status);
       }
     })()
-  }, [])
+  }, []);
+
+  useLayoutEffect(() => {
+    if(scrollBottomRef && scrollBottomRef.current) {
+      scrollBottomRef.current.scrollIntoView();
+    }
+  }, [flag]);
+
+  data.forEach((_, index)=>{
+    questionRefContent.current[index] = createRef(null);
+  });
 
   return (
     <>
@@ -111,7 +142,7 @@ const Diagnosis = () => {
 
               {data.map((item, index) => {
                 return (
-                  <div key={index}>
+                  <div key={index} ref={questionRefContent.current[index]}>
                     <Question
                       index={index + 1}
                       item={item}
@@ -128,7 +159,7 @@ const Diagnosis = () => {
                 </Button>
                 <Button type="maru" size="m" onClick={goTopPage}>Social Style診断とは</Button>
               </Buttonzorn>
-              {flag && <Result date="" />}
+              {flag && <div ref={scrollBottomRef}><Result date="" /></div>}
             </>}
         </Main>
       </Template>

@@ -47,7 +47,7 @@ const Question = React.memo(({ type, index, item, children, totalCountUp, calcuC
   const onClick = (yesNo) => {
     calcuCount(yesNo, item.pos);
     if (state === 0) {
-      totalCountUp()
+      totalCountUp(index)
     }
     setState(yesNo);
   }
