@@ -36,8 +36,9 @@ ${({ type }) => {
         return css`
         background-color: #FFFFFF;
         color: #000000;
-        width: 250px;
-        height: 60px;
+        width: 70px;
+        height: 70px;
+        border-radius: 50px;
         :hover{
           color: #FFFFFF;
         }
@@ -50,7 +51,8 @@ ${({ type }) => {
           transform: translate(0,2px);
         }
 				@media all and (max-width: 600px) {
-						width: 150px;
+						width: 50px;
+            height: 50px;
 				}
       `
       case "maru":
