@@ -20,7 +20,7 @@ const Border = styled.div`
 
 const Left = styled.div`
   position: absolute;
-  left: -1%;
+  left: -9px;
   top: 2%;
   display: inline-block;
   width: 18px;
@@ -33,7 +33,7 @@ const Left = styled.div`
 
 const Right = styled.div`
   position: absolute;
-  right: -1.5%;
+  right: -13px;
   display: inline-block;
   width: 18px;
   height: 18px;
