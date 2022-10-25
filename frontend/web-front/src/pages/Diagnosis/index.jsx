@@ -5,7 +5,6 @@ import Template, { Main } from "../../components/Templates";
 import styled from "styled-components";
 import axios from "axios";
 // components
-import Loading from '../../components/Atoms/Loading';
 import Question from "../../components/Oganisms/Question";
 import Result from "../../components/Oganisms/Result";
 import Typography from "../../components/Atoms/Typography";
