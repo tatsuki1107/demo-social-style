@@ -15,6 +15,8 @@ import maru from '../../../img/maru.svg';
 import useResult from "../../../Hooks/useResult";
 // transform
 import { toDateTransform } from "../../../js/transform";
+// skeleton
+import ContentLoader from "styled-content-loader";
 
 const border = [maru, sikaku, sankaku, hosi];
 const allStyle = ["Amiable(エミアブル)", "Driver(ドライバー)", "Analytical(アナリティカル)", "Expressibe(エクスプレッシブ)"];
@@ -33,6 +35,7 @@ const Underline = styled.div`
 const DiaResult = styled.div`
   background-color: #FFFFFF;
   width: 240px;
+  height: 125px;
   padding: 10px;
   display: inline-block;
   margin-top: 80px;
@@ -83,6 +86,7 @@ const Feature = styled.div`
 `;
 const Feature_content = styled.div`
   width: 100%;
+  min-height: 100px;
   margin-top: 30px;
   margin-left: 10px;
   text-align: left;
@@ -97,6 +101,7 @@ const Type = styled.div`
 
 const Discription = styled.div`
 	margin-left: 45px;
+  min-height: 200px;
 `;
 
 const Disc_logo = styled.img`
@@ -107,23 +112,25 @@ const Disc_logo = styled.img`
 
 // Dateを指定して結果を表示。診断後の結果表示はデータベースに格納されている一番最新をもらう
 const Result = ({ date }) => {
-  const { result } = useResult(date);
+  const { result, loading } = useResult(date);
 
   return (
     <>
       <ResultArea>
         <Underline />
-        <DiaResult>
-          <Typography type="h2" margin={0}>
-            {toDateTransform(result.Time)}<br />診断結果
+        <ContentLoader isLoading={loading}>
+          <DiaResult>
+            <Typography type="h2" margin={0}>
+              {toDateTransform(result.Time)}<br />診断結果
+            </Typography>
+          </DiaResult>
+          <Typography type="text" size="l">
+            あなたは<br /><span>{result.SocialStyle}</span>の傾向が強いようです
           </Typography>
-        </DiaResult>
-        <Typography type="text" size="l">
-          あなたは<br /><span>{result.SocialStyle}</span>の傾向が強いようです
-        </Typography>
-        <Typography type="text" size="l" color="orenge">
-          {`意見主張度 ${Math.round(result.X)}% : 感情表現度 : ${Math.round(result.Y)}%`}
-        </Typography>
+          <Typography type="text" size="l" color="orenge">
+            {`意見主張度 ${Math.round(result.X)}% : 感情表現度 : ${Math.round(result.Y)}%`}
+          </Typography>
+        </ContentLoader>
 
         <GraphImage>
           <ImgArea src={graph_img} alt="graph_img" />
@@ -132,27 +139,31 @@ const Result = ({ date }) => {
 
         <Feature>
           <ContentTitle>診断結果が似ている方の特徴</ContentTitle>
-          <Feature_content>
-            {result.Feature?.map((output, index) => {
-              return (
-                <Typography type="text" size="m" margin={0} key={index}>
-                  {`・${output}`}
-                </Typography>
-              )
-            })}
-          </Feature_content>
+          <ContentLoader isLoading={loading}>
+            <Feature_content>
+              {result.Feature?.map((output, index) => {
+                return (
+                  <Typography type="text" size="m" margin={0} key={index}>
+                    {`・${output}`}
+                  </Typography>
+                )
+              })}
+            </Feature_content>
+          </ContentLoader>
         </Feature>
         <Feature>
           <ContentTitle>診断結果が似ている方に多い就いている仕事</ContentTitle>
-          <Feature_content>
-            {result.Profession?.map((output, index) => {
-              return (
-                <Typography type="text" size="m" key={index} margin={0}>
-                  {`・${output}`}
-                </Typography>
-              )
-            })}
-          </Feature_content>
+          <ContentLoader isLoading={loading}>
+            <Feature_content>
+              {result.Profession?.map((output, index) => {
+                return (
+                  <Typography type="text" size="m" key={index} margin={0}>
+                    {`・${output}`}
+                  </Typography>
+                )
+              })}
+            </Feature_content>
+          </ContentLoader>
         </Feature>
         <Feature>
           <ContentTitle>タイプ別の上手な関わり方</ContentTitle>
@@ -165,11 +176,15 @@ const Result = ({ date }) => {
                     {`${allStyle[index]}タイプ`}
                   </Typography>
                 </Type>
-                <Discription>
-                  <Typography type="text" size="m" >
-                    {description}
-                  </Typography>
-                </Discription>
+                <ContentLoader isLoading={loading}>
+                  <Discription>
+                    <Typography type="text" size="m" >
+                      {description.split(/(\r\n|\r\n)/g).map(
+                        txt => (txt === "\r\n") ? <br /> : txt)
+                      }
+                    </Typography>
+                  </Discription>
+                </ContentLoader>
               </Feature>
             )
           })}

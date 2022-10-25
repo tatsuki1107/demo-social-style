@@ -5,7 +5,6 @@ import Template, { Main } from "../../components/Templates";
 import styled from "styled-components";
 import axios from "axios";
 // components
-import Loading from '../../components/Atoms/Loading';
 import Question from "../../components/Oganisms/Question";
 import Result from "../../components/Oganisms/Result";
 import Typography from "../../components/Atoms/Typography";
@@ -16,6 +15,8 @@ import { useAuth } from '../../Routings/AuthService';
 // img import
 import check_icon from "../../img/check.jpg";
 import timer_icon from "../../img/timer.jpg";
+// Skeleton
+import ContentLoader from "styled-content-loader";
 
 const Icon_flex = styled.div`
   width: 100px;
@@ -28,7 +29,7 @@ const QandT = styled.div`
   justify-content: center;
 `;
 const Underline = styled.div`
-  margin-top: 120px;
+  margin-top: 50px;
   width: 100%;
   border: 4px dashed #DF7919;
 `;
@@ -51,11 +52,7 @@ const Diagnosis = () => {
   const windowHeight = window.innerHeight;
   const [loading, setLoading] = useState(true)
   const { calcuCount, xyCaluculation } = useStyleCounter()
-
   const navigate = useNavigate();
-  const goTopPage = () => {
-    navigate('/');
-  };
 
   function getRect(elm) {
     return elm.current.getBoundingClientRect();
@@ -81,7 +78,6 @@ const Diagnosis = () => {
   const onResult = async () => {
     if (totalCount === data.length) {
       const coordinate = xyCaluculation(totalCount);
-      console.log(coordinate)
       try {
         const data = { ...user, ...coordinate };
         await axios.post('http://localhost/api/send_param', data)
@@ -106,12 +102,12 @@ const Diagnosis = () => {
   }, []);
 
   useLayoutEffect(() => {
-    if(scrollBottomRef && scrollBottomRef.current) {
+    if (scrollBottomRef && scrollBottomRef.current) {
       scrollBottomRef.current.scrollIntoView();
     }
   }, [flag]);
 
-  data.forEach((_, index)=>{
+  data.forEach((_, index) => {
     questionRefContent.current[index] = createRef(null);
   });
 
@@ -119,48 +115,47 @@ const Diagnosis = () => {
     <>
       <Template>
         <Main>
-          {loading ? <Loading /> :
-            <>
-              <Question type="top">
-                <Typography type="Q_h1" color="black">
-                  診断スタート
-                </Typography>
-                <Typography type="text" size="m" >
-                  自分が周りにどう思われているのか<br />直感的に選択してください
-                </Typography>
-                <QandT>
-                  <Icon_flex>
-                    <img src={check_icon} className="question_icon" alt="question_icon" />
-                    <Typography type="text" size="m" color="orenge">{data.length}問</Typography>
-                  </Icon_flex>
-                  <Icon_flex>
-                    <img src={timer_icon} className="question_icon" alt="timer_icon" />
-                    <Typography type="text" size="m" color="orenge">3:00</Typography>
-                  </Icon_flex>
-                </QandT>
-              </Question>
+          <ContentLoader isLoading={loading}>
+            <Question type="top">
+              <Typography type="Q_h1" color="black">
+                診断スタート
+              </Typography>
+              <Typography type="text" size="m" >
+                自分が周りにどう思われているのか<br />直感的に選択してください
+              </Typography>
+              <QandT>
+                <Icon_flex>
+                  <img src={check_icon} className="question_icon" alt="question_icon" />
+                  <Typography type="text" size="m" color="orenge">{data.length}問</Typography>
+                </Icon_flex>
+                <Icon_flex>
+                  <img src={timer_icon} className="question_icon" alt="timer_icon" />
+                  <Typography type="text" size="m" color="orenge">3:00</Typography>
+                </Icon_flex>
+              </QandT>
+            </Question>
 
-              {data.map((item, index) => {
-                return (
-                  <div key={index} ref={questionRefContent.current[index]}>
-                    <Question
-                      index={index + 1}
-                      item={item}
-                      totalCountUp={totalCountUp}
-                      calcuCount={calcuCount}
-                    />
-                  </div>
-                )
-              })}
-              <Underline />
-              <Buttonzorn>
-                <Button type="start" onClick={onResult} disabled={flag}>
-                  診断する
-                </Button>
-                <Button type="maru" size="m" onClick={goTopPage}>Social Style診断とは</Button>
-              </Buttonzorn>
-              {flag && <div ref={scrollBottomRef}><Result date="" /></div>}
-            </>}
+            {data.map((item, index) => {
+              return (
+                <div key={index} ref={questionRefContent.current[index]}>
+                  <Question
+                    index={index + 1}
+                    item={item}
+                    totalCountUp={totalCountUp}
+                    calcuCount={calcuCount}
+                  />
+                </div>
+              )
+            })}
+            <Underline />
+            <Buttonzorn>
+              <Button type="start" onClick={onResult} disabled={flag}>
+                診断する
+              </Button>
+              <Button type="maru" size="m" onClick={() => navigate('/')}>Social Style診断とは</Button>
+            </Buttonzorn>
+            {flag && <div ref={scrollBottomRef}><Result date="" /></div>}
+          </ContentLoader>
         </Main>
       </Template>
     </>

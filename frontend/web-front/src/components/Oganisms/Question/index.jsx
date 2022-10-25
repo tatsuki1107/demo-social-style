@@ -18,14 +18,14 @@ const Root = styled.div`
         return css`
           background-color: #FFFFFF;
           height: 400px;
-          padding-top: 150px;
+          overflow: hidden;
           @media all and (max-width: 450px) {
             height: 300px;
           }
         `
       default:
         return css`
-          padding-top: 80px;
+          padding-top: 20px;
           height: 300px;
         `
     }
@@ -33,7 +33,7 @@ const Root = styled.div`
 `;
 
 const QandT = styled.div`
-  padding-top: 30px;
+  padding-top: 0;
   display: flex;
   justify-content: space-between;
 `;

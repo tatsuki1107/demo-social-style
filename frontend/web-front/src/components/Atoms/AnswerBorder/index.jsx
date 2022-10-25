@@ -8,7 +8,7 @@ const BorderArea = styled.div`
   display: inline-block;
   width: 100%;
   height: 20px;
-  margin-top: 40px;
+  margin-top: 24px;
 `;
 
 const Border = styled.div`

@@ -26,7 +26,7 @@ const useResult = (date) => {
           data["time"] = toUnixTransform(date);
         }
         await axios.post('http://localhost/api/get_result', data).then((res) => {
-          setResult((res?.data))
+          setResult((res?.data));
           setLoading(false);
         })
       } catch (e) {
