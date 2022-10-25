@@ -152,7 +152,7 @@ const Result = ({ date }) => {
           </ContentLoader>
         </Feature>
         <Feature>
-          <ContentTitle>診断結果が似ている方に多い就いている仕事</ContentTitle>
+          <ContentTitle>このタイプに向いている仕事</ContentTitle>
           <ContentLoader isLoading={loading}>
             <Feature_content>
               {result.Profession?.map((output, index) => {
