@@ -15,6 +15,8 @@ import maru from '../../../img/maru.svg';
 import useResult from "../../../Hooks/useResult";
 // transform
 import { toDateTransform } from "../../../js/transform";
+// skeleton
+
 
 const border = [maru, sikaku, sankaku, hosi];
 const allStyle = ["Amiable(エミアブル)", "Driver(ドライバー)", "Analytical(アナリティカル)", "Expressibe(エクスプレッシブ)"];
@@ -108,7 +110,7 @@ const Disc_logo = styled.img`
 // Dateを指定して結果を表示。診断後の結果表示はデータベースに格納されている一番最新をもらう
 const Result = ({ date }) => {
   const { result } = useResult(date);
-
+  console.log(result.Relational_Description)
   return (
     <>
       <ResultArea>
@@ -167,7 +169,9 @@ const Result = ({ date }) => {
                 </Type>
                 <Discription>
                   <Typography type="text" size="m" >
-                    {description}
+                    {description.split(/(\r\n|\r\n)/g).map(
+                      txt => (txt === "\r\n") ? <br /> : txt)
+                    }
                   </Typography>
                 </Discription>
               </Feature>

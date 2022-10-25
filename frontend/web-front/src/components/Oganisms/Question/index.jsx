@@ -25,7 +25,7 @@ const Root = styled.div`
         `
       default:
         return css`
-          padding-top: 80px;
+          padding-top: 20px;
           height: 300px;
         `
     }
@@ -33,7 +33,7 @@ const Root = styled.div`
 `;
 
 const QandT = styled.div`
-  padding-top: 30px;
+  padding-top: 0;
   display: flex;
   justify-content: space-between;
 `;
