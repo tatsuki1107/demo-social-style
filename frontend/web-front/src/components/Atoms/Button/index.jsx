@@ -72,16 +72,23 @@ ${({ type }) => {
         return css`
           background-color: #DF7919;
           color: #FFFFFF;
-          width: 100%;
-          height: 80px;
+          width: 80%;
+          height: 70px;
           border-radius: 50px;
-          font-size: 1.5em;
+          font-size: 1.3em;
           :disabled {
             background-color: #FFFFFF;
             color: #000000;
           }
-          @media all and (max-width: 500px) {
-            font-size: 0.9em;
+          @media all and (max-width: 700px) {
+            font-size: 1.0em;
+          }
+          @media all and (max-width: 570px) {
+            font-size: 0.8em;
+          }
+          @media all and (max-width: 460px) {
+            font-size: 0.6em;
+            height: 50px;
           }
         `
     }

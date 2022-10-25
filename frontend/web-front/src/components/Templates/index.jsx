@@ -14,7 +14,7 @@ const App = styled.div`
 export const Main = styled.div`
   width: 800px;
   margin: 0 auto;
-
+  padding-top: 150px;
   @media(max-width: 860px) {
     width: 90%;
   }
