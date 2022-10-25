@@ -88,7 +88,7 @@ const TopPage = () => {
             </div>
 
             <div className='donKnow'>
-              <ContentTitle>どんな仕事が向いているのか分からない</ContentTitle>
+              <ContentTitle>向いている仕事がよく分からない</ContentTitle>
               <div className='hl_content_txt'>
                 <Typography type="text" size="s" color="black">
                   この診断では、その性格の方が「一般的に向いている仕事」を知ることが出来ます。<br />

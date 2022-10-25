@@ -19,7 +19,7 @@ import { toDateTransform } from "../../../js/transform";
 import ContentLoader from "styled-content-loader";
 
 const border = [maru, sikaku, sankaku, hosi];
-const allStyle = ["Amiable(エミアブル)", "Driver(ドライバー)", "Analytical(アナリティカル)", "Expressibe(エクスプレッシブ)"];
+const allStyle = ["エミアブル", "ドライバー", "アナリティカル", "エクスプレッシブ"];
 
 const ResultArea = styled.div`
   width: 100%;
@@ -94,8 +94,8 @@ const Feature_content = styled.div`
 const Type = styled.div`
   display: flex;
   margin: 10px 0px 10px 10px;
-  @media all and (max-width: 500px) {
-    font-size: 0.8em;
+  @media all and (max-width: 475px) {
+    font-size: 0.85em;
   }
 `
 
@@ -105,7 +105,7 @@ const Discription = styled.div`
 `;
 
 const Disc_logo = styled.img`
-  margin: 3px 10px 0 0;
+  margin: 1px 10px 0 0;
   width: 30px;
   height: 30px;
 `;
