@@ -120,9 +120,11 @@ const Diagnosis = () => {
               <Typography type="Q_h1" color="black">
                 診断スタート
               </Typography>
-              <Typography type="text" size="m" >
-                自分が周りにどう思われているのか<br />直感的に選択してください
-              </Typography>
+              <div className='text'>
+                <Typography type="text" size="m" >
+                  自分が周りにどう思われているのか<br />直感的に選択してください
+                </Typography>
+              </div>
               <QandT>
                 <Icon_flex>
                   <img src={check_icon} className="question_icon" alt="question_icon" />
@@ -152,7 +154,7 @@ const Diagnosis = () => {
               <Button type="start" onClick={onResult} disabled={flag}>
                 診断する
               </Button>
-              <Button type="maru" size="m" onClick={() => navigate('/')}>Social Style診断とは</Button>
+              <Button type="maru" size="m" onClick={() => navigate('/', window.scrollTo(0, 850))}>Social Style診断とは</Button>
             </Buttonzorn>
             {flag && <div ref={scrollBottomRef}><Result date="" /></div>}
           </ContentLoader>

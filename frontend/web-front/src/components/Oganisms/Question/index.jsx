@@ -20,13 +20,13 @@ const Root = styled.div`
           height: 400px;
           overflow: hidden;
           @media all and (max-width: 450px) {
-            height: 300px;
+            height: 270px;
           }
         `
       default:
         return css`
           padding-top: 20px;
-          height: 300px;
+          height: 270px;
         `
     }
   }}

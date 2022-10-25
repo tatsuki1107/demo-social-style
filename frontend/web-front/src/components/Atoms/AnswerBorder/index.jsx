@@ -49,6 +49,9 @@ const Answer = styled.div`
   @media all and (max-width: 500px) {
     font-size: 0.8em;
   }
+  @media all and (max-width: 400px) {
+    font-size: 0.75em;
+  }
 `;
 
 const AnswerBorder = () => {

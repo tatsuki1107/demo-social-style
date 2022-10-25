@@ -21,7 +21,8 @@ const useResult = (date) => {
   useEffect(() => {
     (async () => {
       try {
-        const data = { ...user }
+        setLoading(true);
+        const data = { ...user };
         if (date !== "") {
           data["time"] = toUnixTransform(date);
         }

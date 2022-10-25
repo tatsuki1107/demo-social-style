@@ -39,6 +39,11 @@ const DiaResult = styled.div`
   padding: 10px;
   display: inline-block;
   margin-top: 80px;
+  @media all and (max-width: 450px) {
+    font-size: 0.8em;
+    width: 220px;
+    height: 100px;
+  }
 `;
 
 const GraphImage = styled.div`
@@ -110,6 +115,19 @@ const Disc_logo = styled.img`
   height: 30px;
 `;
 
+const ResponsiveTxt = styled.div`
+  min-height: 140px;
+  @media all and (max-width: 575px) {
+    font-size: 0.8em;
+  }
+  @media all and (max-width: 460px) {
+    font-size: 0.7em;
+  }
+  @media all and (max-width: 410px) {
+    font-size: 0.6em;
+  }
+`
+
 // Dateを指定して結果を表示。診断後の結果表示はデータベースに格納されている一番最新をもらう
 const Result = ({ date }) => {
   const { result, loading } = useResult(date);
@@ -124,12 +142,14 @@ const Result = ({ date }) => {
               {toDateTransform(result.Time)}<br />診断結果
             </Typography>
           </DiaResult>
-          <Typography type="text" size="l">
-            あなたは<br /><span>{result.SocialStyle}</span>の傾向が強いようです
-          </Typography>
-          <Typography type="text" size="l" color="orenge">
-            {`意見主張度 ${Math.round(result.X)}% : 感情表現度 : ${Math.round(result.Y)}%`}
-          </Typography>
+          <ResponsiveTxt>
+            <Typography type="h2">
+              あなたは<br /><span>{result.SocialStyle}</span><br />の傾向が強いようです
+            </Typography>
+            <Typography type="h2" color="black">
+              意見主張度: <span>{Math.round(result.X)}</span>% 感情表現度 : <span>{Math.round(result.Y)}</span>%
+            </Typography>
+          </ResponsiveTxt>
         </ContentLoader>
 
         <GraphImage>
@@ -180,7 +200,7 @@ const Result = ({ date }) => {
                   <Discription>
                     <Typography type="text" size="m" >
                       {description.split(/(\r\n|\r\n)/g).map(
-                        txt => (txt === "\r\n") ? <br /> : txt)
+                        (txt, i) => (txt === "\r\n") ? <br key={i} /> : txt)
                       }
                     </Typography>
                   </Discription>
