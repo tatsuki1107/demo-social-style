@@ -19,6 +19,12 @@ const Title = styled.div`
 margin: 6px 0px 0px 0px;
 padding: 0;
 height: 30px;
+@media all and (max-width : 560px) {
+  font-size: 0.9em;
+}
+@media all and (max-width: 470px) {
+  font-size: 0.85em;
+}
 `
   ;
 

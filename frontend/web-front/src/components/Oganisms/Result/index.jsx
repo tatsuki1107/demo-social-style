@@ -17,7 +17,7 @@ import useResult from "../../../Hooks/useResult";
 import { toDateTransform } from "../../../js/transform";
 
 const border = [maru, sikaku, sankaku, hosi];
-const allStyle = ["Amiable(エミアブル)", "Driver(ドライバー)", "Analytical(アナリティカル)", "Expressibe(エクスプレッシブ)"];
+const allStyle = ["エミアブル", "ドライバー", "アナリティカル", "エクスプレッシブ"];
 
 const ResultArea = styled.div`
   width: 100%;
@@ -90,8 +90,8 @@ const Feature_content = styled.div`
 const Type = styled.div`
   display: flex;
   margin: 10px 0px 10px 10px;
-  @media all and (max-width: 500px) {
-    font-size: 0.8em;
+  @media all and (max-width: 475px) {
+    font-size: 0.85em;
   }
 `
 
@@ -100,7 +100,7 @@ const Discription = styled.div`
 `;
 
 const Disc_logo = styled.img`
-  margin: 3px 10px 0 0;
+  margin: 1px 10px 0 0;
   width: 30px;
   height: 30px;
 `;
@@ -143,7 +143,7 @@ const Result = ({ date }) => {
           </Feature_content>
         </Feature>
         <Feature>
-          <ContentTitle>診断結果が似ている方に多い就いている仕事</ContentTitle>
+          <ContentTitle>このタイプの人が向いている仕事</ContentTitle>
           <Feature_content>
             {result.Profession?.map((output, index) => {
               return (
