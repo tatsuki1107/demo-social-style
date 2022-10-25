@@ -3,16 +3,17 @@ import Template, { Main } from "../../components/Templates";
 import styled from "styled-components";
 // components
 import Typography from "../../components/Atoms/Typography";
-import Loading from "../../components/Atoms/Loading";
 import Button from "../../components/Atoms/Button";
 import Result from "../../components/Oganisms/Result";
 // Hooks
 import useResult from "../../Hooks/useResult";
 // transform
 import { toDateTransform } from "../../js/transform";
+// Skeleton
+import ContentLoader from "styled-content-loader";
 
 const ButtonArea = styled.div`
-  padding: 150px 0 50px 0;
+  padding: 0 0 50px 0;
   width: 100%;
   min-height: 100px;
   display:flex;
@@ -45,8 +46,8 @@ const PastResult = () => {
     <>
       <Template>
         <Main>
-          {loading ? <Loading /> :
-            !result.Previous ?
+          <ContentLoader isLoading={loading}>
+            {!result.Previous ?
               <Nonprevious>
                 <Typography type="h2">
                   まだ過去の結果はありません
@@ -73,6 +74,7 @@ const PastResult = () => {
                 </ButtonArea>
                 <Result date={resultDate} />
               </>}
+          </ContentLoader>
         </Main>
       </Template>
     </>

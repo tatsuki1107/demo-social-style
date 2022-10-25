@@ -3,3 +3,4 @@ npm i @fortawesome/react-fontawesome && npm i @fortawesome/fontawesome-svg-core
 npm i react-router-dom
 npm install styled-components
 npm install react-loading
+npm install styled-content-loader
