@@ -38,18 +38,16 @@ const QandT = styled.div`
   justify-content: space-between;
 `;
 
-
-
-const Question = React.memo(({ type, index, item, children, totalCountUp, calcuCount }) => {
+const Question = React.memo(({ type, index, item, children, changeBool, calcuCount }) => {
   // 4択ボタン１回押したらその時の数字(-2, -1, 1, 2)にする
   const [state, setState] = useState(0);
 
-  const onClick = (yesNo) => {
-    calcuCount(yesNo, item.pos);
+  const onClick = (point) => {
+    calcuCount(point, item.pos);
     if (state === 0) {
-      totalCountUp(index)
+      changeBool(index, null)
     }
-    setState(yesNo);
+    setState(point);
   }
 
   const setDisabled = (num) => {
@@ -67,7 +65,7 @@ const Question = React.memo(({ type, index, item, children, totalCountUp, calcuC
         :
         <Root>
           <Typography type="text" size="m" color="orenge">
-            問{index}
+            問{index + 1}
           </Typography>
           <Typography type="text" size="m" color="black">
             {item.questions}

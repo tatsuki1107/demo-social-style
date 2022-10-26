@@ -51,7 +51,7 @@ const Diagnosis = () => {
   const questionRefContent = useRef([]);
   const windowHeight = window.innerHeight;
   const [loading, setLoading] = useState(true)
-  const { calcuCount, xyCaluculation } = useStyleCounter()
+  const { calcuCount, xyCaluculation, changeBool } = useStyleCounter()
   const navigate = useNavigate();
 
   function getRect(elm) {
@@ -59,7 +59,6 @@ const Diagnosis = () => {
   }
 
   const totalCountUp = useCallback((index) => {
-    debugger;
     const contentRect = getRect(questionRefContent.current[index - 1]);
     if (windowHeight - contentRect.top < 500 && index < 18) {
       const offset = window.pageYOffset;
@@ -86,14 +85,17 @@ const Diagnosis = () => {
         handleError(e.response.status);
       }
     } else {
-      alert('未回答の問題があります')
+      alert(`${data.length - totalCount}問、未回答の問題があります`);
     }
   };
 
   useEffect(() => {
     (async () => {
       try {
-        await axios.post('http://localhost/api/questions', user).then((res) => { setData(res?.data) })
+        await axios.post('http://localhost/api/questions', user).then((res) => {
+          setData(res?.data)
+          changeBool(null, res?.data.length);
+        })
         setLoading(false);
       } catch (e) {
         handleError(e.response.status);
@@ -141,9 +143,9 @@ const Diagnosis = () => {
               return (
                 <div key={index} ref={questionRefContent.current[index]}>
                   <Question
-                    index={index + 1}
+                    index={index}
                     item={item}
-                    totalCountUp={totalCountUp}
+                    changeBool={changeBool}
                     calcuCount={calcuCount}
                   />
                 </div>

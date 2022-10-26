@@ -117,10 +117,10 @@ const Disc_logo = styled.img`
 
 const ResponsiveTxt = styled.div`
   min-height: 140px;
-  @media all and (max-width: 575px) {
+  @media all and (max-width: 580px) {
     font-size: 0.8em;
   }
-  @media all and (max-width: 460px) {
+  @media all and (max-width: 465px) {
     font-size: 0.7em;
   }
   @media all and (max-width: 410px) {

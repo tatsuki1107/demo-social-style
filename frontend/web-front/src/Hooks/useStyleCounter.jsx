@@ -1,25 +1,38 @@
 import { useState, useCallback } from "react"
 
 const useStyleCounter = () => {
-  const [Xcount, setXCount] = useState(0);
-  const [Ycount, setYCount] = useState(0);
-  const calcuCount = useCallback((yesNoNum, pos) => {
-    if (pos === "X") {
-      setXCount(num => num + yesNoNum);
-    } else if (pos === "Y") {
-      setYCount(num => num + yesNoNum);
+  const [allBoolean, setBoolean] = useState({});
+  const [state, setState] = useState({ "X": 0, "Y": 0 });
+  const calcuCount = useCallback((point, pos) => {
+    setState(prev => ({ ...prev, [pos]: prev[pos] + point }))
+  }, [state]);
+  console.log(allBoolean);
+
+  const changeBool = useCallback((index, length) => {
+    if (length) {
+      Initialization(length);
+    } else {
+      setBoolean(prev => ({ ...prev, [index]: true }))
     }
-  }, [Xcount, Ycount]);
+  }, [allBoolean])
 
   const xyCaluculation = (totalCount) => {
     // %表記 
-    const X = ((totalCount + Xcount) / (2 * totalCount)) * 100;
-    const Y = ((totalCount + Ycount) / (2 * totalCount)) * 100;
+    const X = ((totalCount + state.X) / (2 * totalCount)) * 100;
+    const Y = ((totalCount + state.Y) / (2 * totalCount)) * 100;
 
     return { "X": X, "Y": Y };
   }
 
-  return { calcuCount, xyCaluculation };
+  const Initialization = (length) => {
+    const boolObj = new Object();
+    for (let i = 0; i < length; i++) {
+      boolObj[i] = false;
+    }
+    setBoolean(boolObj);
+  }
+
+  return { calcuCount, xyCaluculation, changeBool };
 };
 
 export default useStyleCounter;
