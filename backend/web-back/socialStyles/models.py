@@ -8,15 +8,15 @@ class User(models.Model):
 
 
 class SocialStyle(models.Model):
-    SocialStyle_ID = models.BigAutoField(primary_key=True)
+    SocialStyle_ID = models.IntegerField(primary_key=True)
     Type_Name = models.TextField(null=False)
     Type_Explanation = models.TextField(null=False)
 
 
 class Result(models.Model):
     Result_ID = models.BigAutoField(primary_key=True)
-    User_ID = models.IntegerField(null=False)
-    SocialStyle_ID = models.IntegerField(null=False)
+    User_ID = models.ForeignKey(User,on_delete=models.CASCADE)
+    SocialStyle_ID = models.ForeignKey(SocialStyle,on_delete=models.PROTECT)
     X = models.FloatField(null=False)
     Y = models.FloatField(null=False)
     Date = models.BigIntegerField(null=False)
@@ -24,18 +24,18 @@ class Result(models.Model):
 
 class Profession(models.Model):
     Profession_Name = models.TextField(null=False)
-    SocialStyleID = models.IntegerField(null=False)
+    SocialStyleID = models.ForeignKey(SocialStyle,on_delete=models.CASCADE)
 
 
 class Feature(models.Model):
     Feature_Explanation = models.TextField()
-    SocialStyle_ID = models.IntegerField(null=False)
+    SocialStyle_ID = models.ForeignKey(SocialStyle,on_delete=models.CASCADE)
 
 
 class Relational(models.Model):
     # relational_typeは相性が良ければTrue,わるければFalse
     Relational_ID = models.BigAutoField(primary_key=True)
     Relational_Description = models.TextField(null=False)
-    MySocialStyle_ID = models.IntegerField(null=False)
-    TargetSocialStyle_ID = models.IntegerField(null=False)
+    MySocialStyle_ID = models.ForeignKey('SocialStyle',related_name='My_SS',on_delete=models.CASCADE)
+    TargetSocialStyle_ID = models.ForeignKey('SocialStyle',related_name='Target_SS',on_delete=models.CASCADE)
     Relational_Type = models.BooleanField(null=False)

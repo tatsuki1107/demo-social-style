@@ -134,7 +134,7 @@ def submit_to_history(request):
         return HttpResponse(status=403)
     if request.method == 'OPTIONS':
         response = HttpResponse()
-        response['Access-Control-Allow-Origin'] = 'http://localhost:63342'
+        response['Access-Control-Allow-Origin'] = 'http://localhost'
         response['Access-Control-Allow-Credentials'] = 'true'
         response['Access-Control-Allow-Headers'] = "Content-Type, Accept, X-CSRFToken"
         response['Access-Control-Allow-Methods'] = "POST, OPTIONS"
@@ -157,23 +157,25 @@ def submit_to_history(request):
             tokendb = redis.Redis(
                 host=os.environ["redishost"], port=6379, db=0)
             userid = tokendb.get(sessiontoken)
+            user = User.objects.get(User_ID=userid)
             if userid == None:
                 return HttpResponse(status=500)
             now = time.time()
 
             if res["X"] > 50 and res["Y"] > 50:
-                socialStyle = 1
+                socialStyle = SocialStyle.objects.get(SocialStyle_ID=1)
             elif res["X"] > 50 and res["Y"] < 50:
-                socialStyle = 2
+                socialStyle = SocialStyle.objects.get(SocialStyle_ID=2)
             elif res["X"] < 50 and res["Y"] < 50:
-                socialStyle = 3
+                socialStyle = SocialStyle.objects.get(SocialStyle_ID=3)
             else:
-                socialStyle = 4
+                socialStyle = SocialStyle.objects.get(SocialStyle_ID=4)
             try:
                 Result.objects.create(
-                    User_ID=userid, SocialStyle_ID=socialStyle, X=res["X"], Y=res["Y"], Date=now)
+                    User_ID=user, SocialStyle_ID=socialStyle, X=res["X"], Y=res["Y"], Date=now)
                 return HttpResponse(status=200)
-            except:
+            except Exception as e:
+                print(e)
                 return HttpResponse(status=500)
     else:
         return HttpResponse(status=400)
@@ -189,13 +191,11 @@ def getresult(request):
         response['Access-Control-Allow-Credentials'] = 'true'
         response['Access-Control-Allow-Headers'] = "Content-Type, Accept, X-CSRFToken"
         response['Access-Control-Allow-Methods'] = "POST, OPTIONS"
-        print("options")
         return response
     elif request.method == 'POST':
         try:
             res = json.loads(request.body)
         except:
-            print("Error json")
             return HttpResponse(status=400)
         if (("session_ID" not in res) or ("token" not in res)
                 or (type(res["session_ID"]) != str) or (type(res["token"]) != str)):
@@ -216,7 +216,9 @@ def getresult(request):
                     MySocialStyle_ID__exact=result.SocialStyle_ID).all()
                 socialStyle = SocialStyle.objects.get(
                     SocialStyle_ID__exact=result.SocialStyle_ID)
-            except:
+
+            except Exception as e:
+                print(e)
                 return HttpResponse(json.dumps({}))
             response_body = {}
             response_body["Time"] = result.Date
@@ -240,9 +242,10 @@ def getresult(request):
                 SocialStyle_ID = 0
                 dates = []
                 for res in result:
+
                     if res.Date > latest:
                         latest = res.Date
-                        SocialStyle_ID = res.SocialStyle_ID
+                        SocialStyle_ID = res.SocialStyle_ID.SocialStyle_ID
                     dates.append(res.Date)
                 feature = Feature.objects.filter(
                     SocialStyle_ID__exact=SocialStyle_ID).all()
@@ -255,7 +258,8 @@ def getresult(request):
                 result = Result.objects.get(
                     Date=latest
                 )
-            except:
+            except Exception as e:
+                print(e)
                 return HttpResponse(json.dumps({}))
             response_body = {}
             response_body["Time"] = result.Date

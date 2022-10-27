@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'socialStyles.apps.SocialstylesConfig',
+    'socialStyles',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'socialstyles',
+        'NAME': 'socialstyles_relation',
         'USER': 'cheer_ss',
         'PASSWORD': 'Soc1@lStyle',
         'HOST': '52.192.243.165',
@@ -126,7 +126,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = "static"
+"""
 CORS_ORIGIN_WHITELIST = (
     'http://localhost/',
 )
+"""

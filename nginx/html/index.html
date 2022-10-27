@@ -10,7 +10,7 @@
       console.log(req.response);
       resp = JSON.parse(req.response);
       sessionStorage.setItem("user",req.response);
-      location = 'http://localhost:80/';
+      location = 'http://localhost/';
     }
     }
     req.open("POST",'http://localhost/debug_auth/account',false);
