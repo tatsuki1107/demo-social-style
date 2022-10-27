@@ -43,7 +43,7 @@ const Question = React.memo(({ type, index, item, children, changeBool, calcuCou
   const [state, setState] = useState(0);
 
   const onClick = (point) => {
-    calcuCount(point, item.pos);
+    calcuCount(point - state, item.pos);
     if (state === 0) {
       changeBool(index, null)
     }

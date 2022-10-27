@@ -1,18 +1,18 @@
 import { useState, useCallback } from "react"
 
 const useStyleCounter = () => {
-  const [allBoolean, setBoolean] = useState({});
+  const [allBoolean, setBoolean] = useState([]);
   const [state, setState] = useState({ "X": 0, "Y": 0 });
+  console.log(state);
   const calcuCount = useCallback((point, pos) => {
     setState(prev => ({ ...prev, [pos]: prev[pos] + point }))
   }, [state]);
-  console.log(allBoolean);
 
   const changeBool = useCallback((index, length) => {
     if (length) {
       Initialization(length);
     } else {
-      setBoolean(prev => ({ ...prev, [index]: true }))
+      setBoolean(prev => prev.map((bool, i) => i === index ? true : bool));
     }
   }, [allBoolean])
 
@@ -25,14 +25,14 @@ const useStyleCounter = () => {
   }
 
   const Initialization = (length) => {
-    const boolObj = new Object();
+    const boolObj = [];
     for (let i = 0; i < length; i++) {
-      boolObj[i] = false;
+      boolObj.push(false);
     }
     setBoolean(boolObj);
   }
 
-  return { calcuCount, xyCaluculation, changeBool };
+  return { calcuCount, xyCaluculation, changeBool, allBoolean };
 };
 
 export default useStyleCounter;

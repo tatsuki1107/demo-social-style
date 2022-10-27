@@ -51,7 +51,7 @@ const Diagnosis = () => {
   const questionRefContent = useRef([]);
   const windowHeight = window.innerHeight;
   const [loading, setLoading] = useState(true)
-  const { calcuCount, xyCaluculation, changeBool } = useStyleCounter()
+  const { calcuCount, xyCaluculation, changeBool, allBoolean } = useStyleCounter()
   const navigate = useNavigate();
 
   function getRect(elm) {
@@ -75,8 +75,8 @@ const Diagnosis = () => {
   }, [totalCount]);
 
   const onResult = async () => {
-    if (totalCount === data.length) {
-      const coordinate = xyCaluculation(totalCount);
+    if (!allBoolean.includes(false)) {
+      const coordinate = xyCaluculation(data.length);
       try {
         const data = { ...user, ...coordinate };
         await axios.post('http://localhost/api/send_param', data)
@@ -85,7 +85,8 @@ const Diagnosis = () => {
         handleError(e.response.status);
       }
     } else {
-      alert(`${data.length - totalCount}問、未回答の問題があります`);
+      const numbers = allBoolean.flatMap((b, i) => (b === false ? i + 1 : []))
+      alert(`問${numbers.join(',')}が、未回答です。`);
     }
   };
 
