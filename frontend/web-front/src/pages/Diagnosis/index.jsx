@@ -10,7 +10,6 @@ import Result from "../../components/Oganisms/Result";
 import Typography from "../../components/Atoms/Typography";
 import Button from "../../components/Atoms/Button";
 // Hooks
-import useStyleCounter from "../../Hooks/useStyleCounter";
 import { useAuth } from '../../Routings/AuthService';
 // img import
 import check_icon from "../../img/check.jpg";
@@ -45,21 +44,19 @@ const Buttonzorn = styled.div`
 const Diagnosis = () => {
   const { user, handleError } = useAuth();
   const [data, setData] = useState([]);
-  const [totalCount, setTotalCount] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [flag, setFlag] = useState(false);
   const scrollBottomRef = useRef(null);
   const questionRefContent = useRef([]);
   const windowHeight = window.innerHeight;
-  const [loading, setLoading] = useState(true)
-  const { calcuCount, xyCaluculation, changeBool, allBoolean } = useStyleCounter()
   const navigate = useNavigate();
 
-  function getRect(elm) {
+  const getRect = (elm) => {
     return elm.current.getBoundingClientRect();
-  }
+  };
 
-  const totalCountUp = useCallback((index) => {
-    const contentRect = getRect(questionRefContent.current[index - 1]);
+  const Scroll = (index) => {
+    const contentRect = getRect(questionRefContent.current[index]);
     if (windowHeight - contentRect.top < 500 && index < 18) {
       const offset = window.pageYOffset;
       const scrollCountentRect = getRect(questionRefContent.current[index]);
@@ -70,12 +67,33 @@ const Diagnosis = () => {
         // 不具合発生中の為、一時コメントアウト
         // behavior: 'smooth' 
       });
-    }
-    setTotalCount(num => num + 1)
-  }, [totalCount]);
+    };
+  };
+
+  const calcuCount = useCallback((point, index) => {
+    setData(prev => prev.map((p, i) => (i === index ? { ...p, "answer": point } : p)))
+    Scroll(index);
+  }, [data]);
+
+  const xyCaluculation = (length) => {
+    const groupby = data.reduce((prev, current) => {
+      const found = prev.find(value => value["pos"] === current["pos"]);
+      if (found) { found["answer"] += current["answer"] } else {
+        prev.push({
+          "pos": current["pos"], "answer": current["answer"],
+        })
+      }
+      return prev;
+    }, [])
+    let xy = {}
+    groupby.map((result) => {
+      xy[result["pos"]] = ((length + result["answer"]) / (2 * length)) * 100
+    });
+    return xy;
+  }
 
   const onResult = async () => {
-    if (!allBoolean.includes(false)) {
+    if (!data.some(d => d["answer"] === undefined)) {
       const coordinate = xyCaluculation(data.length);
       try {
         const data = { ...user, ...coordinate };
@@ -85,18 +103,15 @@ const Diagnosis = () => {
         handleError(e.response.status);
       }
     } else {
-      const numbers = allBoolean.flatMap((b, i) => (b === false ? i + 1 : []))
-      alert(`問${numbers.join(',')}が、未回答です。`);
+      const numbers = data.flatMap((d, i) => (d["answer"] === undefined ? i + 1 : []))
+      alert(`問${numbers.join(', ')}が、未回答です。`);
     }
   };
 
   useEffect(() => {
     (async () => {
       try {
-        await axios.post('http://localhost/api/questions', user).then((res) => {
-          setData(res?.data)
-          changeBool(null, res?.data.length);
-        })
+        await axios.post('http://localhost/api/questions', user).then(res => setData(res?.data))
         setLoading(false);
       } catch (e) {
         handleError(e.response.status);
@@ -108,7 +123,7 @@ const Diagnosis = () => {
     if (scrollBottomRef && scrollBottomRef.current) {
       scrollBottomRef.current.scrollIntoView();
     }
-  }, [flag]);
+  }, [flag])
 
   data.forEach((_, index) => {
     questionRefContent.current[index] = createRef(null);
@@ -139,18 +154,16 @@ const Diagnosis = () => {
                 </Icon_flex>
               </QandT>
             </Question>
-
             {data.map((item, index) => {
               return (
                 <div key={index} ref={questionRefContent.current[index]}>
                   <Question
                     index={index}
                     item={item}
-                    changeBool={changeBool}
                     calcuCount={calcuCount}
                   />
                 </div>
-              )
+              );
             })}
             <Underline />
             <Buttonzorn>

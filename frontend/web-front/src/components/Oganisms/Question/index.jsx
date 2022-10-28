@@ -38,17 +38,15 @@ const QandT = styled.div`
   justify-content: space-between;
 `;
 
-const Question = React.memo(({ type, index, item, children, changeBool, calcuCount }) => {
+const Question = React.memo(({
+  type, index, item, children, calcuCount }) => {
   // 4択ボタン１回押したらその時の数字(-2, -1, 1, 2)にする
   const [state, setState] = useState(0);
 
   const onClick = (point) => {
-    calcuCount(point - state, item.pos);
-    if (state === 0) {
-      changeBool(index, null)
-    }
+    calcuCount(point, index);
     setState(point);
-  }
+  };
 
   const setDisabled = (num) => {
     if (state === num) {
