@@ -12,13 +12,12 @@ import ContentTitle from '../../components/Atoms/ContentTitle';
 
 const TopPage = () => {
   const { user } = useAuth();
-  console.log(user);
   const navigate = useNavigate();
   const goNextPage = () => {
     if (!user) {
       window.location.href = 'http://localhost/test_auth';
     } else {
-      navigate('/diagnosis')
+      navigate('/diagnosis', window.scrollTo(0, 0))
     }
   }
   return (
