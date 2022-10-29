@@ -20,9 +20,14 @@ header {
 }
 
 .page div {
+    cursor: pointer;
     color: #fff;
     margin-left: 70px;
-    font-size: 25px
+    font-size: 25px;
+}
+
+.page div:hover {
+    opacity: 0.7;
 }
 
 .hIcon {
@@ -37,7 +42,15 @@ header {
     color: #fff;
 }
 
+.icon_content {
+	font-size: 1.5em;
+	margin-left: 19px;
+	color: #fff;
+}
 
+.icon_content:hover {
+	opacity: 0.7;
+}
 
 .page a {
     margin-left: 50px;
@@ -64,6 +77,13 @@ header {
     .hIcon {
         display: none;
     }
+    .icon_content{
+        margin-left: 0px;
+    }
+    
+    .icon_content ul li a{
+        text-align: center;
+    }
 
     .hamburger-menu {
         display: block;
@@ -79,7 +99,18 @@ header {
         justify-content: center;
         align-items: center;
         z-index: 90;
-        background-color: #ffffff;
+        background-color: #DF7919;
+        cursor: pointer;
+    }
+
+    #menu-btn-check:checked~.menu-btn {
+        background-color: #F6F2E8;
+    } 
+    #menu-btn-check:checked~.menu-btn span::after {
+        background-color: #000000;
+    }
+    #menu-btn-check:checked~.menu-btn span::before {
+        background-color: #000000;
     }
 
     .menu-btn span,
@@ -90,7 +121,7 @@ header {
         height: 3px;
         width: 25px;
         border-radius: 3px;
-        background-color: #000000;
+        background-color: #fff;
         position: absolute;
     }
 
@@ -130,6 +161,7 @@ header {
         z-index: 80;
         background-color: #F6F2E8;
         transition: all 0.5s;
+        text-align: center;
     }
 
     .menu-content ul {
@@ -144,12 +176,16 @@ header {
     .menu-content ul li a {
         display: block;
         width: 100%;
-        font-size: 15px;
+        font-size: 30px;
         box-sizing: border-box;
         color: #000000;
         text-decoration: none;
         padding: 9px 15px 10px 0;
         position: relative;
+        cursor: pointer;
+    }
+    .menu-content ul li a:hover {
+        background-color: #f8f8f7;
     }
 
     .menu-content ul li a::before {
@@ -161,11 +197,14 @@ header {
         transform: rotate(45deg);
         position: absolute;
         right: 11px;
-        top: 16px;
+        top: 26px;
     }
 
     #menu-btn-check:checked~.menu-content {
         left: 0;
         /*メニューを画面内へ*/
+    }
+    .CheerCareer {
+        display: none;
     }
 }

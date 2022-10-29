@@ -66,7 +66,7 @@ const Header = () => {
             </li>
             <li>
               <a href="https://www.facebook.com/cheercareer.jp" target="_blank" className="icon_content">
-                <FontAwesomeIcon icon={faFacebook} />
+                <FontAwesomeIcon icon={faFacebook} /> 
               </a>
             </li>
             <li>
