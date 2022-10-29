@@ -2,9 +2,10 @@ import React from "react";
 import './index.css';
 /*import styled from "styled-components";*/
 import logo from '../../../img/Social_Style_Diagnosis_1.svg';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useLocation} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter, faFacebook, faLine, faInstagram, faYoutube } from "@fortawesome/free-brands-svg-icons";
+
 
 // tmp_header
 /*const Head = styled.header`
@@ -17,21 +18,41 @@ import { faTwitter, faFacebook, faLine, faInstagram, faYoutube } from "@fortawes
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location)
   return (
       <header>
         <div className="logo">
           <img src={logo} alt="CheerCareer_Logo" />
         </div>
         <div className="page">
-          <div onClick = {() => navigate("/")}>
-            &emsp;Top&emsp;
-          </div>
-          <div onClick = {() => navigate("/past_result")}>
-            Past Results
-          </div>
-          <div onClick = {() => navigate("/diagnosis")}>
-            Information
-          </div>
+          {location.pathname === "/" ?
+            <div className="border" onClick = {() => navigate("/")}>
+              &emsp;Top&emsp;
+            </div>
+            :
+            <div onClick = {() => navigate("/")}>
+              &emsp;Top&emsp;
+            </div>
+          }
+          {location.pathname === "/past_result" ?
+            <div className="border" onClick = {() => navigate("/past_result")}>
+              Past Results
+            </div>
+            :
+            <div onClick = {() => navigate("/past_result")}>
+              Past Results
+            </div>
+          }
+          {location.pathname === "/diagnosis" ?
+            <div className="border" onClick = {() => navigate("/diagnosis")}>
+              Information
+            </div>
+            :
+            <div onClick = {() => navigate("/diagnosis")}>
+              Information
+            </div>
+          }
         </div>
         <div className="hIcon">
 					<a href="https://www.facebook.com/cheercareer.jp" target="_blank" className="icon_content">
