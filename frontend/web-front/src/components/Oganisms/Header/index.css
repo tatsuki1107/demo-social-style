@@ -23,8 +23,17 @@ header {
     cursor: pointer;
     color: #fff;
     margin-left: 70px;
-    font-size: 25px;
+    margin-bottom: 17px;
+    font-size: 20px;
 }
+
+.border {
+    border-bottom: 1px solid #fff;
+}
+
+/*.hover:hover{
+    background-color: #f1a35a;
+}*/
 
 .page div:hover {
     opacity: 0.7;
@@ -43,13 +52,13 @@ header {
 }
 
 .icon_content {
-	font-size: 1.5em;
-	margin-left: 19px;
-	color: #fff;
+    font-size: 1.5em;
+    margin-left: 19px;
+    color: #fff;
 }
 
 .icon_content:hover {
-	opacity: 0.7;
+    opacity: 0.7;
 }
 
 .page a {
@@ -77,11 +86,12 @@ header {
     .hIcon {
         display: none;
     }
-    .icon_content{
+
+    .icon_content {
         margin-left: 0px;
     }
-    
-    .icon_content ul li a{
+
+    .icon_content ul li a {
         text-align: center;
     }
 
@@ -105,10 +115,12 @@ header {
 
     #menu-btn-check:checked~.menu-btn {
         background-color: #F6F2E8;
-    } 
+    }
+
     #menu-btn-check:checked~.menu-btn span::after {
         background-color: #000000;
     }
+
     #menu-btn-check:checked~.menu-btn span::before {
         background-color: #000000;
     }
@@ -184,6 +196,7 @@ header {
         position: relative;
         cursor: pointer;
     }
+
     .menu-content ul li a:hover {
         background-color: #f8f8f7;
     }
@@ -204,6 +217,7 @@ header {
         left: 0;
         /*メニューを画面内へ*/
     }
+
     .CheerCareer {
         display: none;
     }

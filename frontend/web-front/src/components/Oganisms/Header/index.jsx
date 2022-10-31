@@ -2,25 +2,39 @@ import React from "react";
 import './index.css';
 /*import styled from "styled-components";*/
 import logo from '../../../img/Social_Style_Diagnosis_1.svg';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter, faFacebook, faLine, faInstagram, faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <header>
       <div className="logo">
         <img src={logo} alt="CheerCareer_Logo" />
       </div>
       <div className="page">
-        <div onClick={() => navigate("/")}>
-          &emsp;Top&emsp;
-        </div>
-        <div onClick={() => navigate("/past_result")}>
-          Past Results
-        </div>
-        <div onClick={() => navigate("/diagnosis")}>
+        {location.pathname === "/" ?
+          <div className="border" onClick={() => navigate("/")}>
+            &emsp;Top&emsp;
+          </div>
+          :
+          <div onClick={() => navigate("/")}>
+            &emsp;Top&emsp;
+          </div>
+        }
+        {location.pathname === "/past_result" ?
+          <div className="border" onClick={() => navigate("/past_result")}>
+            Past Results
+          </div>
+          :
+          <div onClick={() => navigate("/past_result")}>
+            Past Results
+          </div>
+        }
+        <div onClick={() => navigate("/", window.scroll(0, 850))}>
           Information
         </div>
       </div>
@@ -66,7 +80,7 @@ const Header = () => {
             </li>
             <li>
               <a href="https://www.facebook.com/cheercareer.jp" target="_blank" className="icon_content">
-                <FontAwesomeIcon icon={faFacebook} /> 
+                <FontAwesomeIcon icon={faFacebook} />
               </a>
             </li>
             <li>
