@@ -10,49 +10,63 @@ services:
       - static_volume:/code/staticfiles # <-- bind the static volume
     stdin_open: true
     tty: true
-    command: gunicorn --bind :8000 config.wsgi:application
+    command: gunicorn --bind :8000 config.wsgi:application --reload
     networks:
-      - backend_network
+      - frontend_network
+      - django_session
     environment:
+      - OriginHost=localhost
       - CHOKIDAR_USEPOLLING=true
       - DJANGO_SETTINGS_MODULE=config.local_settings
-  backend-server:
-    container_name: nginx_back
-    build:
-      context: ./backend/nginx/.
-      dockerfile: Dockerfile.dev
-    volumes:
-      - static_volume:/code/staticfiles # <-- bind the static volume
-    ports:
-      - "8080:80"
-    depends_on:
-      - web-back
+      - redishost=redis_db
+      - nginx_target=localhost:80
+  redis_db:
+    container_name: session_db
+    image: redis:latest
     networks:
-      - backend_network
+      - django_session
+    ports:
+      - "6379:6379"
 
   web-front:
     container_name: react
     build: ./frontend/web-front/.
     volumes:
-      - ./frontend/web-front:/home/app/frontend/
+      - ./frontend/web-front/public:/home/app/frontend/public
+      - ./frontend/web-front/src:/home/app/frontend/src
     ports:
       - 3000:3000
     networks:
       - frontend_network
-  frontend-server:
+  reverse_proxy:
     container_name: nginx_frontend
     build:
-      context: ./frontend/nginx/.
+      context: ./nginx/.
       dockerfile: Dockerfile.dev
     ports:
-      - "80:80"
+      - 80:80
     depends_on:
       - web-front
+    volumes:
+      - ./frontend/web-front/build:/build
+      - ./nginx/html:/html
     networks:
       - frontend_network
-
+  test_auth_server:
+    container_name: auth_temp
+    build:
+      context: ./auth_test/.
+      dockerfile: Dockerfile
+    environment:
+      - nginx_target=127.0.0.1:80
+    networks:
+      - django_session
+      - frontend_network
+    volumes:
+      - ./auth_test/django_server/test_auth:/django
+    command: gunicorn --bind :8000 config.wsgi:application --reload
 networks:
-  backend_network:
+  django_session:
     driver: bridge
   frontend_network:
     driver: bridge

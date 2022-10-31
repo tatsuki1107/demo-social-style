@@ -6,12 +6,15 @@ import styled from "styled-components";
 const App = styled.div`
   background-color: #F6F2E8;
   width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Main = styled.div`
   width: 800px;
   margin: 0 auto;
-
+  padding-top: 100px;
   @media(max-width: 860px) {
     width: 90%;
   }

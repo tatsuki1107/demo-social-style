@@ -1,44 +1,42 @@
 import { useState, useEffect } from "react";
-// 仮データ
-import { style_result, style_result_2 } from "../data";
+import axios from "axios";
+import { useAuth } from "../Routings/AuthService";
+// transform
+import { toUnixTransform } from "../js/transform";
+
+const defaultState = {
+  Time: '', X: null, Y: null,
+  Feature: [],
+  Profession: [],
+  Relational_Description: [],
+  SocialStyle: '',
+  Previous: [],
+};
 
 const useResult = (date) => {
-  const [result, setResult] = useState({});
-  const [style, setStyle] = useState('');
+  const [result, setResult] = useState(defaultState);
+  const [loading, setLoading] = useState(true)
+  const { user, handleError } = useAuth();
 
   useEffect(() => {
-    // APIでGET /get_result/{date}
-    // { "date": "string", "X": float, "Y": float, "feature": [string], "Profession": [string], "Relational_description":[[string]]}
     (async () => {
       try {
+        setLoading(true);
+        const data = { ...user };
         if (date !== "") {
-          setResult(style_result_2);
-        } else {
-          setResult(style_result);
+          data["time"] = toUnixTransform(date);
         }
+        await axios.post('http://localhost/api/get_result', data).then((res) => {
+          setResult((res?.data));
+          setLoading(false);
+        })
       } catch (e) {
-        console.error(e)
+        handleError(e.response.status)
       }
     })()
   }, [date]);
 
-  useEffect(() => {
-    if (result.X > 50) {
-      if (result.Y > 50) {
-        setStyle('エクスプレッシブ');
-      } else {
-        setStyle('ドライバー');
-      }
-    } else {
-      if (result.Y > 50) {
-        setStyle('エミアブル');
-      } else {
-        setStyle('アナリティカル');
-      }
-    }
-  }, [result])
-
-  return { result, style };
+  return { result, loading };
 };
 
 export default useResult;

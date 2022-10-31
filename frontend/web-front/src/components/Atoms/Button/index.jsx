@@ -32,34 +32,27 @@ ${({ type }) => {
 						width: 270px;
 				}	
       `
-      case "true":
+      case "yesNo":
         return css`
+        background-color: #FFFFFF;
+        color: #000000;
+        width: 70px;
+        height: 70px;
+        border-radius: 50px;
+        :hover{
+          color: #FFFFFF;
+        }
+        :disabled{
           background-color: #DF7919;
           color: #FFFFFF;
-          width: 250px;
-          height: 60px;
           filter: none;
           -webkit-transform: translate(0,2px);
           -moz-transform: translate(0,2px);
           transform: translate(0,2px);
-          :hover{
-          	background-color: #DF7919;					
-        	}
-					@media all and (max-width: 600px) {
-						width: 150px;
-					}	
-        `
-      case "false":
-        return css`
-        background-color: #FFFFFF;
-        color: #000000;
-        width: 250px;
-        height: 60px;
-        :hover{
-          color: #FFFFFF;
         }
 				@media all and (max-width: 600px) {
-						width: 150px;
+						width: 50px;
+            height: 50px;
 				}
       `
       case "maru":
@@ -79,17 +72,23 @@ ${({ type }) => {
         return css`
           background-color: #DF7919;
           color: #FFFFFF;
-          width: 100%;
-          height: 80px;
+          width: 80%;
+          height: 70px;
           border-radius: 50px;
-          font-size: 1.5em;
+          font-size: 1.3em;
           :disabled {
             background-color: #FFFFFF;
             color: #000000;
           }
-
-          @media all and (max-width: 500px) {
-            font-size: 0.9em;
+          @media all and (max-width: 700px) {
+            font-size: 1.0em;
+          }
+          @media all and (max-width: 570px) {
+            font-size: 0.8em;
+          }
+          @media all and (max-width: 460px) {
+            font-size: 0.6em;
+            height: 50px;
           }
         `
     }

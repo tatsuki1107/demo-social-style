@@ -13,11 +13,18 @@ import sankaku from '../../../img/sankaku.svg';
 import maru from '../../../img/maru.svg';
 // hooks
 import useResult from "../../../Hooks/useResult";
+// transform
+import { toDateTransform } from "../../../js/transform";
+// skeleton
+import ContentLoader from "styled-content-loader";
 
+const border = [maru, sikaku, sankaku, hosi];
+const allStyle = ["エミアブル", "ドライバー", "アナリティカル", "エクスプレッシブ"];
 
 const ResultArea = styled.div`
   width: 100%;
   text-align: center;
+  margin-bottom: 50px;
 `;
 
 const Underline = styled.div`
@@ -28,9 +35,15 @@ const Underline = styled.div`
 const DiaResult = styled.div`
   background-color: #FFFFFF;
   width: 240px;
+  height: 125px;
   padding: 10px;
   display: inline-block;
   margin-top: 80px;
+  @media all and (max-width: 450px) {
+    font-size: 0.8em;
+    width: 220px;
+    height: 100px;
+  }
 `;
 
 const GraphImage = styled.div`
@@ -78,6 +91,7 @@ const Feature = styled.div`
 `;
 const Feature_content = styled.div`
   width: 100%;
+  min-height: 100px;
   margin-top: 30px;
   margin-left: 10px;
   text-align: left;
@@ -85,125 +99,119 @@ const Feature_content = styled.div`
 const Type = styled.div`
   display: flex;
   margin: 10px 0px 10px 10px;
-  @media all and (max-width: 500px) {
-    font-size: 0.8em;
+  @media all and (max-width: 475px) {
+    font-size: 0.85em;
   }
 `
 
 const Discription = styled.div`
 	margin-left: 45px;
+  min-height: 200px;
 `;
 
 const Disc_logo = styled.img`
-  margin: 3px 10px 0 0;
+  margin: 1px 10px 0 0;
   width: 30px;
   height: 30px;
 `;
 
+const ResponsiveTxt = styled.div`
+  min-height: 140px;
+  @media all and (max-width: 580px) {
+    font-size: 0.8em;
+  }
+  @media all and (max-width: 465px) {
+    font-size: 0.7em;
+  }
+  @media all and (max-width: 410px) {
+    font-size: 0.6em;
+  }
+`
+
 // Dateを指定して結果を表示。診断後の結果表示はデータベースに格納されている一番最新をもらう
 const Result = ({ date }) => {
-  const { result, style } = useResult(date);
+  const { result, loading } = useResult(date);
 
   return (
-    <ResultArea>
-      <Underline />
-      <DiaResult>
-        <Typography type="h2" margin={0}>
-          {result.date}<br />診断結果
-        </Typography>
-      </DiaResult>
-      <Typography type="text" size="l">
-        あなたは<br /><span>{style}</span>の傾向が強いようです
-      </Typography>
-      <Typography type="text" size="l" color="orenge">
-        {`意見主張度 ${result.X}% : 感情表現度 : ${result.Y}%`}
-      </Typography>
+    <>
+      <ResultArea>
+        <Underline />
+        <ContentLoader isLoading={loading}>
+          <DiaResult>
+            <Typography type="h2" margin={0}>
+              {toDateTransform(result.Time)}<br />診断結果
+            </Typography>
+          </DiaResult>
+          <ResponsiveTxt>
+            <Typography type="h2">
+              あなたは<br /><span>{result.SocialStyle}</span><br />の傾向が強いようです
+            </Typography>
+            <Typography type="h2" color="black">
+              意見主張度: <span>{Math.round(result.X)}</span>% 感情表現度 : <span>{Math.round(result.Y)}</span>%
+            </Typography>
+          </ResponsiveTxt>
+        </ContentLoader>
 
-      <GraphImage>
-        <ImgArea src={graph_img} alt="graph_img" />
-        <Pointer src={pointer} style={{top: `${result.X}%`, left:`${result.Y}%`}} alt="pointer" />
-      </GraphImage>
-      
-      <Feature>
-        <ContentTitle>診断結果が似ている方の特徴</ContentTitle>
-        <Feature_content>
-          {result.feature?.map((output, index) => {
+        <GraphImage>
+          <ImgArea src={graph_img} alt="graph_img" />
+          <Pointer src={pointer} style={{ top: `${result.Y}%`, left: `${result.X}%` }} alt="pointer" />
+        </GraphImage>
+
+        <Feature>
+          <ContentTitle>診断結果が似ている方の特徴</ContentTitle>
+          <ContentLoader isLoading={loading}>
+            <Feature_content>
+              {result.Feature?.map((output, index) => {
+                return (
+                  <Typography type="text" size="m" margin={0} key={index}>
+                    {`・${output}`}
+                  </Typography>
+                )
+              })}
+            </Feature_content>
+          </ContentLoader>
+        </Feature>
+        <Feature>
+          <ContentTitle>このタイプに向いている仕事</ContentTitle>
+          <ContentLoader isLoading={loading}>
+            <Feature_content>
+              {result.Profession?.map((output, index) => {
+                return (
+                  <Typography type="text" size="m" key={index} margin={0}>
+                    {`・${output}`}
+                  </Typography>
+                )
+              })}
+            </Feature_content>
+          </ContentLoader>
+        </Feature>
+        <Feature>
+          <ContentTitle>タイプ別の上手な関わり方</ContentTitle>
+          {result.Relational_Description?.map((description, index) => {
             return (
-              <Typography type="text" size="m" margin={0} key={index}>
-                {`・${output}`}
-              </Typography>
+              <Feature key={index}>
+                <Type>
+                  <Disc_logo src={border[index]} />
+                  <Typography type="h3" size="s" color="orenge" margin={0}>
+                    {`${allStyle[index]}タイプ`}
+                  </Typography>
+                </Type>
+                <ContentLoader isLoading={loading}>
+                  <Discription>
+                    <Typography type="text" size="m" >
+                      {description.split(/(\r\n|\r\n)/g).map(
+                        (txt, i) => (txt === "\r\n") ? <br key={i} /> : txt)
+                      }
+                    </Typography>
+                  </Discription>
+                </ContentLoader>
+              </Feature>
             )
           })}
-        </Feature_content>
-      </Feature>
-      <Feature>
-        <ContentTitle>診断結果が似ている方に多い就いている仕事</ContentTitle>
-        <Feature_content>
-          {result.Profession?.map((output, index) => {
-            return (
-              <Typography type="text" size="m" key={index} margin={0}>
-                {`・${output}`}
-              </Typography>
-            )
-          })}
-        </Feature_content>
-      </Feature>
-      <Feature>
-        <ContentTitle>タイプ別の上手な関わり方</ContentTitle>
-        <Feature>
-          <Type>
-            <Disc_logo src={maru} />
-            <Typography type="h3" size="s" color="orenge" margin={0}>
-              Amiable(エミアブル)タイプ
-            </Typography>
-          </Type>
-          <Typography type="text" size="m" >
-            <Discription>
-              {result.Relational_description?.[0]}
-            </Discription>
-          </Typography>
         </Feature>
-        <Feature>
-          <Type>
-            <Disc_logo src={sikaku} />
-            <Typography type="h3" size="s" color="orenge" margin={0}>
-              Driver(ドライバー)タイプ
-            </Typography>
-          </Type>
-          <Typography type="text" size="m">
-            <Discription>
-              {result.Relational_description?.[1]}
-            </Discription>
-          </Typography>
-        </Feature>
-        <Feature>
-          <Type>
-            <Disc_logo src={sankaku} />
-            <Typography type="h3" size="s" color="orenge" margin={0}>
-              Analytical(アナリティカル)タイプ
-            </Typography>
-          </Type>
-          <Typography type="text" size="m">
-            <Discription>
-              {result.Relational_description?.[2]}
-            </Discription>
-          </Typography>
-        </Feature>
-        <Feature>
-          <Type>
-            <Disc_logo src={hosi} />
-            <Typography type="h3" size="s" color="orenge" margin={0}>
-              Expressibe(エクスプレッシブ)タイプ
-            </Typography>
-          </Type>
-          <Typography type="text" size="m">
-            <Discription>
-              {result.Relational_description?.[3]}
-            </Discription>
-          </Typography>
-        </Feature>
-      </Feature>
-    </ResultArea>
+      </ResultArea>
+    </>
+
   );
 };
 

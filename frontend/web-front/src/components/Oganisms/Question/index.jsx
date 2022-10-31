@@ -4,65 +4,57 @@ import styled, { css } from "styled-components";
 // components
 import Typography from "../../Atoms/Typography";
 import Button from "../../Atoms/Button";
+import AnswerBorder from "../../Atoms/AnswerBorder";
+
+const pointMap = [-2, -1, 1, 2];
 
 const Root = styled.div`
   width: 100%;
   background-clip: content-box;
-  padding-top: 150px;
   text-align: center;
   ${({ type }) => {
     switch (type) {
       case 'top':
         return css`
           background-color: #FFFFFF;
-          padding-top: 150px;
           height: 400px;
+          overflow: hidden;
           @media all and (max-width: 450px) {
-            height: 300px;
+            height: 270px;
           }
         `
       default:
         return css`
-          padding-top: 30px;
-          height: 300px;
+          padding-top: 20px;
+          height: 270px;
         `
     }
   }}
 `;
 
 const QandT = styled.div`
-  padding-top: 30px;
+  padding-top: 0;
   display: flex;
   justify-content: space-between;
 `;
 
-const Question = React.memo(({ type, pos, index, question, children, totalCountUp, calcuCount }) => {
-  const [yes, setYes] = useState(false);
-  const [no, setNo] = useState(false);
-  // 「yes」か「no」どちらか１回押したらtrueにする
-  const [flag, setFlag] = useState(false);
+const Question = React.memo(({
+  type, index, item, children, calcuCount }) => {
+  // 4択ボタン１回押したらその時の数字(-2, -1, 1, 2)にする
+  const [state, setState] = useState(0);
 
-  const onClick = (yesNo) => {
-    if (yesNo === "yes") {
-      if (no === true) {
-        setNo(false);
-        calcuCount(pos, "no", "down");
-      }
-      setYes(true);
-      calcuCount(pos, "yes", "up");
-    } else {
-      if (yes === true) {
-        setYes(false);
-        calcuCount(pos, "yes", "down");
-      }
-      setNo(true);
-      calcuCount(pos, "no", "up");
-    }
-    if (flag === false) {
-      setFlag(true);
-      totalCountUp();
-    };
+  const onClick = (point) => {
+    calcuCount(point, index);
+    setState(point);
   };
+
+  const setDisabled = (num) => {
+    if (state === num) {
+      return true
+    } else {
+      return false
+    }
+  }
 
   return (
     <>
@@ -71,15 +63,22 @@ const Question = React.memo(({ type, pos, index, question, children, totalCountU
         :
         <Root>
           <Typography type="text" size="m" color="orenge">
-            問{index}
+            問{index + 1}
           </Typography>
           <Typography type="text" size="m" color="black">
-            {question}
+            {item.questions}
           </Typography>
           <QandT>
-            <Button disabled={yes} type={`${yes}`} onClick={() => onClick("yes")}>Yes</Button>
-            <Button disabled={no} type={`${no}`} onClick={() => onClick("no")}>No</Button>
+            {pointMap.map((point) => {
+              return <Button
+                key={point}
+                disabled={setDisabled(point)}
+                type="yesNo"
+                onClick={() => onClick(point)}
+              />
+            })}
           </QandT>
+          <AnswerBorder />
         </Root>}
     </>
   );

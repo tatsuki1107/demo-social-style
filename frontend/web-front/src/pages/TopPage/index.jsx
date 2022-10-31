@@ -12,13 +12,12 @@ import ContentTitle from '../../components/Atoms/ContentTitle';
 
 const TopPage = () => {
   const { user } = useAuth();
-  console.log(user);
   const navigate = useNavigate();
   const goNextPage = () => {
-    if (user.token === "") {
-      navigate('/temporaryLogin')
+    if (!user) {
+      window.location.href = 'http://localhost/test_auth';
     } else {
-      navigate('/diagnosis')
+      navigate('/diagnosis', window.scrollTo(0, 0))
     }
   }
   return (
@@ -35,7 +34,7 @@ const TopPage = () => {
           </div>
 
           <div className='startButton-1'>
-            {user.token === "" ?
+            {!user ?
               <Button onClick={goNextPage} type="start">
                 ログインして診断する
               </Button>
@@ -70,7 +69,7 @@ const TopPage = () => {
           </section>
 
           <div className='startButton-2'>
-            {user.token === "" ?
+            {!user ?
               <Button onClick={goNextPage} type="start">
                 ログインして診断する
               </Button>
@@ -88,7 +87,7 @@ const TopPage = () => {
             </div>
 
             <div className='donKnow'>
-              <ContentTitle>どんな仕事が向いているのか分からない</ContentTitle>
+              <ContentTitle>向いている仕事がよく分からない</ContentTitle>
               <div className='hl_content_txt'>
                 <Typography type="text" size="s" color="black">
                   この診断では、その性格の方が「一般的に向いている仕事」を知ることが出来ます。<br />
@@ -117,7 +116,7 @@ const TopPage = () => {
           </div>
 
           <div className='startButton-3'>
-            {user.token === "" ?
+            {!user ?
               <Button onClick={goNextPage} type="start">
                 ログインして診断する
               </Button>

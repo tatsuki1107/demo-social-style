@@ -1,24 +1,21 @@
 import './index.css';
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef, useLayoutEffect, createRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Template, { Main } from "../../components/Templates";
 import styled from "styled-components";
-
+import axios from "axios";
 // components
 import Question from "../../components/Oganisms/Question";
 import Result from "../../components/Oganisms/Result";
 import Typography from "../../components/Atoms/Typography";
 import Button from "../../components/Atoms/Button";
-
 // Hooks
-import useStyleCounter from "../../Hooks/useStyleCounter";
-
-// APIで問題をもらってきた前提のdata
-import { questions } from "../../data";
-
+import { useAuth } from '../../Routings/AuthService';
 // img import
 import check_icon from "../../img/check.jpg";
 import timer_icon from "../../img/timer.jpg";
+// Skeleton
+import ContentLoader from "styled-content-loader";
 
 const Icon_flex = styled.div`
   width: 100px;
@@ -31,6 +28,7 @@ const QandT = styled.div`
   justify-content: center;
 `;
 const Underline = styled.div`
+  margin-top: 50px;
   width: 100%;
   border: 4px dashed #DF7919;
 `;
@@ -44,108 +42,138 @@ const Buttonzorn = styled.div`
 `;
 
 const Diagnosis = () => {
+  const { user, handleError } = useAuth();
   const [data, setData] = useState([]);
-  const [totalCount, setTotalCount] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [flag, setFlag] = useState(false);
-  const { aCount, bCount, cCount, dCount, calcuCount } = useStyleCounter()
+  const scrollBottomRef = useRef(null);
+  const questionRefContent = useRef([]);
+  const windowHeight = window.innerHeight;
   const navigate = useNavigate();
-  const goTopPage = () => {
-    navigate('/');
+
+  const getRect = (elm) => {
+    return elm.current.getBoundingClientRect();
   };
-  const totalCountUp = useCallback(() => {
-    setTotalCount(num => num + 1)
-  }, [totalCount]);
+
+  const Scroll = (index) => {
+    const contentRect = getRect(questionRefContent.current[index]);
+    if (windowHeight - contentRect.top < 500 && index < 18) {
+      const offset = window.pageYOffset;
+      const scrollCountentRect = getRect(questionRefContent.current[index]);
+      const gap = windowHeight < 700 ? 50 : 80;
+      const target = offset + scrollCountentRect.top - gap;
+      window.scrollTo({
+        top: target,
+        // 不具合発生中の為、一時コメントアウト
+        // behavior: 'smooth' 
+      });
+    };
+  };
+
+  const calcuCount = useCallback((point, index) => {
+    setData(prev => prev.map((p, i) => (i === index ? { ...p, "answer": point } : p)))
+    Scroll(index);
+  }, [data]);
+
+  const xyCaluculation = (length) => {
+    const groupby = data.reduce((prev, current) => {
+      const found = prev.find(value => value["pos"] === current["pos"]);
+      if (found) { found["answer"] += current["answer"] } else {
+        prev.push({
+          "pos": current["pos"], "answer": current["answer"],
+        })
+      }
+      return prev;
+    }, [])
+    let xy = {}
+    groupby.map((result) => {
+      xy[result["pos"]] = ((length + result["answer"]) / (2 * length)) * 100
+    });
+    return xy;
+  }
 
   const onResult = async () => {
-    if (totalCount === data.length) {
-      // %表記 (小数点第一で四捨五入)
-      const X = Math.round(((totalCount / 2 + (aCount - bCount)) / totalCount) * 100);
-      const Y = Math.round(((totalCount / 2 + (cCount - dCount)) / totalCount) * 100);
-      let style;
-
-      if (X > 50) {
-        if (Y > 50) {
-          style = 'エクスプレッシブ';
-        } else {
-          style = 'ドライビング';
-        }
-      } else {
-        if (Y > 50) {
-          style = 'エミアブル';
-        } else {
-          style = 'アナリティカル';
-        }
-      }
-
+    if (!data.some(d => d["answer"] === undefined)) {
+      const coordinate = xyCaluculation(data.length);
       try {
-        // API: POST, { "X": float, "Y": float }
-        console.log({ X: X, Y: Y, style: style })
+        const data = { ...user, ...coordinate };
+        await axios.post('http://localhost/api/send_param', data)
+          .then(() => { setFlag(true) });
       } catch (e) {
-        console.error(e);
-      } finally {
-        setFlag(true);
+        handleError(e.response.status);
       }
     } else {
-      alert('未回答の問題があります')
+      const numbers = data.flatMap((d, i) => (d["answer"] === undefined ? i + 1 : []))
+      alert(`問${numbers.join(', ')}が、未回答です。`);
     }
   };
 
   useEffect(() => {
     (async () => {
       try {
-        // APIでGET予定
-        // { "question": string, "select-type": int, "pos": string }
-        setData(questions);
+        await axios.post('http://localhost/api/questions', user).then(res => setData(res?.data))
+        setLoading(false);
       } catch (e) {
-        console.error(e)
+        handleError(e.response.status);
       }
     })()
-  }, [])
+  }, []);
+
+  useLayoutEffect(() => {
+    if (scrollBottomRef && scrollBottomRef.current) {
+      scrollBottomRef.current.scrollIntoView();
+    }
+  }, [flag])
+
+  data.forEach((_, index) => {
+    questionRefContent.current[index] = createRef(null);
+  });
 
   return (
     <>
       <Template>
         <Main>
-          <Question type="top">
-            <Typography type="Q_h1" color="black">
-              診断スタート
-            </Typography>
-            <Typography type="text" size="m" >
-              自分が周りにどう思われているのか<br />直感的に選択してください
-            </Typography>
-            <QandT>
-              <Icon_flex>
-                <img src={check_icon} className="question_icon" alt="question_icon" />
-                <Typography type="text" size="m" color="orenge">{data.length}問</Typography>
-              </Icon_flex>
-              <Icon_flex>
-                <img src={timer_icon} className="question_icon" alt="timer_icon" />
-                <Typography type="text" size="m" color="orenge">3:00</Typography>
-              </Icon_flex>
-            </QandT>
-          </Question>
-
-          {data.map((q, index) => {
-            return (
-              <Question
-                key={index}
-                index={index + 1}
-                pos={q.pos}
-                question={q.question}
-                totalCountUp={totalCountUp}
-                calcuCount={calcuCount}
-              />
-            )
-          })}
-
-          <Underline />
-          <Buttonzorn>
-            <Button type="start" onClick={onResult}>
-              診断する
-            </Button>
-            <Button type="maru" size="m" onClick={goTopPage}>Social Style診断とは</Button>
-          </Buttonzorn>
-          {flag && <Result date="" />}
+          <ContentLoader isLoading={loading}>
+            <Question type="top">
+              <Typography type="Q_h1" color="black">
+                診断スタート
+              </Typography>
+              <div className='text'>
+                <Typography type="text" size="m" >
+                  自分が周りにどう思われているのか<br />直感的に選択してください
+                </Typography>
+              </div>
+              <QandT>
+                <Icon_flex>
+                  <img src={check_icon} className="question_icon" alt="question_icon" />
+                  <Typography type="text" size="m" color="orenge">{data.length}問</Typography>
+                </Icon_flex>
+                <Icon_flex>
+                  <img src={timer_icon} className="question_icon" alt="timer_icon" />
+                  <Typography type="text" size="m" color="orenge">3:00</Typography>
+                </Icon_flex>
+              </QandT>
+            </Question>
+            {data.map((item, index) => {
+              return (
+                <div key={index} ref={questionRefContent.current[index]}>
+                  <Question
+                    index={index}
+                    item={item}
+                    calcuCount={calcuCount}
+                  />
+                </div>
+              );
+            })}
+            <Underline />
+            <Buttonzorn>
+              <Button type="start" onClick={onResult} disabled={flag}>
+                診断する
+              </Button>
+              <Button type="maru" size="m" onClick={() => navigate('/', window.scrollTo(0, 850))}>Social Style診断とは</Button>
+            </Buttonzorn>
+            {flag && <div ref={scrollBottomRef}><Result date="" /></div>}
+          </ContentLoader>
         </Main>
       </Template>
     </>

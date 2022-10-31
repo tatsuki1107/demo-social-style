@@ -5,7 +5,7 @@ import { useAuth } from "./AuthService";
 const LoggedInRoute = ({ children }) => {
   const { user } = useAuth();
 
-  if (user.token === "") {
+  if (!user) {
     return <Navigate to="/" />
   }
   return children;
