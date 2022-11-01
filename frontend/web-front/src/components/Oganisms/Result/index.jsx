@@ -36,9 +36,10 @@ const DiaResult = styled.div`
   background-color: #FFFFFF;
   width: 240px;
   height: 125px;
-  padding: 10px;
+  padding: 3px 10px 12px 10px;
   display: inline-block;
-  margin-top: 80px;
+  margin-top: 60px;
+  border-radius: 30px;
   @media all and (max-width: 450px) {
     font-size: 0.8em;
     width: 220px;
@@ -138,7 +139,7 @@ const Result = ({ date }) => {
         <Underline />
         <ContentLoader isLoading={loading}>
           <DiaResult>
-            <Typography type="h2" margin={0}>
+            <Typography type="h2" margin={0} style={"margin-top : -6px"}>
               {toDateTransform(result.Time)}<br />診断結果
             </Typography>
           </DiaResult>
