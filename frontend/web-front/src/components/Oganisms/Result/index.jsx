@@ -7,10 +7,10 @@ import ContentTitle from "../../Atoms/ContentTitle";
 // img
 import graph_img from '../../../img/StyleGraph_t.jpg';
 import pointer from '../../../img/point.svg';
-import hosi from '../../../img/hosi.svg';
-import sikaku from '../../../img/sikaku.svg';
-import sankaku from '../../../img/sankaku.svg';
-import maru from '../../../img/maru.svg';
+import exp from '../../../img/maru_exp.svg';
+import dri from '../../../img/maru_dri.svg';
+import ana from '../../../img/maru_Ana.svg';
+import emi from '../../../img/maru_emi.svg';
 // hooks
 import useResult from "../../../Hooks/useResult";
 // transform
@@ -18,7 +18,7 @@ import { toDateTransform } from "../../../js/transform";
 // skeleton
 import ContentLoader from "styled-content-loader";
 
-const border = [maru, sikaku, sankaku, hosi];
+const border = [emi, dri, ana, exp];
 const allStyle = ["エミアブル", "ドライバー", "アナリティカル", "エクスプレッシブ"];
 
 const ResultArea = styled.div`
@@ -49,7 +49,7 @@ const DiaResult = styled.div`
 const GraphImage = styled.div`
   position: relative;
   margin: 0 auto;
-  width: 85%;
+  width: 83%;
   @media (max-width: 660px) {
     width: 100%;
     height: 100%;

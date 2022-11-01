@@ -57,15 +57,13 @@ const Diagnosis = () => {
 
   const Scroll = (index) => {
     const contentRect = getRect(questionRefContent.current[index]);
-    if (windowHeight - contentRect.top < 500 && index < 18) {
+    if (windowHeight - contentRect.top < 400 && index < 18) {
       const offset = window.pageYOffset;
       const scrollCountentRect = getRect(questionRefContent.current[index]);
-      const gap = windowHeight < 700 ? 50 : 80;
-      const target = offset + scrollCountentRect.top - gap;
+      const gap = windowHeight < 700 ? 50 : 220;
+      const target = offset + scrollCountentRect.top + gap;
       window.scrollTo({
         top: target,
-        // 不具合発生中の為、一時コメントアウト
-        // behavior: 'smooth' 
       });
     };
   };
