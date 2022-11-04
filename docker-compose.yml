@@ -34,6 +34,8 @@ services:
     env_file:
       - mysql/mysql_env
     tty: true
+    networks:
+      - django_session
     volumes:
       - mysql_volume:/var/lib/mysql
       - ./mysql/sql_dir:/sql_dir
