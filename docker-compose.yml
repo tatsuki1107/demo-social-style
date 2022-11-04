@@ -26,6 +26,18 @@ services:
       - django_session
     ports:
       - "6379:6379"
+  mysql_db:
+    container_name: mysql
+    build:
+      context: ./mysql/.
+      dockerfile: Dockerfile
+    env_file:
+      - mysql/mysql_env
+    tty: true
+    volumes:
+      - mysql_volume:/var/lib/mysql
+      - ./mysql/sql_dir:/sql_dir
+
   reverse_proxy:
     container_name: nginx_frontend
     build:
@@ -55,3 +67,5 @@ networks:
     driver: bridge
   frontend_network:
     driver: bridge
+volumes:
+  mysql_volume:
