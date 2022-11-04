@@ -42,7 +42,7 @@ const DiaResult = styled.div`
   border-radius: 30px;
   @media all and (max-width: 450px) {
     font-size: 0.8em;
-    width: 220px;
+    width: 200px;
     height: 100px;
   }
 `;
