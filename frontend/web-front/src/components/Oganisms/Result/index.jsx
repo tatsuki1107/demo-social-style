@@ -18,8 +18,8 @@ import { toDateTransform } from "../../../js/transform";
 // skeleton
 import ContentLoader from "styled-content-loader";
 
-const border = [emi, dri, ana, exp];
-const allStyle = ["エミアブル", "ドライバー", "アナリティカル", "エクスプレッシブ"];
+const border = [emi, exp, dri, ana];
+const allStyle = ["エミアブル", "エクスプレッシブ", "ドライバー", "アナリティカル"];
 
 const ResultArea = styled.div`
   width: 100%;
