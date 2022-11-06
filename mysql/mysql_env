@@ -2,4 +2,4 @@ MYSQL_ROOT_HOST=%
 MYSQL_ROOT_PASSWORD=admin
 MYSQL_USER=cheer_ss
 MYSQL_PASSWORD=Soc1@lStyle
-MYSQL_DATABASE=socialstyles
+MYSQL_DATABASE=socialstyles_relation
