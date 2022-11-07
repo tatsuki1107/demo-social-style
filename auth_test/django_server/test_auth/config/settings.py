@@ -121,5 +121,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost/test_auth',
+    'http://localhost:8080',
+    'http://auth.cheercareer.jp:8080'
 )

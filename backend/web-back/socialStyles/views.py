@@ -72,7 +72,7 @@ def questions(request):
     print("OK,method:"+request.method)
     if request.method == 'OPTIONS':
         response = HttpResponse()
-        response['Access-Control-Allow-Origin'] = 'http://localhost:63342'
+        response['Access-Control-Allow-Origin'] = 'http://localhost:3000'
         response['Access-Control-Allow-Credentials'] = 'true'
         response['Access-Control-Allow-Headers'] = "Content-Type, Accept, X-CSRFToken"
         response['Access-Control-Allow-Methods'] = "POST, OPTIONS"
@@ -134,7 +134,7 @@ def submit_to_history(request):
         return HttpResponse(status=403)
     if request.method == 'OPTIONS':
         response = HttpResponse()
-        response['Access-Control-Allow-Origin'] = 'http://localhost'
+        response['Access-Control-Allow-Origin'] = 'http://localhost:3000'
         response['Access-Control-Allow-Credentials'] = 'true'
         response['Access-Control-Allow-Headers'] = "Content-Type, Accept, X-CSRFToken"
         response['Access-Control-Allow-Methods'] = "POST, OPTIONS"
@@ -143,11 +143,13 @@ def submit_to_history(request):
     elif request.method == 'POST':
         try:
             res = json.loads(request.body)
+            print(res)
             res["X"] = float(res["X"])
             res["Y"] = float(res["Y"])
         except:
             return HttpResponse(status=400)
         if (("X" not in res) or ("Y" not in res) or ("session_ID" not in res) or ("token" not in res)):
+            print("sas")
             return HttpResponse(status=401)
         elif ((not (0 <= res["X"] <= 100)) or (
                 not (0 <= res["Y"] <= 100)) or (type(res["session_ID"]) != str) or (type(res["token"]) != str)):

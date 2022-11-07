@@ -9,6 +9,8 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def auth_accounts(request):
     #アカウント作成する場合の関数。Cheer_IDjsonで取得し問題がなければこれでDBに登録する。
+
+
     if request.method != "POST" and request.method != "OPTIONS":
         return HttpResponse(status=405)
     elif request.method == "POST":
@@ -48,10 +50,13 @@ def auth_accounts(request):
              response = HttpResponse(status=500)
         return response
     else:
+        print("OPTIONS")
+        print(request.headers['Origin'])
+        assert "http://localhost:8080" == request.headers['Origin']
         response = HttpResponse()
-        response['Access-Control-Allow-Origin'] = 'localhost:80'
+        #response['Access-Control-Allow-Origin'] = "localhost:8080"
         response['Access-Control-Allow-Credentials'] = 'true'
-        response['Access-Control-Allow-Headers'] = "Content-Type, Accept, X-CSRFToken"
+        response['Access-Control-Allow-Headers'] = "Content-Type, Accept, X-CSRFToken, xhr"
         response['Access-Control-Allow-Methods'] = "GET, POST, OPTIONS"
-        print("options")
+
         return response

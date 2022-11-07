@@ -11,10 +11,10 @@ services:
     tty: true
     command: gunicorn --bind :8000 config.wsgi:application --reload
     networks:
-      - frontend_network
       - django_session
+      - auth_session
     environment:
-      - OriginHost=localhost
+      - OriginHost=dev.cheercareer.jp
       - CHOKIDAR_USEPOLLING=true
       - DJANGO_SETTINGS_MODULE=config.local_settings
       - redishost=redis_db
@@ -47,10 +47,21 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - 80:80
-    volumes:
-      - ./nginx/html:/html
     networks:
-      - frontend_network
+      - django_session
+
+  auth_server:
+    container_name: nginx_auth
+    build:
+      context: ./auth_nginx/.
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./auth_nginx/html:/html
+    ports:
+      - 8080:80
+    networks:
+      - django_session
+
   test_auth_server:
     container_name: auth_temp
     build:
@@ -60,14 +71,15 @@ services:
       - nginx_target=127.0.0.1:80
     networks:
       - django_session
-      - frontend_network
+      - auth_session
     volumes:
       - ./auth_test/django_server/test_auth:/django
     command: gunicorn --bind :8000 config.wsgi:application --reload
+
 networks:
   django_session:
     driver: bridge
-  frontend_network:
+  auth_session:
     driver: bridge
 volumes:
   mysql_volume:

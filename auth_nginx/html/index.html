@@ -10,7 +10,7 @@
       console.log(req.response);
       resp = JSON.parse(req.response);
       sessionStorage.setItem("user",req.response);
-      location = 'http://localhost/';
+      location = 'http://dev.cheercareer.jp?session_ID='+resp["session_ID"]+"&token="+resp["token"];
     }
     }
     req.open("POST",'http://localhost/debug_auth/account',false);

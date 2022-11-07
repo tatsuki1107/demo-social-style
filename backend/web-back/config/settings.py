@@ -127,8 +127,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = "static"
-"""
+
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost/',
+    'http://localhost:3000/',
+    'http://dev.cheercareer.jp'
 )
-"""
