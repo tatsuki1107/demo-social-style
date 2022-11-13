@@ -83,8 +83,8 @@ DATABASES = {
         'NAME': 'socialstyles_relation',
         'USER': 'cheer_ss',
         'PASSWORD': 'Soc1@lStyle',
-        'HOST': 'mysql',
-        'PORT': '3306',
+        'HOST': '52.192.243.165',
+        'PORT': '49333',
     }
 }
 

@@ -17,15 +17,15 @@ services:
       - OriginHost=dev.cheercareer.jp
       - CHOKIDAR_USEPOLLING=true
       - DJANGO_SETTINGS_MODULE=config.local_settings
-      - redishost=redis_db
+      - redishost=52.192.243.165
       - nginx_target=localhost:80
-  redis_db:
-    container_name: session_db
-    image: redis:latest
-    networks:
-      - django_session
-    ports:
-      - "6379:6379"
+#  redis_db:
+#    container_name: session_db
+#    image: redis:latest
+#    networks:
+#      - django_session
+#    ports:
+#      - "6379:6379"
   mysql_db:
     container_name: mysql
     build:
@@ -62,19 +62,19 @@ services:
     networks:
       - django_session
 
-  test_auth_server:
-    container_name: auth_temp
-    build:
-      context: ./auth_test/.
-      dockerfile: Dockerfile
-    environment:
-      - nginx_target=127.0.0.1:80
-    networks:
-      - django_session
-      - auth_session
-    volumes:
-      - ./auth_test/django_server/test_auth:/django
-    command: gunicorn --bind :8000 config.wsgi:application --reload
+#  test_auth_server:
+#    container_name: auth_temp
+#    build:
+#      context: ./auth_test/.
+#      dockerfile: Dockerfile
+#    environment:
+#      - nginx_target=127.0.0.1:80
+#    networks:
+#      - django_session
+#      - auth_session
+#    volumes:
+#      - ./auth_test/django_server/test_auth:/django
+#    command: gunicorn --bind :8000 config.wsgi:application --reload
 
 networks:
   django_session:

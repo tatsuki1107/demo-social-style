@@ -19,60 +19,19 @@ import time
             print("redis")
             return HttpResponse(status=500)"""
 
-
-@csrf_exempt
-def token(request):
-   # print(request['Origin'])
-    # print(request.META.get('REMOTE_ADDR'))
-    # tokenエンドポイントにおける処理。
-    # POST以外はBadRequestとして処理し,POSTの場合はsession_ID,tokenに問題がない場合redisにsessionToken,cheer_IDを保管する.
-    if request.method != 'POST':
-        return HttpResponse(status=400)
-    try:
-        res = json.loads(request.body)
-    except:
-        print("Error json")
-        return HttpResponse(status=400)
-    # jsonの型確認。不正な場合は400を返す。
-    if (("Cheer_ID" not in res) or ("session_ID" not in res) or ("token" not in res)):
-        return HttpResponse(status=401)
-    elif (((type(res["Cheer_ID"]) != int) or (res["Cheer_ID"] < 0)) or (type(res["session_ID"]) != str) or (type(res["token"]) != str)):
-        return HttpResponse(status=400)
-    else:
-        # Cheer_IDを確認したらdbにUser_IDが存在する場合は取得しredisに保管,ない場合は新規作成してからredisにUser_IDと結びつけて保管。
-        try:
-            sessiontoken = res["session_ID"] + res["token"]
-            userid = User.objects.get(Cheer_ID=res["Cheer_ID"])
-            tokendb = redis.Redis(
-                host=os.environ["redishost"], port=6379, db=0)
-            tokendb.set(sessiontoken, userid.User_ID)
-            tokendb.expire(sessiontoken, 3600)
-            return HttpResponse(status=200)
-        except User.DoesNotExist:
-            User.objects.create(Cheer_ID=res["Cheer_ID"])
-            print("db")
-            userid = User.objects.get(Cheer_ID=res["Cheer_ID"])
-            tokendb = redis.Redis(
-                host=os.environ["redishost"], port=6379, db=0)
-            print(userid)
-            tokendb.set(sessiontoken, userid.User_ID)
-            tokendb.expire(sessiontoken, 3600)
-            return HttpResponse(status=200)
-
-
 @csrf_exempt
 def questions(request):
     print(request)
     print(request.META)
-    tokendb = redis.Redis(host=os.environ["redishost"], port=6379, db=0)
+    tokendb = redis.Redis(host=os.environ["redishost"], port=6379, db=0,password="Soc1@lStyle")
     print(request.META['HTTP_ORIGIN'])
     print("environ:"+os.environ['OriginHost'])
     if not (os.environ['OriginHost'] in request.META['HTTP_ORIGIN']):
         return HttpResponse(status=403)
     print("OK,method:"+request.method)
+
     if request.method == 'OPTIONS':
         response = HttpResponse()
-        response['Access-Control-Allow-Origin'] = 'http://localhost:3000'
         response['Access-Control-Allow-Credentials'] = 'true'
         response['Access-Control-Allow-Headers'] = "Content-Type, Accept, X-CSRFToken"
         response['Access-Control-Allow-Methods'] = "POST, OPTIONS"
@@ -84,11 +43,11 @@ def questions(request):
         except:
             print("Error json")
             return HttpResponse(status=400)
-        print(type(res["session_ID"]))
+        print(type(res["session_id"]))
         print(type(res["token"]))
-        if (("session_ID" not in res) or ("token" not in res) or (type(res["session_ID"]) != str) or (type(res["token"]) != str)):
+        if (("session_id" not in res) or ("token" not in res) or (type(res["session_id"]) != str) or (type(res["token"]) != str)):
             return HttpResponse(status=400)
-        sessiontoken = res["session_ID"]+res["token"]
+        sessiontoken = res["session_id"]+res["token"]
         user_ID = tokendb.get(sessiontoken)
         if user_ID == None:
             print("None")
@@ -132,15 +91,16 @@ def questions(request):
 def submit_to_history(request):
     if not (os.environ['OriginHost'] in request.META['HTTP_ORIGIN']):
         return HttpResponse(status=403)
+
     if request.method == 'OPTIONS':
         response = HttpResponse()
-        response['Access-Control-Allow-Origin'] = 'http://localhost:3000'
         response['Access-Control-Allow-Credentials'] = 'true'
         response['Access-Control-Allow-Headers'] = "Content-Type, Accept, X-CSRFToken"
         response['Access-Control-Allow-Methods'] = "POST, OPTIONS"
         print("options")
         return response
-    elif request.method == 'POST':
+
+    if request.method == 'POST':
         try:
             res = json.loads(request.body)
             print(res)
@@ -148,16 +108,16 @@ def submit_to_history(request):
             res["Y"] = float(res["Y"])
         except:
             return HttpResponse(status=400)
-        if (("X" not in res) or ("Y" not in res) or ("session_ID" not in res) or ("token" not in res)):
+        if (("X" not in res) or ("Y" not in res) or ("session_id" not in res) or ("token" not in res)):
             print("sas")
             return HttpResponse(status=401)
         elif ((not (0 <= res["X"] <= 100)) or (
-                not (0 <= res["Y"] <= 100)) or (type(res["session_ID"]) != str) or (type(res["token"]) != str)):
+                not (0 <= res["Y"] <= 100)) or (type(res["session_id"]) != str) or (type(res["token"]) != str)):
             return HttpResponse(status=400)
         else:
-            sessiontoken = res["session_ID"] + res["token"]
+            sessiontoken = res["session_id"] + res["token"]
             tokendb = redis.Redis(
-                host=os.environ["redishost"], port=6379, db=0)
+                host=os.environ["redishost"], port=6379, db=0,password="Soc1@lStyle")
             userid = tokendb.get(sessiontoken)
             user = User.objects.get(User_ID=userid)
             if userid == None:
@@ -187,6 +147,7 @@ def submit_to_history(request):
 def getresult(request):
     if not (os.environ['OriginHost'] in request.META['HTTP_ORIGIN']):
         return HttpResponse(status=403)
+
     if request.method == 'OPTIONS':
         response = HttpResponse()
         response['Access-Control-Allow-Origin'] = 'http://localhost:63342'
@@ -194,16 +155,17 @@ def getresult(request):
         response['Access-Control-Allow-Headers'] = "Content-Type, Accept, X-CSRFToken"
         response['Access-Control-Allow-Methods'] = "POST, OPTIONS"
         return response
+
     elif request.method == 'POST':
         try:
             res = json.loads(request.body)
         except:
             return HttpResponse(status=400)
-        if (("session_ID" not in res) or ("token" not in res)
-                or (type(res["session_ID"]) != str) or (type(res["token"]) != str)):
+        if (("session_id" not in res) or ("token" not in res)
+                or (type(res["session_id"]) != str) or (type(res["token"]) != str)):
             return HttpResponse(status=400)
-        sessiontoken = res["session_ID"]+res["token"]
-        tokendb = redis.Redis(host=os.environ["redishost"], port=6379, db=0)
+        sessiontoken = res["session_id"]+res["token"]
+        tokendb = redis.Redis(host=os.environ["redishost"], port=6379, db=0,password="Soc1@lStyle")
         userid = tokendb.get(sessiontoken)
         if userid == None:
             return HttpResponse(status=500)

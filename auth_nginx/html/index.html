@@ -2,20 +2,20 @@
 <html lang="en">
 <script>
     function test_session(){
-    let Cheer_ID = document.getElementById('id_num').value;
-    let json_Cheer = JSON.stringify({"Cheer_ID": Cheer_ID});
+    let cheer_id = document.getElementById('id_num').value;
+    let session_id = Math.random().toString(32).substring(6);
+    let token = Math.random().toString(32).substring(10);
+    let json_cheer = JSON.stringify({"cheer_id": cheer_id,"session_id":session_id,"token":token});
     let req = new XMLHttpRequest();
     req.onreadystatechange = ()=>{
         if (req.readyState === 4) {
       console.log(req.response);
-      resp = JSON.parse(req.response);
-      sessionStorage.setItem("user",req.response);
-      location = 'http://dev.cheercareer.jp?session_ID='+resp["session_ID"]+"&token="+resp["token"];
+      location = 'http://dev.cheercareer.jp?session_id='+session_id+"&token="+token;
     }
     }
-    req.open("POST",'http://localhost/debug_auth/account',false);
+    req.open("POST",'http://52.192.243.165:16000/token',false);
     req.setRequestHeader('Content-Type','application/json');
-    req.send(json_Cheer);
+    req.send(json_cheer);
 }
 </script>
 <head>
