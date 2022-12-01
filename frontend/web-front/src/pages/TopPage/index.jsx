@@ -16,7 +16,7 @@ const TopPage = () => {
   const navigate = useNavigate();
   const goNextPage = () => {
     if (!user) {
-      window.location.href = 'http://auth.cheercareer.jp:8080';
+      window.location.href = 'http://ec2-52-192-243-165.ap-northeast-1.compute.amazonaws.com:8080';
     } else {
       navigate('/diagnosis')
     }

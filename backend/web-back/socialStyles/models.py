@@ -3,39 +3,53 @@ from django.db import models
 
 
 class User(models.Model):
-    User_ID = models.BigAutoField(primary_key=True)
-    Cheer_ID = models.BigIntegerField()
-
+    user_id = models.BigAutoField(primary_key=True)
+    cheer_id = models.BigIntegerField()
+    class Meta:
+        db_table = 'user'
 
 class SocialStyle(models.Model):
-    SocialStyle_ID = models.IntegerField(primary_key=True)
-    Type_Name = models.TextField(null=False)
-    Type_Explanation = models.TextField(null=False)
-
+    social_style_id = models.IntegerField(primary_key=True)
+    type_name = models.TextField(null=False)
+    type_explanation = models.TextField(null=False)
+    class Meta:
+        db_table = 'social_style'
 
 class Result(models.Model):
-    Result_ID = models.BigAutoField(primary_key=True)
-    User_ID = models.ForeignKey(User,on_delete=models.CASCADE)
-    SocialStyle_ID = models.ForeignKey(SocialStyle,on_delete=models.PROTECT)
-    X = models.FloatField(null=False)
-    Y = models.FloatField(null=False)
-    Date = models.BigIntegerField(null=False)
-
+    result_id = models.BigAutoField(primary_key=True)
+    user_id = models.ForeignKey(User,on_delete=models.CASCADE)
+    social_style_id = models.ForeignKey(SocialStyle,on_delete=models.PROTECT)
+    x = models.FloatField(null=False)
+    y = models.FloatField(null=False)
+    date = models.BigIntegerField(null=False)
+    class Meta:
+        db_table = 'result'
 
 class Profession(models.Model):
-    Profession_Name = models.TextField(null=False)
-    SocialStyleID = models.ForeignKey(SocialStyle,on_delete=models.CASCADE)
-
+    profession_name = models.TextField(null=False)
+    social_style_id = models.ForeignKey(SocialStyle,on_delete=models.CASCADE)
+    class Meta:
+        db_table = 'profession'
 
 class Feature(models.Model):
-    Feature_Explanation = models.TextField()
-    SocialStyle_ID = models.ForeignKey(SocialStyle,on_delete=models.CASCADE)
-
+    feature_explanation = models.TextField()
+    social_style_id = models.ForeignKey(SocialStyle,on_delete=models.CASCADE)
+    class Meta:
+        db_table = 'feature'
 
 class Relational(models.Model):
     # relational_typeは相性が良ければTrue,わるければFalse
-    Relational_ID = models.BigAutoField(primary_key=True)
-    Relational_Description = models.TextField(null=False)
-    MySocialStyle_ID = models.ForeignKey('SocialStyle',related_name='My_SS',on_delete=models.CASCADE)
-    TargetSocialStyle_ID = models.ForeignKey('SocialStyle',related_name='Target_SS',on_delete=models.CASCADE)
-    Relational_Type = models.BooleanField(null=False)
+    relational_id = models.BigAutoField(primary_key=True)
+    relational_description = models.TextField(null=False)
+    my_social_style_id = models.ForeignKey('SocialStyle',related_name='My_SS',on_delete=models.CASCADE)
+    target_social_style_id = models.ForeignKey('SocialStyle',related_name='Target_SS',on_delete=models.CASCADE)
+    relational_type = models.BooleanField(null=False)
+    class Meta:
+        db_table = 'relational'
+class Questions(models.Model):
+    question_id = models.BigAutoField(primary_key=True)
+    questions = models.TextField(null=False)
+    select_type = models.IntegerField(null=False)
+    pos = models.TextField(null=False)
+    class Meta:
+        db_table = 'questions'

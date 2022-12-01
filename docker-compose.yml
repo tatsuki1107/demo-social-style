@@ -14,32 +14,10 @@ services:
       - django_session
       - auth_session
     environment:
-      - OriginHost=dev.cheercareer.jp
+      - ORIGIN_HOST=ec2-52-192-243-165.ap-northeast-1.compute.amazonaws.com
       - CHOKIDAR_USEPOLLING=true
       - DJANGO_SETTINGS_MODULE=config.local_settings
-      - redishost=52.192.243.165
-      - nginx_target=localhost:80
-#  redis_db:
-#    container_name: session_db
-#    image: redis:latest
-#    networks:
-#      - django_session
-#    ports:
-#      - "6379:6379"
-  mysql_db:
-    container_name: mysql
-    build:
-      context: ./mysql/.
-      dockerfile: Dockerfile
-    env_file:
-      - mysql/mysql_env
-    tty: true
-    networks:
-      - django_session
-    volumes:
-      - mysql_volume:/var/lib/mysql
-      - ./mysql/sql_dir:/sql_dir
-
+      - REDIS_HOST=52.192.243.165
   reverse_proxy:
     container_name: nginx_frontend
     build:
@@ -58,23 +36,16 @@ services:
     volumes:
       - ./auth_nginx/html:/html
     ports:
+      - 16000:80
       - 8080:80
     networks:
       - django_session
-
-#  test_auth_server:
-#    container_name: auth_temp
-#    build:
-#      context: ./auth_test/.
-#      dockerfile: Dockerfile
-#    environment:
-#      - nginx_target=127.0.0.1:80
-#    networks:
-#      - django_session
-#      - auth_session
-#    volumes:
-#      - ./auth_test/django_server/test_auth:/django
-#    command: gunicorn --bind :8000 config.wsgi:application --reload
+  redis_db:
+      container_name: session_db
+      image: redis:latest
+      command: redis-server --requirepass Soc1@lStyle
+      ports:
+        - 6379:6379
 
 networks:
   django_session:

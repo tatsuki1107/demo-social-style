@@ -25,7 +25,7 @@ const useResult = (date) => {
         if (date !== "") {
           data["time"] = toUnixTransform(date);
         }
-        await axios.post('http://localhost/api/get_result', data).then((res) => {
+        await axios.post('http://ec2-52-192-243-165.ap-northeast-1.compute.amazonaws.com/api/get_result', data).then((res) => {
           setResult((res?.data));
           setLoading(false);
         })
