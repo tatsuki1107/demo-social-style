@@ -18,6 +18,7 @@ services:
       - CHOKIDAR_USEPOLLING=true
       - DJANGO_SETTINGS_MODULE=config.local_settings
       - REDIS_HOST=52.192.243.165
+
   reverse_proxy:
     container_name: nginx_frontend
     build:

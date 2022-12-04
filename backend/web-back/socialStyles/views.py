@@ -17,6 +17,7 @@ def question(request):
     token_db = redis.Redis(host=os.environ["REDIS_HOST"], port=6379, db=0,password="Soc1@lStyle")
     print("db")
     if not (os.environ['ORIGIN_HOST'] in request.META['HTTP_ORIGIN']):
+        print("error")
         return HttpResponse(status=403)
 
 
@@ -39,6 +40,7 @@ def question(request):
         user_id = token_db.get(session_token)
         if user_id == None:
             # セッションが切れていた場合はエラーを返す
+            print("error")
             return 500
         # セッションの確認が取れた場合質問内容と差し替えたtokenを発行し返す。
         how_many = len(questions)
@@ -108,19 +110,14 @@ def submit_to_history(request):
                 return HttpResponse(status=500)
             try:
                 print(user.cheer_id)
-                latest_result = LatestResult.objects.get(cheer_id_id=user.user_id)
+                latest_result = LatestResult.objects.get(cheer_id=user.cheer_id)
                 latest_result.latest_social_style_id = social_style.social_style_id
                 latest_result.save()
                 return HttpResponse(status=200)
             except Exception as e:
                 print(e)
-                LatestResult.objects.create(cheer_id=user,latest_social_style_id=social_style.social_style_id)
+                LatestResult.objects.create(cheer_id=user.cheer_id,latest_social_style_id=social_style.social_style_id)
                 return HttpResponse(status=200)
-
-
-
-
-
     else:
         return HttpResponse(status=400)
 
@@ -260,22 +257,15 @@ def token(request):
         return HttpResponse(status=400)
     else:
         # Cheer_IDを確認したらdbにUser_IDが存在する場合は取得しredisに保管,ない場合は新規作成してからredisにUser_IDと結びつけて保管。
-        try:
-            session_token = request_json["session_id"] + request_json["token"]
-            user_id = User.objects.get(cheer_id=request_json["cheer_id"]).user_id
-            token_db = redis.Redis(
+
+        session_token = request_json["session_id"] + request_json["token"]
+        user_id = User.objects.get_or_create(cheer_id=request_json["cheer_id"])
+        user_id = User.objects.get(cheer_id=request_json["cheer_id"]).user_id
+        token_db = redis.Redis(
                 host=os.environ["REDIS_HOST"], port=6379, db=0,password="Soc1@lStyle")
-            token_db.set(session_token, user_id)
-            token_db.expire(session_token, 3600)
-            return HttpResponse(status=200)
-        except User.DoesNotExist:
-            User.objects.create(cheer_id=request_json["cheer_id"])
-            user_id = User.objects.get(cheer_id=request_json["cheer_id"]).user_id
-            token_db = redis.Redis(
-                host=os.environ["REDIS_HOST"], port=6379, db=0,password="Soc1@lStyle")
-            token_db.set(session_token, user_id)
-            token_db.expire(session_token, 3600)
-            return HttpResponse(status=200)
+        token_db.set(session_token, user_id)
+        token_db.expire(session_token, 3600)
+        return HttpResponse(status=200)
 @csrf_exempt
 def fetch_user_status(request):
     #json内にcheer_idが存在し、整数値であるかを調べる
@@ -306,15 +296,17 @@ def fetch_results(request):
     try:
         req = json.loads(request.body)
         req['start'] = int(req['start'])
+        req['number_of_data'] = int(req['number_of_data'])
     except:
         return HttpResponse(status=400)
     how_much = LatestResult.objects.count()
-    results = LatestResult.objects.filter(id__gte=str(req['start']),id__lt=str(req['start']+100)).all()
+    results = LatestResult.objects.order_by('cheer_id').all()[req['start']-1:req['start']+req['number_of_data']-1]
     res_results = []
     for x in results:
-        print()
+        print(x)
 
-        res_results.append({"cheer_id":x.cheer_id.cheer_id,"social_style_id":x.latest_social_style_id})
+        res_results.append({"cheer_id":x.cheer_id,"social_style_id":x.latest_social_style_id})
     response = {'data_count':how_much,'results':res_results}
 
     return HttpResponse(json.dumps(response))
+

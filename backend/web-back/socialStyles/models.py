@@ -8,7 +8,7 @@ class User(models.Model):
     class Meta:
         db_table = 'user'
 class LatestResult(models.Model):
-    cheer_id = models.ForeignKey(User,on_delete=models.PROTECT)
+    cheer_id = models.BigIntegerField(primary_key=True)
     latest_social_style_id = models.TextField(null=False)
     class Meta:
         db_table='latest_result'
