@@ -7,7 +7,11 @@ class User(models.Model):
     cheer_id = models.BigIntegerField()
     class Meta:
         db_table = 'user'
-
+class LatestResult(models.Model):
+    cheer_id = models.ForeignKey(User,on_delete=models.PROTECT)
+    latest_social_style_id = models.TextField(null=False)
+    class Meta:
+        db_table='latest_result'
 class SocialStyle(models.Model):
     social_style_id = models.IntegerField(primary_key=True)
     type_name = models.TextField(null=False)

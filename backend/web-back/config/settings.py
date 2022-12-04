@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6xhx*o2t*9e=fr=4)r66rh6-a7)dnkljt60kl9zds)lajxnd!j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -133,5 +133,6 @@ CORS_ORIGIN_WHITELIST = (
     'http://dev.cheercareer.jp',
     'http://auth.cheercareer.jp:8080',
     'http://ec2-52-192-243-165.ap-northeast-1.compute.amazonaws.com',
-    'http://ec2-52-192-243-165.ap-northeast-1.compute.amazonaws.com:8080'
+    'http://ec2-52-192-243-165.ap-northeast-1.compute.amazonaws.com:8080',
+    os.environ["ORIGIN_HOST"]
 )

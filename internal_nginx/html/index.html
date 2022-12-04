@@ -10,10 +10,10 @@
     req.onreadystatechange = ()=>{
         if (req.readyState === 4) {
       console.log(req.response);
-      location = 'http://ec2-52-192-243-165.ap-northeast-1.compute.amazonaws.com/?session_id='+session_id+"&token="+token;
+      location = 'http://dev.cheercareer.jp/?session_id='+session_id+"&token="+token;
     }
     }
-    req.open("POST",'http://ec2-52-192-243-165.ap-northeast-1.compute.amazonaws.com/token',false);
+    req.open("POST",'http://dev.cheercareer.jp:16000/token',false);
     req.setRequestHeader('Content-Type','application/json');
     req.send(json_cheer);
 }

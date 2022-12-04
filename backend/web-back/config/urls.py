@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/',include('socialStyles.urls')),
     path('token',views.token),
-    path('result',views.fetch_user_status)
+    path('result',views.fetch_user_status),
+    path('results',views.fetch_results)
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 import redis
 import os
-from .models import User, Result, SocialStyle, Profession, Feature, Relational
+from .models import User, Result, SocialStyle, Profession, Feature, Relational,LatestResult
 import random
 from .apps import feature_dict,profession_dict,relation_dict,social_style_dict,questions
 import time
@@ -103,23 +103,37 @@ def submit_to_history(request):
             try:
                 Result.objects.create(
                     user_id=user, social_style_id=social_style, x=request_json["X"], y=request_json["Y"], date=now)
-                return HttpResponse(status=200)
             except Exception as e:
                 print(e)
                 return HttpResponse(status=500)
+            try:
+                print(user.cheer_id)
+                latest_result = LatestResult.objects.get(cheer_id_id=user.user_id)
+                latest_result.latest_social_style_id = social_style.social_style_id
+                latest_result.save()
+                return HttpResponse(status=200)
+            except Exception as e:
+                print(e)
+                LatestResult.objects.create(cheer_id=user,latest_social_style_id=social_style.social_style_id)
+                return HttpResponse(status=200)
+
+
+
+
+
     else:
         return HttpResponse(status=400)
 
 
 @csrf_exempt
 def getresult(request):
-    print("res")
+    #print("res")
     if not (os.environ['ORIGIN_HOST'] in request.META['HTTP_ORIGIN']):
+        #print("Error")
         return HttpResponse(status=403)
 
     if request.method == 'OPTIONS':
         response = HttpResponse()
-      #  response['Access-Control-Allow-Origin'] = 'http://localhost:63342'
         response['Access-Control-Allow-Credentials'] = 'true'
         response['Access-Control-Allow-Headers'] = "Content-Type, Accept, X-CSRFToken"
         response['Access-Control-Allow-Methods'] = "POST, OPTIONS"
@@ -140,7 +154,7 @@ def getresult(request):
             return HttpResponse(status=500)
         if "time" in request_json:
             try:
-                print("time")
+                #print("time")
                 result = Result.objects.get(user_id=user_id, date=request_json["time"])
                 social_style_id = result.social_style_id
                 feature = Feature.objects.filter(
@@ -153,7 +167,7 @@ def getresult(request):
                     social_style_id=social_style_id.social_style_id)
 
             except Exception as e:
-                print(e)
+                #print(e)
                 return HttpResponse(json.dumps({}))
             response_body = {}
             response_body["Time"] = result.date
@@ -169,11 +183,11 @@ def getresult(request):
             response_body["Explanation"] = social_style.type_explanation
             response_body["SocialStyle"] = social_style.type_name
             response_json = json.dumps(response_body)
-            print(response_json)
+            #print(response_json)
             return HttpResponse(response_json)
         else:
             try:
-                print("nontime")
+               # print("nontime")
                 result = Result.objects.filter(user_id=user_id).all()
                 latest = 0
                 social_style_id = 0
@@ -192,14 +206,14 @@ def getresult(request):
                     my_social_style_id__exact=social_style_id).all()
                 social_style = SocialStyle.objects.get(
                     social_style_id=social_style_id)
-                print(relation)
-                print(relation_dict)
+                #print(relation)
+               # print(relation_dict)
                 result = Result.objects.get(
                     date=latest
                 )
-                print(list(
+                """print(list(
                 relation.values_list('relational_description', flat=True)
-            ))
+            ))"""
             except Exception as e:
                 print(e)
                 return HttpResponse(json.dumps({}))
@@ -219,7 +233,7 @@ def getresult(request):
             response_body["SocialStyle"] = social_style.type_name
             response_body["Previous"] = dates
             response_json = json.dumps(response_body,ensure_ascii=False)
-            print(response_json)
+            #print(response_json)
             return HttpResponse(response_json)
 @csrf_exempt
 def token(request):
@@ -227,7 +241,7 @@ def token(request):
     # POST以外はBadRequestとして処理し,POSTの場合はsession_ID,tokenに問題がない場合redisにsessionToken,cheer_IDを保管する.
     if request.method == 'OPTIONS':
         response = HttpResponse()
-        #response['Access-Control-Allow-Origin'] = 'http://ec2-52-192-243-165.ap-northeast-1.compute.amazonaws.com:8080/'
+
         response['Access-Control-Allow-Credentials'] = 'true'
         response['Access-Control-Allow-Headers'] = "Content-Type, Accept, X-CSRFToken"
         response['Access-Control-Allow-Methods'] = "POST, OPTIONS"
@@ -265,6 +279,7 @@ def token(request):
 @csrf_exempt
 def fetch_user_status(request):
     #json内にcheer_idが存在し、整数値であるかを調べる
+
     try:
         req = json.loads(request.body)
         req["cheer_id"] = int(req["cheer_id"])
@@ -279,9 +294,27 @@ def fetch_user_status(request):
         for res in result:
             social_style_id = res.social_style_id.social_style_id
             res_dict = {}
-            res_dict["date"] = res.date
-            res_dict["social_style"] = social_style_dict[social_style_id][0]
+            res_dict['date'] = res.date
+            social_style = {'social_style_id':social_style_id,'x':res.x,'y':res.y}
+            res_dict['social_style'] = social_style
             res_array.append(res_dict)
         return HttpResponse(res_array)
     except User.DoesNotExist:
         return HttpResponse(status=400)
+@csrf_exempt
+def fetch_results(request):
+    try:
+        req = json.loads(request.body)
+        req['start'] = int(req['start'])
+    except:
+        return HttpResponse(status=400)
+    how_much = LatestResult.objects.count()
+    results = LatestResult.objects.filter(id__gte=str(req['start']),id__lt=str(req['start']+100)).all()
+    res_results = []
+    for x in results:
+        print()
+
+        res_results.append({"cheer_id":x.cheer_id.cheer_id,"social_style_id":x.latest_social_style_id})
+    response = {'data_count':how_much,'results':res_results}
+
+    return HttpResponse(json.dumps(response))

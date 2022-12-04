@@ -80,7 +80,7 @@ const Diagnosis = () => {
       const coordinate = xyCaluculation(totalCount);
       try {
         const data = { ...user, ...coordinate };
-        await axios.post('http://ec2-52-192-243-165.ap-northeast-1.compute.amazonaws.com/api/send_param', data)
+        await axios.post('http://dev.cheercareer.jp/api/send_param', data)
           .then(() => { setFlag(true) });
       } catch (e) {
         handleError(e.response.status);
@@ -93,7 +93,7 @@ const Diagnosis = () => {
   useEffect(() => {
     (async () => {
       try {
-        await axios.post('http://ec2-52-192-243-165.ap-northeast-1.compute.amazonaws.com/api/questions', user).then((res) => { setData(res?.data) })
+        await axios.post('http://dev.cheercareer.jp/api/questions', user).then((res) => { setData(res?.data) })
         setLoading(false);
       } catch (e) {
         handleError(e.response.status);
