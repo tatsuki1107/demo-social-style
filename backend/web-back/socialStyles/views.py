@@ -295,18 +295,15 @@ def fetch_user_status(request):
 def fetch_results(request):
     try:
         req = json.loads(request.body)
-        req['start'] = int(req['start'])
-        req['number_of_data'] = int(req['number_of_data'])
+        print(req["ids"])
     except:
         return HttpResponse(status=400)
-    how_much = LatestResult.objects.count()
-    results = LatestResult.objects.order_by('cheer_id').all()[req['start']-1:req['start']+req['number_of_data']-1]
+    results = LatestResult.objects.filter(cheer_id__in=req["ids"]).all()
     res_results = []
     for x in results:
         print(x)
-
         res_results.append({"cheer_id":x.cheer_id,"social_style_id":x.latest_social_style_id})
-    response = {'data_count':how_much,'results':res_results}
+    response = {'results':res_results}
 
     return HttpResponse(json.dumps(response))
 
