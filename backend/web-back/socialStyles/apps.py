@@ -27,22 +27,19 @@ class SocialStylesConfig(AppConfig):
                 feature_dict[val["social_style_id_id"]].append(val["feature_explanation"])
         for val in profession.values():
             if val["social_style_id_id"] in profession_dict:
-                profession_dict[val["social_style_id_id"]].append(val)
+                profession_dict[val["social_style_id_id"]].append(val["profession_name"])
             else:
                 profession_dict[val["social_style_id_id"]] = []
-                profession_dict[val["social_style_id_id"]].append(val)
+                profession_dict[val["social_style_id_id"]].append(val["profession_name"])
         for val in relation.values():
             if val["my_social_style_id_id"] in relation_dict:
-                relation_dict[val["my_social_style_id_id"]].append(val)
+                relation_dict[val["my_social_style_id_id"]].append(val["relational_description"])
             else:
                 relation_dict[val["my_social_style_id_id"]] = []
-                relation_dict[val["my_social_style_id_id"]].append(val)
+                relation_dict[val["my_social_style_id_id"]].append(val["relational_description"])
         for val in social_style.values():
-            if val["social_style_id"] in social_style_dict:
-                social_style_dict[val["social_style_id"]].append(val)
-            else:
-                social_style_dict[val["social_style_id"]] = []
-                social_style_dict[val["social_style_id"]].append(val)
+            social_style_dict[val["social_style_id"]] = val
+
         for val in question.values():
             del val['question_id']
             questions.append(val)

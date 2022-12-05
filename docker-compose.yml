@@ -14,7 +14,7 @@ services:
       - django_session
       - auth_session
     environment:
-      - ORIGIN_HOST=http://ec2-52-192-243-165.ap-northeast-1.compute.amazonaws.com
+      - ORIGIN_HOST=http://ec2-52-192-243-165.ap-northeast-1.compute.amazonaws.com/
       - CHOKIDAR_USEPOLLING=true
       - DJANGO_SETTINGS_MODULE=config.local_settings
       - REDIS_HOST=52.192.243.165
