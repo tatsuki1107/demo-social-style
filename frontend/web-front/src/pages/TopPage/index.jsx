@@ -15,7 +15,7 @@ const TopPage = () => {
   const navigate = useNavigate();
   const goNextPage = () => {
     if (!user) {
-      window.location.href = 'http://localhost/test_auth';
+      window.location.href = 'http://localhost:16000';
     } else {
       navigate('/diagnosis', window.scrollTo(0, 0))
     }

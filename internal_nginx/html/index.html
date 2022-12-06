@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+    function test_session(){
+    let cheer_id = document.getElementById('id_num').value;
+    let session_id = Math.random().toString(32).substring(6);
+    let token = Math.random().toString(32).substring(10);
+    let json_cheer = JSON.stringify({"cheer_id": cheer_id,"session_id":session_id,"token":token});
+    let req = new XMLHttpRequest();
+    req.onreadystatechange = ()=>{
+        if (req.readyState === 4) {
+      console.log(req.response);
+      location = 'http://localhost?session_id='+session_id+"&token="+token;
+    }
+    }
+    req.open("POST",'http://localhost:16000/token',false);
+    req.setRequestHeader('Content-Type','application/json');
+    req.send(json_cheer);
+}
+</script>
+<head>
+    <meta charset="UTF-8">
+    <title>debug_auth_page</title>
+</head>
+<body>
+<p1>Cheer_IDを入力して送信ボタンをクリックしてください...</p1>
+<input type="number" id="id_num" value="Cheer_ID">
+<input type="submit" value="送信" onclick="test_session()">
+</body>
+</html>

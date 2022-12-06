@@ -20,7 +20,18 @@ const AuthProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    setUser(JSON.parse(sessionStorage.getItem('user')));
+    let query = new URLSearchParams(window.location.search);
+    if (sessionStorage.getItem('user') != null) {
+      setUser(JSON.parse(sessionStorage.getItem('user')));
+    }
+    let session = query.get("session_id");
+    let token = query.get("token");
+    if (query.get("session_id") != null && query.get("token") != null) {
+      let dict = { session_id: session, token: token };
+      console.log(dict);
+      sessionStorage.setItem('user', JSON.stringify(dict));
+      setUser(JSON.parse(sessionStorage.getItem('user'))); setLoading(false);
+    };
     setLoading(false);
   }, [])
 

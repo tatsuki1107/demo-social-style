@@ -7,37 +7,18 @@ services:
     build: ./backend/web-back/.
     volumes:
       - ./backend/web-back:/code/
-      - static_volume:/code/staticfiles # <-- bind the static volume
     stdin_open: true
     tty: true
     command: gunicorn --bind :8000 config.wsgi:application --reload
     networks:
-      - frontend_network
       - django_session
+      - auth_session
     environment:
-      - OriginHost=localhost
+      - ORIGIN_HOST=http://
       - CHOKIDAR_USEPOLLING=true
       - DJANGO_SETTINGS_MODULE=config.local_settings
-      - redishost=redis_db
-      - nginx_target=localhost:80
-  redis_db:
-    container_name: session_db
-    image: redis:latest
-    networks:
-      - django_session
-    ports:
-      - "6379:6379"
+      - REDIS_HOST=52.192.243.165
 
-  web-front:
-    container_name: react
-    build: ./frontend/web-front/.
-    volumes:
-      - ./frontend/web-front/public:/home/app/frontend/public
-      - ./frontend/web-front/src:/home/app/frontend/src
-    ports:
-      - 3000:3000
-    networks:
-      - frontend_network
   reverse_proxy:
     container_name: nginx_frontend
     build:
@@ -45,30 +26,32 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - 80:80
-    depends_on:
-      - web-front
-    volumes:
-      - ./frontend/web-front/build:/build
-      - ./nginx/html:/html
-    networks:
-      - frontend_network
-  test_auth_server:
-    container_name: auth_temp
-    build:
-      context: ./auth_test/.
-      dockerfile: Dockerfile
-    environment:
-      - nginx_target=127.0.0.1:80
+
     networks:
       - django_session
-      - frontend_network
+
+  redis_db:
+      container_name: session_db
+      image: redis:latest
+      command: redis-server --requirepass Soc1@lStyle
+      ports:
+        - 6379:6379
+  internal_server:
+    container_name: internal_nginx
+    build:
+      context: internal_nginx/.
+      dockerfile: Dockerfile.dev
+    ports:
+      - 16000:80
     volumes:
-      - ./auth_test/django_server/test_auth:/django
-    command: gunicorn --bind :8000 config.wsgi:application --reload
+      - ./internal_nginx/html:/html
+    networks:
+      - django_session
+
 networks:
   django_session:
     driver: bridge
-  frontend_network:
+  auth_session:
     driver: bridge
 volumes:
-  static_volume:
+  mysql_volume:
