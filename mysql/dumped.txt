@@ -90,7 +90,7 @@ CREATE TABLE `auth_permission` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,7 +99,7 @@ CREATE TABLE `auth_permission` (
 
 LOCK TABLES `auth_permission` WRITE;
 /*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
-INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can view log entry',1,'view_logentry'),(5,'Can add permission',2,'add_permission'),(6,'Can change permission',2,'change_permission'),(7,'Can delete permission',2,'delete_permission'),(8,'Can view permission',2,'view_permission'),(9,'Can add group',3,'add_group'),(10,'Can change group',3,'change_group'),(11,'Can delete group',3,'delete_group'),(12,'Can view group',3,'view_group'),(13,'Can add user',4,'add_user'),(14,'Can change user',4,'change_user'),(15,'Can delete user',4,'delete_user'),(16,'Can view user',4,'view_user'),(17,'Can add content type',5,'add_contenttype'),(18,'Can change content type',5,'change_contenttype'),(19,'Can delete content type',5,'delete_contenttype'),(20,'Can view content type',5,'view_contenttype'),(21,'Can add session',6,'add_session'),(22,'Can change session',6,'change_session'),(23,'Can delete session',6,'delete_session'),(24,'Can view session',6,'view_session'),(25,'Can add social style',7,'add_socialstyle'),(26,'Can change social style',7,'change_socialstyle'),(27,'Can delete social style',7,'delete_socialstyle'),(28,'Can view social style',7,'view_socialstyle'),(29,'Can add user',8,'add_user'),(30,'Can change user',8,'change_user'),(31,'Can delete user',8,'delete_user'),(32,'Can view user',8,'view_user'),(33,'Can add result',9,'add_result'),(34,'Can change result',9,'change_result'),(35,'Can delete result',9,'delete_result'),(36,'Can view result',9,'view_result'),(37,'Can add relational',10,'add_relational'),(38,'Can change relational',10,'change_relational'),(39,'Can delete relational',10,'delete_relational'),(40,'Can view relational',10,'view_relational'),(41,'Can add profession',11,'add_profession'),(42,'Can change profession',11,'change_profession'),(43,'Can delete profession',11,'delete_profession'),(44,'Can view profession',11,'view_profession'),(45,'Can add feature',12,'add_feature'),(46,'Can change feature',12,'change_feature'),(47,'Can delete feature',12,'delete_feature'),(48,'Can view feature',12,'view_feature'),(49,'Can add questions',13,'add_questions'),(50,'Can change questions',13,'change_questions'),(51,'Can delete questions',13,'delete_questions'),(52,'Can view questions',13,'view_questions');
+INSERT INTO `auth_permission` VALUES (1,'Can add log entry',1,'add_logentry'),(2,'Can change log entry',1,'change_logentry'),(3,'Can delete log entry',1,'delete_logentry'),(4,'Can view log entry',1,'view_logentry'),(5,'Can add permission',2,'add_permission'),(6,'Can change permission',2,'change_permission'),(7,'Can delete permission',2,'delete_permission'),(8,'Can view permission',2,'view_permission'),(9,'Can add group',3,'add_group'),(10,'Can change group',3,'change_group'),(11,'Can delete group',3,'delete_group'),(12,'Can view group',3,'view_group'),(13,'Can add user',4,'add_user'),(14,'Can change user',4,'change_user'),(15,'Can delete user',4,'delete_user'),(16,'Can view user',4,'view_user'),(17,'Can add content type',5,'add_contenttype'),(18,'Can change content type',5,'change_contenttype'),(19,'Can delete content type',5,'delete_contenttype'),(20,'Can view content type',5,'view_contenttype'),(21,'Can add session',6,'add_session'),(22,'Can change session',6,'change_session'),(23,'Can delete session',6,'delete_session'),(24,'Can view session',6,'view_session'),(25,'Can add social style',7,'add_socialstyle'),(26,'Can change social style',7,'change_socialstyle'),(27,'Can delete social style',7,'delete_socialstyle'),(28,'Can view social style',7,'view_socialstyle'),(29,'Can add user',8,'add_user'),(30,'Can change user',8,'change_user'),(31,'Can delete user',8,'delete_user'),(32,'Can view user',8,'view_user'),(33,'Can add result',9,'add_result'),(34,'Can change result',9,'change_result'),(35,'Can delete result',9,'delete_result'),(36,'Can view result',9,'view_result'),(37,'Can add relational',10,'add_relational'),(38,'Can change relational',10,'change_relational'),(39,'Can delete relational',10,'delete_relational'),(40,'Can view relational',10,'view_relational'),(41,'Can add profession',11,'add_profession'),(42,'Can change profession',11,'change_profession'),(43,'Can delete profession',11,'delete_profession'),(44,'Can view profession',11,'view_profession'),(45,'Can add feature',12,'add_feature'),(46,'Can change feature',12,'change_feature'),(47,'Can delete feature',12,'delete_feature'),(48,'Can view feature',12,'view_feature'),(49,'Can add questions',13,'add_questions'),(50,'Can change questions',13,'change_questions'),(51,'Can delete questions',13,'delete_questions'),(52,'Can view questions',13,'view_questions'),(53,'Can add latest result',14,'add_latestresult'),(54,'Can change latest result',14,'change_latestresult'),(55,'Can delete latest result',14,'delete_latestresult'),(56,'Can view latest result',14,'view_latestresult');
 /*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,7 +133,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$180000$BAlIZTHBFPfV$Jf+6SkbPp7z/nO6VGfx83ApeRLLn8JDamvhh9QUAETE=','2022-11-23 15:35:51.315008',1,'ShoyaTanaka','','','',1,1,'2022-11-19 09:21:18.877598');
+INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$180000$BAlIZTHBFPfV$Jf+6SkbPp7z/nO6VGfx83ApeRLLn8JDamvhh9QUAETE=','2022-12-05 11:00:08.033745',1,'ShoyaTanaka','','','',1,1,'2022-11-19 09:21:18.877598');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -215,7 +215,7 @@ CREATE TABLE `django_admin_log` (
   CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
   CONSTRAINT `django_admin_log_chk_1` CHECK ((`action_flag` >= 0))
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -224,7 +224,7 @@ CREATE TABLE `django_admin_log` (
 
 LOCK TABLES `django_admin_log` WRITE;
 /*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
-INSERT INTO `django_admin_log` VALUES (1,'2022-11-19 10:04:44.407663','1','SocialStyle object (1)',1,'[{\"added\": {}}]',7,1),(2,'2022-11-19 10:05:27.821767','2','SocialStyle object (2)',1,'[{\"added\": {}}]',7,1),(3,'2022-11-19 10:05:45.851944','3','SocialStyle object (3)',1,'[{\"added\": {}}]',7,1),(4,'2022-11-19 10:06:13.469621','4','SocialStyle object (4)',1,'[{\"added\": {}}]',7,1),(5,'2022-11-19 10:06:37.920209','1','Feature object (1)',1,'[{\"added\": {}}]',12,1),(6,'2022-11-19 10:13:26.032432','1','Feature object (1)',3,'',12,1),(7,'2022-11-19 10:13:43.249777','2','Feature object (2)',1,'[{\"added\": {}}]',12,1),(8,'2022-11-19 10:13:54.278390','3','Feature object (3)',1,'[{\"added\": {}}]',12,1),(9,'2022-11-19 10:14:03.827933','4','Feature object (4)',1,'[{\"added\": {}}]',12,1),(10,'2022-11-19 10:14:34.652528','5','Feature object (5)',1,'[{\"added\": {}}]',12,1),(11,'2022-11-19 10:14:43.369474','6','Feature object (6)',1,'[{\"added\": {}}]',12,1),(12,'2022-11-19 10:14:52.394269','7','Feature object (7)',1,'[{\"added\": {}}]',12,1),(13,'2022-11-19 10:16:26.103531','8','Feature object (8)',1,'[{\"added\": {}}]',12,1),(14,'2022-11-19 10:16:33.590567','9','Feature object (9)',1,'[{\"added\": {}}]',12,1),(15,'2022-11-19 10:16:42.831872','10','Feature object (10)',1,'[{\"added\": {}}]',12,1),(16,'2022-11-19 10:16:52.693575','11','Feature object (11)',1,'[{\"added\": {}}]',12,1),(17,'2022-11-19 10:17:03.515524','12','Feature object (12)',1,'[{\"added\": {}}]',12,1),(18,'2022-11-19 10:47:44.905383','1','Profession object (1)',1,'[{\"added\": {}}]',11,1),(19,'2022-11-19 10:47:51.858486','2','Profession object (2)',1,'[{\"added\": {}}]',11,1),(20,'2022-11-19 10:47:59.218857','3','Profession object (3)',1,'[{\"added\": {}}]',11,1),(21,'2022-11-19 10:48:07.595141','4','Profession object (4)',1,'[{\"added\": {}}]',11,1),(22,'2022-11-19 10:48:28.284466','5','Profession object (5)',1,'[{\"added\": {}}]',11,1),(23,'2022-11-19 10:48:38.874164','6','Profession object (6)',1,'[{\"added\": {}}]',11,1),(24,'2022-11-19 10:48:45.874691','7','Profession object (7)',1,'[{\"added\": {}}]',11,1),(25,'2022-11-19 10:49:01.355129','8','Profession object (8)',1,'[{\"added\": {}}]',11,1),(26,'2022-11-19 10:49:07.970457','9','Profession object (9)',1,'[{\"added\": {}}]',11,1),(27,'2022-11-19 10:49:15.890047','10','Profession object (10)',1,'[{\"added\": {}}]',11,1),(28,'2022-11-19 10:49:23.195390','11','Profession object (11)',1,'[{\"added\": {}}]',11,1),(29,'2022-11-19 10:49:32.912559','12','Profession object (12)',1,'[{\"added\": {}}]',11,1),(30,'2022-11-19 10:49:41.150637','13','Profession object (13)',1,'[{\"added\": {}}]',11,1),(31,'2022-11-19 10:55:32.593442','1','Relational object (1)',1,'[{\"added\": {}}]',10,1),(32,'2022-11-19 10:55:45.063568','2','Relational object (2)',1,'[{\"added\": {}}]',10,1),(33,'2022-11-19 10:55:53.517760','2','Relational object (2)',2,'[{\"changed\": {\"fields\": [\"Relational type\"]}}]',10,1),(34,'2022-11-19 10:56:03.557628','3','Relational object (3)',1,'[{\"added\": {}}]',10,1),(35,'2022-11-19 10:56:16.215011','4','Relational object (4)',1,'[{\"added\": {}}]',10,1),(36,'2022-11-19 10:56:28.734818','5','Relational object (5)',1,'[{\"added\": {}}]',10,1),(37,'2022-11-19 10:56:43.255718','6','Relational object (6)',1,'[{\"added\": {}}]',10,1),(38,'2022-11-19 10:56:56.967788','7','Relational object (7)',1,'[{\"added\": {}}]',10,1),(39,'2022-11-19 10:57:06.878927','8','Relational object (8)',1,'[{\"added\": {}}]',10,1),(40,'2022-11-19 10:57:16.104117','9','Relational object (9)',1,'[{\"added\": {}}]',10,1),(41,'2022-11-19 10:57:25.814494','10','Relational object (10)',1,'[{\"added\": {}}]',10,1),(42,'2022-11-19 10:57:37.743582','11','Relational object (11)',1,'[{\"added\": {}}]',10,1),(43,'2022-11-19 10:57:51.276814','12','Relational object (12)',1,'[{\"added\": {}}]',10,1),(44,'2022-11-19 10:58:04.255677','13','Relational object (13)',1,'[{\"added\": {}}]',10,1),(45,'2022-11-19 10:58:17.067559','14','Relational object (14)',1,'[{\"added\": {}}]',10,1),(46,'2022-11-19 10:58:31.729413','15','Relational object (15)',1,'[{\"added\": {}}]',10,1),(47,'2022-11-19 10:58:45.997312','16','Relational object (16)',1,'[{\"added\": {}}]',10,1),(48,'2022-11-23 07:11:48.421492','1','Questions object (1)',1,'[{\"added\": {}}]',13,1),(49,'2022-11-23 07:12:12.560553','2','Questions object (2)',1,'[{\"added\": {}}]',13,1),(50,'2022-11-23 07:12:31.350217','3','Questions object (3)',1,'[{\"added\": {}}]',13,1),(51,'2022-11-23 07:12:47.921361','4','Questions object (4)',1,'[{\"added\": {}}]',13,1),(52,'2022-11-23 07:13:13.900621','5','Questions object (5)',1,'[{\"added\": {}}]',13,1),(53,'2022-11-23 07:13:49.377152','6','Questions object (6)',1,'[{\"added\": {}}]',13,1),(54,'2022-11-23 07:15:12.246306','7','Questions object (7)',1,'[{\"added\": {}}]',13,1),(55,'2022-11-23 07:15:35.995255','8','Questions object (8)',1,'[{\"added\": {}}]',13,1),(56,'2022-11-23 07:15:58.569952','9','Questions object (9)',1,'[{\"added\": {}}]',13,1),(57,'2022-11-23 07:16:18.429152','10','Questions object (10)',1,'[{\"added\": {}}]',13,1),(58,'2022-11-23 07:20:33.996208','11','Questions object (11)',1,'[{\"added\": {}}]',13,1),(59,'2022-11-23 07:21:14.799597','12','Questions object (12)',1,'[{\"added\": {}}]',13,1),(60,'2022-11-23 07:22:13.950964','13','Questions object (13)',1,'[{\"added\": {}}]',13,1),(61,'2022-11-23 07:23:26.110696','14','Questions object (14)',1,'[{\"added\": {}}]',13,1),(62,'2022-11-23 07:23:41.341415','15','Questions object (15)',1,'[{\"added\": {}}]',13,1),(63,'2022-11-23 07:24:24.879366','16','Questions object (16)',1,'[{\"added\": {}}]',13,1),(64,'2022-11-23 07:24:55.985800','17','Questions object (17)',1,'[{\"added\": {}}]',13,1),(65,'2022-11-23 07:25:24.930797','18','Questions object (18)',1,'[{\"added\": {}}]',13,1);
+INSERT INTO `django_admin_log` VALUES (1,'2022-11-19 10:04:44.407663','1','SocialStyle object (1)',1,'[{\"added\": {}}]',7,1),(2,'2022-11-19 10:05:27.821767','2','SocialStyle object (2)',1,'[{\"added\": {}}]',7,1),(3,'2022-11-19 10:05:45.851944','3','SocialStyle object (3)',1,'[{\"added\": {}}]',7,1),(4,'2022-11-19 10:06:13.469621','4','SocialStyle object (4)',1,'[{\"added\": {}}]',7,1),(5,'2022-11-19 10:06:37.920209','1','Feature object (1)',1,'[{\"added\": {}}]',12,1),(6,'2022-11-19 10:13:26.032432','1','Feature object (1)',3,'',12,1),(7,'2022-11-19 10:13:43.249777','2','Feature object (2)',1,'[{\"added\": {}}]',12,1),(8,'2022-11-19 10:13:54.278390','3','Feature object (3)',1,'[{\"added\": {}}]',12,1),(9,'2022-11-19 10:14:03.827933','4','Feature object (4)',1,'[{\"added\": {}}]',12,1),(10,'2022-11-19 10:14:34.652528','5','Feature object (5)',1,'[{\"added\": {}}]',12,1),(11,'2022-11-19 10:14:43.369474','6','Feature object (6)',1,'[{\"added\": {}}]',12,1),(12,'2022-11-19 10:14:52.394269','7','Feature object (7)',1,'[{\"added\": {}}]',12,1),(13,'2022-11-19 10:16:26.103531','8','Feature object (8)',1,'[{\"added\": {}}]',12,1),(14,'2022-11-19 10:16:33.590567','9','Feature object (9)',1,'[{\"added\": {}}]',12,1),(15,'2022-11-19 10:16:42.831872','10','Feature object (10)',1,'[{\"added\": {}}]',12,1),(16,'2022-11-19 10:16:52.693575','11','Feature object (11)',1,'[{\"added\": {}}]',12,1),(17,'2022-11-19 10:17:03.515524','12','Feature object (12)',1,'[{\"added\": {}}]',12,1),(18,'2022-11-19 10:47:44.905383','1','Profession object (1)',1,'[{\"added\": {}}]',11,1),(19,'2022-11-19 10:47:51.858486','2','Profession object (2)',1,'[{\"added\": {}}]',11,1),(20,'2022-11-19 10:47:59.218857','3','Profession object (3)',1,'[{\"added\": {}}]',11,1),(21,'2022-11-19 10:48:07.595141','4','Profession object (4)',1,'[{\"added\": {}}]',11,1),(22,'2022-11-19 10:48:28.284466','5','Profession object (5)',1,'[{\"added\": {}}]',11,1),(23,'2022-11-19 10:48:38.874164','6','Profession object (6)',1,'[{\"added\": {}}]',11,1),(24,'2022-11-19 10:48:45.874691','7','Profession object (7)',1,'[{\"added\": {}}]',11,1),(25,'2022-11-19 10:49:01.355129','8','Profession object (8)',1,'[{\"added\": {}}]',11,1),(26,'2022-11-19 10:49:07.970457','9','Profession object (9)',1,'[{\"added\": {}}]',11,1),(27,'2022-11-19 10:49:15.890047','10','Profession object (10)',1,'[{\"added\": {}}]',11,1),(28,'2022-11-19 10:49:23.195390','11','Profession object (11)',1,'[{\"added\": {}}]',11,1),(29,'2022-11-19 10:49:32.912559','12','Profession object (12)',1,'[{\"added\": {}}]',11,1),(30,'2022-11-19 10:49:41.150637','13','Profession object (13)',1,'[{\"added\": {}}]',11,1),(31,'2022-11-19 10:55:32.593442','1','Relational object (1)',1,'[{\"added\": {}}]',10,1),(32,'2022-11-19 10:55:45.063568','2','Relational object (2)',1,'[{\"added\": {}}]',10,1),(33,'2022-11-19 10:55:53.517760','2','Relational object (2)',2,'[{\"changed\": {\"fields\": [\"Relational type\"]}}]',10,1),(34,'2022-11-19 10:56:03.557628','3','Relational object (3)',1,'[{\"added\": {}}]',10,1),(35,'2022-11-19 10:56:16.215011','4','Relational object (4)',1,'[{\"added\": {}}]',10,1),(36,'2022-11-19 10:56:28.734818','5','Relational object (5)',1,'[{\"added\": {}}]',10,1),(37,'2022-11-19 10:56:43.255718','6','Relational object (6)',1,'[{\"added\": {}}]',10,1),(38,'2022-11-19 10:56:56.967788','7','Relational object (7)',1,'[{\"added\": {}}]',10,1),(39,'2022-11-19 10:57:06.878927','8','Relational object (8)',1,'[{\"added\": {}}]',10,1),(40,'2022-11-19 10:57:16.104117','9','Relational object (9)',1,'[{\"added\": {}}]',10,1),(41,'2022-11-19 10:57:25.814494','10','Relational object (10)',1,'[{\"added\": {}}]',10,1),(42,'2022-11-19 10:57:37.743582','11','Relational object (11)',1,'[{\"added\": {}}]',10,1),(43,'2022-11-19 10:57:51.276814','12','Relational object (12)',1,'[{\"added\": {}}]',10,1),(44,'2022-11-19 10:58:04.255677','13','Relational object (13)',1,'[{\"added\": {}}]',10,1),(45,'2022-11-19 10:58:17.067559','14','Relational object (14)',1,'[{\"added\": {}}]',10,1),(46,'2022-11-19 10:58:31.729413','15','Relational object (15)',1,'[{\"added\": {}}]',10,1),(47,'2022-11-19 10:58:45.997312','16','Relational object (16)',1,'[{\"added\": {}}]',10,1),(48,'2022-11-23 07:11:48.421492','1','Questions object (1)',1,'[{\"added\": {}}]',13,1),(49,'2022-11-23 07:12:12.560553','2','Questions object (2)',1,'[{\"added\": {}}]',13,1),(50,'2022-11-23 07:12:31.350217','3','Questions object (3)',1,'[{\"added\": {}}]',13,1),(51,'2022-11-23 07:12:47.921361','4','Questions object (4)',1,'[{\"added\": {}}]',13,1),(52,'2022-11-23 07:13:13.900621','5','Questions object (5)',1,'[{\"added\": {}}]',13,1),(53,'2022-11-23 07:13:49.377152','6','Questions object (6)',1,'[{\"added\": {}}]',13,1),(54,'2022-11-23 07:15:12.246306','7','Questions object (7)',1,'[{\"added\": {}}]',13,1),(55,'2022-11-23 07:15:35.995255','8','Questions object (8)',1,'[{\"added\": {}}]',13,1),(56,'2022-11-23 07:15:58.569952','9','Questions object (9)',1,'[{\"added\": {}}]',13,1),(57,'2022-11-23 07:16:18.429152','10','Questions object (10)',1,'[{\"added\": {}}]',13,1),(58,'2022-11-23 07:20:33.996208','11','Questions object (11)',1,'[{\"added\": {}}]',13,1),(59,'2022-11-23 07:21:14.799597','12','Questions object (12)',1,'[{\"added\": {}}]',13,1),(60,'2022-11-23 07:22:13.950964','13','Questions object (13)',1,'[{\"added\": {}}]',13,1),(61,'2022-11-23 07:23:26.110696','14','Questions object (14)',1,'[{\"added\": {}}]',13,1),(62,'2022-11-23 07:23:41.341415','15','Questions object (15)',1,'[{\"added\": {}}]',13,1),(63,'2022-11-23 07:24:24.879366','16','Questions object (16)',1,'[{\"added\": {}}]',13,1),(64,'2022-11-23 07:24:55.985800','17','Questions object (17)',1,'[{\"added\": {}}]',13,1),(65,'2022-11-23 07:25:24.930797','18','Questions object (18)',1,'[{\"added\": {}}]',13,1),(66,'2022-12-03 18:43:00.020797','7','LatestResult object (7)',3,'',14,1),(67,'2022-12-03 18:43:04.333972','6','LatestResult object (6)',3,'',14,1),(68,'2022-12-03 18:43:08.202009','5','LatestResult object (5)',3,'',14,1),(69,'2022-12-03 18:43:11.917302','4','LatestResult object (4)',3,'',14,1),(70,'2022-12-03 18:43:16.649116','3','LatestResult object (3)',3,'',14,1),(71,'2022-12-03 18:43:20.575429','2','LatestResult object (2)',3,'',14,1);
 /*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -241,7 +241,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -250,7 +250,7 @@ CREATE TABLE `django_content_type` (
 
 LOCK TABLES `django_content_type` WRITE;
 /*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
-INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(3,'auth','group'),(2,'auth','permission'),(4,'auth','user'),(5,'contenttypes','contenttype'),(6,'sessions','session'),(12,'socialStyles','feature'),(11,'socialStyles','profession'),(13,'socialStyles','questions'),(10,'socialStyles','relational'),(9,'socialStyles','result'),(7,'socialStyles','socialstyle'),(8,'socialStyles','user');
+INSERT INTO `django_content_type` VALUES (1,'admin','logentry'),(3,'auth','group'),(2,'auth','permission'),(4,'auth','user'),(5,'contenttypes','contenttype'),(6,'sessions','session'),(12,'socialStyles','feature'),(14,'socialStyles','latestresult'),(11,'socialStyles','profession'),(13,'socialStyles','questions'),(10,'socialStyles','relational'),(9,'socialStyles','result'),(7,'socialStyles','socialstyle'),(8,'socialStyles','user');
 /*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -267,7 +267,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -276,7 +276,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2022-11-19 09:20:39.826864'),(2,'auth','0001_initial','2022-11-19 09:20:40.822532'),(3,'admin','0001_initial','2022-11-19 09:20:42.207058'),(4,'admin','0002_logentry_remove_auto_add','2022-11-19 09:20:42.455843'),(5,'admin','0003_logentry_add_action_flag_choices','2022-11-19 09:20:42.513140'),(6,'contenttypes','0002_remove_content_type_name','2022-11-19 09:20:42.776655'),(7,'auth','0002_alter_permission_name_max_length','2022-11-19 09:20:42.927228'),(8,'auth','0003_alter_user_email_max_length','2022-11-19 09:20:43.032664'),(9,'auth','0004_alter_user_username_opts','2022-11-19 09:20:43.089079'),(10,'auth','0005_alter_user_last_login_null','2022-11-19 09:20:43.225812'),(11,'auth','0006_require_contenttypes_0002','2022-11-19 09:20:43.278562'),(12,'auth','0007_alter_validators_add_error_messages','2022-11-19 09:20:43.337404'),(13,'auth','0008_alter_user_username_max_length','2022-11-19 09:20:43.494330'),(14,'auth','0009_alter_user_last_name_max_length','2022-11-19 09:20:43.649729'),(15,'auth','0010_alter_group_name_max_length','2022-11-19 09:20:43.747960'),(16,'auth','0011_update_proxy_permissions','2022-11-19 09:20:43.880532'),(17,'sessions','0001_initial','2022-11-19 09:20:44.060170'),(18,'socialStyles','0001_initial','2022-11-19 09:20:45.048484'),(19,'socialStyles','0002_auto_20221028_0318','2022-11-19 09:20:47.575849'),(20,'socialStyles','0003_auto_20221119_1820','2022-11-19 09:20:50.616742'),(21,'socialStyles','0004_questions','2022-11-23 07:03:16.901597'),(22,'socialStyles','0005_auto_20221123_1603','2022-11-23 07:04:02.391189');
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2022-11-19 09:20:39.826864'),(2,'auth','0001_initial','2022-11-19 09:20:40.822532'),(3,'admin','0001_initial','2022-11-19 09:20:42.207058'),(4,'admin','0002_logentry_remove_auto_add','2022-11-19 09:20:42.455843'),(5,'admin','0003_logentry_add_action_flag_choices','2022-11-19 09:20:42.513140'),(6,'contenttypes','0002_remove_content_type_name','2022-11-19 09:20:42.776655'),(7,'auth','0002_alter_permission_name_max_length','2022-11-19 09:20:42.927228'),(8,'auth','0003_alter_user_email_max_length','2022-11-19 09:20:43.032664'),(9,'auth','0004_alter_user_username_opts','2022-11-19 09:20:43.089079'),(10,'auth','0005_alter_user_last_login_null','2022-11-19 09:20:43.225812'),(11,'auth','0006_require_contenttypes_0002','2022-11-19 09:20:43.278562'),(12,'auth','0007_alter_validators_add_error_messages','2022-11-19 09:20:43.337404'),(13,'auth','0008_alter_user_username_max_length','2022-11-19 09:20:43.494330'),(14,'auth','0009_alter_user_last_name_max_length','2022-11-19 09:20:43.649729'),(15,'auth','0010_alter_group_name_max_length','2022-11-19 09:20:43.747960'),(16,'auth','0011_update_proxy_permissions','2022-11-19 09:20:43.880532'),(17,'sessions','0001_initial','2022-11-19 09:20:44.060170'),(18,'socialStyles','0001_initial','2022-11-19 09:20:45.048484'),(19,'socialStyles','0002_auto_20221028_0318','2022-11-19 09:20:47.575849'),(20,'socialStyles','0003_auto_20221119_1820','2022-11-19 09:20:50.616742'),(21,'socialStyles','0004_questions','2022-11-23 07:03:16.901597'),(22,'socialStyles','0005_auto_20221123_1603','2022-11-23 07:04:02.391189'),(23,'socialStyles','0006_latestresult','2022-12-03 11:43:39.009695'),(24,'socialStyles','0007_auto_20221204_0258','2022-12-03 17:59:00.133624'),(25,'socialStyles','0008_auto_20221204_2311','2022-12-04 14:11:19.781062'),(26,'socialStyles','0009_auto_20221204_2336','2022-12-04 14:39:52.554558'),(27,'socialStyles','0010_auto_20221206_1928','2022-12-06 10:28:30.197687');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -302,7 +302,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('d8xfe56k1yd4y66atcmt1wjq5jdg2bh2','NTU2MjViOWI1YjU2NzNjNDM0ZjlmN2YwYWI0MjNhOWZkYWJiYjNmYjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI5MjYwMzE1MWIxNTE4OWNmN2NkZGI0ZDExNWFjNzc4ZmRkYTc3NTZmIn0=','2022-12-07 15:35:51.320890'),('p3x7j3p91p1zq0vhxdzgf228p05ml77x','NTU2MjViOWI1YjU2NzNjNDM0ZjlmN2YwYWI0MjNhOWZkYWJiYjNmYjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI5MjYwMzE1MWIxNTE4OWNmN2NkZGI0ZDExNWFjNzc4ZmRkYTc3NTZmIn0=','2022-12-07 07:05:15.904468');
+INSERT INTO `django_session` VALUES ('4w470t9tw5xu7u69zqtm7sb7f5st5ltl','NTU2MjViOWI1YjU2NzNjNDM0ZjlmN2YwYWI0MjNhOWZkYWJiYjNmYjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI5MjYwMzE1MWIxNTE4OWNmN2NkZGI0ZDExNWFjNzc4ZmRkYTc3NTZmIn0=','2022-12-19 11:00:08.075433'),('eqo40kf1p8t066o1517atpc8vbmo42o4','NTU2MjViOWI1YjU2NzNjNDM0ZjlmN2YwYWI0MjNhOWZkYWJiYjNmYjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI5MjYwMzE1MWIxNTE4OWNmN2NkZGI0ZDExNWFjNzc4ZmRkYTc3NTZmIn0=','2022-12-19 08:57:28.181325'),('p3x7j3p91p1zq0vhxdzgf228p05ml77x','NTU2MjViOWI1YjU2NzNjNDM0ZjlmN2YwYWI0MjNhOWZkYWJiYjNmYjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI5MjYwMzE1MWIxNTE4OWNmN2NkZGI0ZDExNWFjNzc4ZmRkYTc3NTZmIn0=','2022-12-07 07:05:15.904468');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -332,6 +332,21 @@ LOCK TABLES `feature` WRITE;
 INSERT INTO `feature` VALUES (2,'感情は出さないがメリハリがあり強い話し方をする',2),(3,'しっかり目を合わせて話す',2),(4,'短めの文章で、結論からハッキリと断定的に話す',2),(5,'新しいことや流行への興味が強い',1),(6,'物事を直感で考える',1),(7,'理詰めでプランを綿密に立てるのが苦手',1),(8,'仕事も正確で安定感がある',3),(9,'何を考えているのか分かりにくい',3),(10,'優しく協調性に溢れている',4),(11,'誰かをサポートすることに喜びを覚える',4),(12,'断れない性格',4);
 /*!40000 ALTER TABLE `feature` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `latest_result`
+--
+
+DROP TABLE IF EXISTS `latest_result`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `latest_result` (
+  `latest_social_style_id` int DEFAULT NULL,
+  `cheer_id` bigint NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
 
 --
 -- Table structure for table `profession`
@@ -397,13 +412,9 @@ CREATE TABLE `relational` (
   `relational_id` bigint NOT NULL AUTO_INCREMENT,
   `relational_description` longtext NOT NULL,
   `relational_type` tinyint(1) NOT NULL,
-  `my_social_style_id_id` int NOT NULL,
-  `target_social_style_id_id` int NOT NULL,
-  PRIMARY KEY (`relational_id`),
-  KEY `socialStyles_relatio_my_social_style_id_i_47f01397_fk_socialSty` (`my_social_style_id_id`),
-  KEY `socialStyles_relatio_target_social_style__562716f1_fk_socialSty` (`target_social_style_id_id`),
-  CONSTRAINT `socialStyles_relatio_my_social_style_id_i_47f01397_fk_socialSty` FOREIGN KEY (`my_social_style_id_id`) REFERENCES `social_style` (`social_style_id`),
-  CONSTRAINT `socialStyles_relatio_target_social_style__562716f1_fk_socialSty` FOREIGN KEY (`target_social_style_id_id`) REFERENCES `social_style` (`social_style_id`)
+  `my_social_style_id` int NOT NULL,
+  `target_social_style_id` int NOT NULL,
+  PRIMARY KEY (`relational_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -436,18 +447,10 @@ CREATE TABLE `result` (
   KEY `socialStyles_result_user_id_id_c0f8904a_fk_socialSty` (`user_id_id`),
   CONSTRAINT `socialStyles_result_social_style_id_id_21c50740_fk_socialSty` FOREIGN KEY (`social_style_id_id`) REFERENCES `social_style` (`social_style_id`),
   CONSTRAINT `socialStyles_result_user_id_id_c0f8904a_fk_socialSty` FOREIGN KEY (`user_id_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `result`
---
 
-LOCK TABLES `result` WRITE;
-/*!40000 ALTER TABLE `result` DISABLE KEYS */;
-INSERT INTO `result` VALUES (1,100,100,1668857133,1,6),(2,100,100,1668857264,1,6),(3,100,100,1668857316,1,7),(4,100,100,1668858499,1,7),(5,100,100,1668972145,1,8),(6,100,100,1669138902,1,9),(7,100,100,1669138949,1,8),(8,100,100,1669214996,1,10),(9,100,100,1669215069,1,3),(10,100,100,1669216231,1,12),(11,100,100,1669216248,1,12),(12,61.111111111111114,55.55555555555556,1669217916,1,6),(13,58.333333333333336,50,1669217988,4,6),(14,58.333333333333336,50,1669221275,1,6),(15,72.22222222222221,44.44444444444444,1669802993,2,3),(16,100,100,1669810886,1,3);
-/*!40000 ALTER TABLE `result` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `social_style`
@@ -485,26 +488,9 @@ CREATE TABLE `user` (
   `user_id` bigint NOT NULL AUTO_INCREMENT,
   `cheer_id` bigint NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `user`
---
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,32),(2,23),(3,432),(4,345),(5,453),(6,342),(7,324),(8,123456),(9,1234567),(10,34),(11,43),(12,654),(13,4563),(14,1234),(15,12),(16,546),(17,423),(18,543),(19,564),(20,123),(21,321);
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2022-12-01  1:39:50
+-- Dump completed on 2022-12-06 20:36:45

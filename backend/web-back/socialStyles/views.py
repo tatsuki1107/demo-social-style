@@ -135,6 +135,7 @@ def getresult(request):
     if request.method == 'POST':
         [request_json,user_id] = check_session(request)
         if (type(request_json) == HttpResponse):
+            print("Error")
             return request_json
         if "time" in request_json:
             try:
@@ -194,7 +195,8 @@ def token(request):
         # Cheer_IDを確認したらdbにUser_IDが存在する場合は取得しredisに保管,ない場合は新規作成してからredisにUser_IDと結びつけて保管。
 
         session_token = request_json["session_id"] + request_json["token"]
-        user_id = User.objects.get(cheer_id=request_json["cheer_id"]).user_id
+        user,created = User.objects.get_or_create(cheer_id=request_json["cheer_id"])
+        user_id = user.user_id
         token_db = redis.Redis(
                 host=os.environ["REDIS_HOST"], port=6379, db=0,password="Soc1@lStyle")
         token_db.set(session_token, user_id)

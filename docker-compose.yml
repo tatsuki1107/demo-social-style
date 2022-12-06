@@ -14,7 +14,7 @@ services:
       - django_session
       - auth_session
     environment:
-      - ORIGIN_HOST=http://localhost
+      - ORIGIN_HOST=http://
       - CHOKIDAR_USEPOLLING=true
       - DJANGO_SETTINGS_MODULE=config.local_settings
       - REDIS_HOST=52.192.243.165
