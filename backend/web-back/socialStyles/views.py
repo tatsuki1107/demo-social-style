@@ -35,13 +35,13 @@ def check_session(request):
         return [request_json,user_id]
 def generate_result(social_style_id,date,user_id):
     # getresultのレスポンス用jsonを作る関数.
-    print(social_style_id)
+  #  print(social_style_id)
     try:
         result = Result.objects.get(
             date=date,user_id=user_id
         )
     except Exception as e:
-        print(e)
+    #    print(e)
         return 1
     social_style = social_style_dict[social_style_id]
     response_body = {}
@@ -113,7 +113,7 @@ def submit_to_history(request):
             Result.objects.create(
                     user_id=user, social_style_id=social_style, x=request_json["X"], y=request_json["Y"], date=now)
         except Exception as e:
-            print(e)
+       #     print(e)
             return HttpResponse(status=500)
         try:
             latest_result = LatestResult.objects.get(cheer_id=user.cheer_id)
@@ -121,7 +121,7 @@ def submit_to_history(request):
             latest_result.save()
             return HttpResponse(status=200)
         except Exception as e:
-            print(e)
+          #  print(e)
             LatestResult.objects.create(cheer_id=user.cheer_id,latest_social_style_id=social_style.social_style_id)
             return HttpResponse(status=200)
     else:
@@ -160,7 +160,7 @@ def getresult(request):
                 return HttpResponse(json.dumps({}))
             if latest == 0:
                 return HttpResponse(json.dumps({}))
-            print(social_style_id)
+          #  print(social_style_id)
             response_body = generate_result(social_style_id=social_style_id,date=latest,user_id=user_id)
             if response_body == 1:
                 return HttpResponse(status=500)
@@ -228,13 +228,13 @@ def fetch_results(request):
     #/resultsエンドポイントから来たjsonを処理し返す。
     try:
         req = json.loads(request.body)
-        print(req["ids"])
+      #  print(req["ids"])
     except:
         return HttpResponse(status=400)
     results = LatestResult.objects.filter(cheer_id__in=req["ids"]).all()
     res_results = []
     for x in results:
-        print(x)
+       # print(x)
         res_results.append({"cheer_id":x.cheer_id,"social_style_id":x.latest_social_style_id})
     response = {'results':res_results}
 

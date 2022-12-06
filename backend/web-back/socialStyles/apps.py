@@ -32,11 +32,17 @@ class SocialStylesConfig(AppConfig):
                 profession_dict[val["social_style_id_id"]] = []
                 profession_dict[val["social_style_id_id"]].append(val["profession_name"])
         for val in relation.values():
-            if val["my_social_style_id_id"] in relation_dict:
-                relation_dict[val["my_social_style_id_id"]].append(val["relational_description"])
-            else:
-                relation_dict[val["my_social_style_id_id"]] = []
-                relation_dict[val["my_social_style_id_id"]].append(val["relational_description"])
+            if not (val["my_social_style_id"] in relation_dict):
+                relation_dict[val["my_social_style_id"]] = ['','','','']
+
+            if val["target_social_style_id"] == 1:
+                relation_dict[val["my_social_style_id"]][1] = val["relational_description"]
+            if val["target_social_style_id"] == 2:
+                relation_dict[val["my_social_style_id"]][2] = val["relational_description"]
+            if val["target_social_style_id"] == 3:
+                relation_dict[val["my_social_style_id"]][3] = val["relational_description"]
+            if val["target_social_style_id"] == 4:
+                relation_dict[val["my_social_style_id"]][0] = val["relational_description"]
         for val in social_style.values():
             social_style_dict[val["social_style_id"]] = val
 

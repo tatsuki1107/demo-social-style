@@ -45,8 +45,8 @@ class Relational(models.Model):
     # relational_typeは相性が良ければTrue,わるければFalse
     relational_id = models.BigAutoField(primary_key=True)
     relational_description = models.TextField(null=False)
-    my_social_style_id = models.ForeignKey('SocialStyle',related_name='My_SS',on_delete=models.CASCADE)
-    target_social_style_id = models.ForeignKey('SocialStyle',related_name='Target_SS',on_delete=models.CASCADE)
+    my_social_style_id = models.IntegerField(null=False)
+    target_social_style_id = models.IntegerField(null=False)
     relational_type = models.BooleanField(null=False)
     class Meta:
         db_table = 'relational'
