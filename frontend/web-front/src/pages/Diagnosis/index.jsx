@@ -10,7 +10,6 @@ import Result from "../../components/Oganisms/Result";
 import Typography from "../../components/Atoms/Typography";
 import Button from "../../components/Atoms/Button";
 // Hooks
-import useStyleCounter from "../../Hooks/useStyleCounter";
 import { useAuth } from '../../Routings/AuthService';
 // img import
 import check_icon from "../../img/check.jpg";
@@ -45,55 +44,72 @@ const Buttonzorn = styled.div`
 const Diagnosis = () => {
   const { user, handleError } = useAuth();
   const [data, setData] = useState([]);
-  const [totalCount, setTotalCount] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [flag, setFlag] = useState(false);
   const scrollBottomRef = useRef(null);
   const questionRefContent = useRef([]);
   const windowHeight = window.innerHeight;
-  const [loading, setLoading] = useState(true)
-  const { calcuCount, xyCaluculation } = useStyleCounter()
   const navigate = useNavigate();
 
-  function getRect(elm) {
+  const getRect = (elm) => {
     return elm.current.getBoundingClientRect();
-  }
+  };
 
-  const totalCountUp = useCallback((index) => {
-    debugger;
-    const contentRect = getRect(questionRefContent.current[index - 1]);
-    if (windowHeight - contentRect.top < 500 && index < 18) {
+  const Scroll = (index) => {
+    const contentRect = getRect(questionRefContent.current[index]);
+    if (windowHeight - contentRect.top < 400 && index < 18) {
       const offset = window.pageYOffset;
       const scrollCountentRect = getRect(questionRefContent.current[index]);
-      const gap = windowHeight < 700 ? 50 : 80;
-      const target = offset + scrollCountentRect.top - gap;
+      const gap = windowHeight < 700 ? 50 : 220;
+      const target = offset + scrollCountentRect.top + gap;
       window.scrollTo({
         top: target,
-        // 不具合発生中の為、一時コメントアウト
-        // behavior: 'smooth' 
       });
-    }
-    setTotalCount(num => num + 1)
-  }, [totalCount]);
+    };
+  };
+
+  const calcuCount = useCallback((point, index) => {
+    setData(prev => prev.map((p, i) => (i === index ? { ...p, "answer": point } : p)))
+    Scroll(index);
+  }, [data]);
+
+  const xyCaluculation = (length) => {
+    const groupby = data.reduce((prev, current) => {
+      const found = prev.find(value => value["pos"] === current["pos"]);
+      if (found) { found["answer"] += current["answer"] } else {
+        prev.push({
+          "pos": current["pos"], "answer": current["answer"],
+        })
+      }
+      return prev;
+    }, [])
+    let xy = {}
+    groupby.map((result) => {
+      xy[result["pos"]] = ((length + result["answer"]) / (2 * length)) * 100
+    });
+    return xy;
+  }
 
   const onResult = async () => {
-    if (totalCount === data.length) {
-      const coordinate = xyCaluculation(totalCount);
+    if (!data.some(d => d["answer"] === undefined)) {
+      const coordinate = xyCaluculation(data.length);
       try {
         const data = { ...user, ...coordinate };
-        await axios.post('http://dev.cheercareer.jp/api/send_param', data)
+        await axios.post('http://localhost/api/send_param', data)
           .then(() => { setFlag(true) });
       } catch (e) {
         handleError(e.response.status);
       }
     } else {
-      alert('未回答の問題があります')
+      const numbers = data.flatMap((d, i) => (d["answer"] === undefined ? i + 1 : []))
+      alert(`問${numbers.join(', ')}が、未回答です。`);
     }
   };
 
   useEffect(() => {
     (async () => {
       try {
-        await axios.post('http://dev.cheercareer.jp/api/questions', user).then((res) => { setData(res?.data) })
+        await axios.post('http://localhost/api/questions', user).then(res => setData(res?.data))
         setLoading(false);
       } catch (e) {
         handleError(e.response.status);
@@ -105,7 +121,7 @@ const Diagnosis = () => {
     if (scrollBottomRef && scrollBottomRef.current) {
       scrollBottomRef.current.scrollIntoView();
     }
-  }, [flag]);
+  }, [flag])
 
   data.forEach((_, index) => {
     questionRefContent.current[index] = createRef(null);
@@ -120,9 +136,11 @@ const Diagnosis = () => {
               <Typography type="Q_h1" color="black">
                 診断スタート
               </Typography>
-              <Typography type="text" size="m" >
-                自分が周りにどう思われているのか<br />直感的に選択してください
-              </Typography>
+              <div className='text'>
+                <Typography type="text" size="m" >
+                  自分が周りにどう思われているのか<br />直感的に選択してください
+                </Typography>
+              </div>
               <QandT>
                 <Icon_flex>
                   <img src={check_icon} className="question_icon" alt="question_icon" />
@@ -134,25 +152,23 @@ const Diagnosis = () => {
                 </Icon_flex>
               </QandT>
             </Question>
-
             {data.map((item, index) => {
               return (
                 <div key={index} ref={questionRefContent.current[index]}>
                   <Question
-                    index={index + 1}
+                    index={index}
                     item={item}
-                    totalCountUp={totalCountUp}
                     calcuCount={calcuCount}
                   />
                 </div>
-              )
+              );
             })}
             <Underline />
             <Buttonzorn>
               <Button type="start" onClick={onResult} disabled={flag}>
                 診断する
               </Button>
-              <Button type="maru" size="m" onClick={() => navigate('/')}>Social Style診断とは</Button>
+              <Button type="maru" size="m" onClick={() => navigate('/', window.scrollTo(0, 850))}>Social Style診断とは</Button>
             </Buttonzorn>
             {flag && <div ref={scrollBottomRef}><Result date="" /></div>}
           </ContentLoader>

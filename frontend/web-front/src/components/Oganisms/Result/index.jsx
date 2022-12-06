@@ -7,10 +7,10 @@ import ContentTitle from "../../Atoms/ContentTitle";
 // img
 import graph_img from '../../../img/StyleGraph_t.jpg';
 import pointer from '../../../img/point.svg';
-import hosi from '../../../img/hosi.svg';
-import sikaku from '../../../img/sikaku.svg';
-import sankaku from '../../../img/sankaku.svg';
-import maru from '../../../img/maru.svg';
+import exp from '../../../img/maru_exp.svg';
+import dri from '../../../img/maru_dri.svg';
+import ana from '../../../img/maru_Ana.svg';
+import emi from '../../../img/maru_emi.svg';
 // hooks
 import useResult from "../../../Hooks/useResult";
 // transform
@@ -18,8 +18,8 @@ import { toDateTransform } from "../../../js/transform";
 // skeleton
 import ContentLoader from "styled-content-loader";
 
-const border = [maru, sikaku, sankaku, hosi];
-const allStyle = ["エミアブル", "ドライバー", "アナリティカル", "エクスプレッシブ"];
+const border = [emi, exp, dri, ana];
+const allStyle = ["エミアブル", "エクスプレッシブ", "ドライバー", "アナリティカル"];
 
 const ResultArea = styled.div`
   width: 100%;
@@ -36,15 +36,21 @@ const DiaResult = styled.div`
   background-color: #FFFFFF;
   width: 240px;
   height: 125px;
-  padding: 10px;
+  padding: 3px 10px 12px 10px;
   display: inline-block;
-  margin-top: 80px;
+  margin-top: 60px;
+  border-radius: 30px;
+  @media all and (max-width: 450px) {
+    font-size: 0.8em;
+    width: 200px;
+    height: 100px;
+  }
 `;
 
 const GraphImage = styled.div`
   position: relative;
   margin: 0 auto;
-  width: 85%;
+  width: 83%;
   @media (max-width: 660px) {
     width: 100%;
     height: 100%;
@@ -110,6 +116,19 @@ const Disc_logo = styled.img`
   height: 30px;
 `;
 
+const ResponsiveTxt = styled.div`
+  min-height: 140px;
+  @media all and (max-width: 580px) {
+    font-size: 0.8em;
+  }
+  @media all and (max-width: 465px) {
+    font-size: 0.7em;
+  }
+  @media all and (max-width: 410px) {
+    font-size: 0.6em;
+  }
+`
+
 // Dateを指定して結果を表示。診断後の結果表示はデータベースに格納されている一番最新をもらう
 const Result = ({ date }) => {
   const { result, loading } = useResult(date);
@@ -120,16 +139,18 @@ const Result = ({ date }) => {
         <Underline />
         <ContentLoader isLoading={loading}>
           <DiaResult>
-            <Typography type="h2" margin={0}>
+            <Typography type="h2" margin={0} style={"margin-top : -6px"}>
               {toDateTransform(result.Time)}<br />診断結果
             </Typography>
           </DiaResult>
-          <Typography type="text" size="l">
-            あなたは<br /><span>{result.SocialStyle}</span>の傾向が強いようです
-          </Typography>
-          <Typography type="text" size="l" color="orenge">
-            {`意見主張度 ${Math.round(result.X)}% : 感情表現度 : ${Math.round(result.Y)}%`}
-          </Typography>
+          <ResponsiveTxt>
+            <Typography type="h2">
+              あなたは<br /><span>{result.SocialStyle}</span><br />の傾向が強いようです
+            </Typography>
+            <Typography type="h2" color="black">
+              意見主張度: <span>{Math.round(result.X)}</span>% 感情表現度 : <span>{Math.round(result.Y)}</span>%
+            </Typography>
+          </ResponsiveTxt>
         </ContentLoader>
 
         <GraphImage>
@@ -180,7 +201,7 @@ const Result = ({ date }) => {
                   <Discription>
                     <Typography type="text" size="m" >
                       {description.split(/(\r\n|\r\n)/g).map(
-                        txt => (txt === "\r\n") ? <br /> : txt)
+                        (txt, i) => (txt === "\r\n") ? <br key={i} /> : txt)
                       }
                     </Typography>
                   </Discription>

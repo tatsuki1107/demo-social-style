@@ -14,14 +14,15 @@ const BorderArea = styled.div`
 const Border = styled.div`
   position: absolute;
   width: 100%;
+  height: 4px;
   top: 40%;
-  border: 2px solid #DF7919;
+  background-color: #DF7919;
 `;
 
 const Left = styled.div`
   position: absolute;
   left: -9px;
-  top: 2%;
+  top: -1%;
   display: inline-block;
   width: 18px;
   height: 18px;
@@ -33,7 +34,8 @@ const Left = styled.div`
 
 const Right = styled.div`
   position: absolute;
-  right: -13px;
+  right: -10px;
+  top: -1%;
   display: inline-block;
   width: 18px;
   height: 18px;
@@ -48,6 +50,9 @@ const Answer = styled.div`
   justify-content: space-between;
   @media all and (max-width: 500px) {
     font-size: 0.8em;
+  }
+  @media all and (max-width: 400px) {
+    font-size: 0.75em;
   }
 `;
 

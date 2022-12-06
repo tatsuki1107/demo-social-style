@@ -21,11 +21,12 @@ const useResult = (date) => {
   useEffect(() => {
     (async () => {
       try {
-        const data = { ...user }
+        setLoading(true);
+        const data = { ...user };
         if (date !== "") {
           data["time"] = toUnixTransform(date);
         }
-        await axios.post('http://dev.cheercareer.jp/api/get_result', data).then((res) => {
+        await axios.post('http://localhost/api/get_result', data).then((res) => {
           setResult((res?.data));
           setLoading(false);
         })

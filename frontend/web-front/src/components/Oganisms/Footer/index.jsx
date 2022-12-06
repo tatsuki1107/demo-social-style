@@ -14,19 +14,19 @@ const Footer = () => {
 					</a>
 				</div>
 				<div className="icon">
-					<a href="https://www.facebook.com/cheercareer.jp" target="_blank" className="icon_content">
+					<a href="https://www.facebook.com/cheercareer.jp" target="_blank" className="icon_content_footer">
 						<FontAwesomeIcon icon={faFacebook} />
 					</a>
-					<a href="https://twitter.com/cheer_career" target="_blank" className="icon_content">
+					<a href="https://twitter.com/cheer_career" target="_blank" className="icon_content_footer">
 						<FontAwesomeIcon icon={faTwitter} />
 					</a>
-					<a href="https://lin.ee/noVzheP" target="_blank" className="icon_content">
+					<a href="https://lin.ee/noVzheP" target="_blank" className="icon_content_footer">
 						<FontAwesomeIcon icon={faLine} />
 					</a>
-					<a href="https://www.instagram.com/cheer_career/" target="_blank" className="icon_content">
+					<a href="https://www.instagram.com/cheer_career/" target="_blank" className="icon_content_footer">
 						<FontAwesomeIcon icon={faInstagram} />
 					</a>
-					<a href="https://www.youtube.com/channel/UC8b3YGTUXCjtW3OwAjXTx9A/" target="_blank" className="icon_content">
+					<a href="https://www.youtube.com/channel/UC8b3YGTUXCjtW3OwAjXTx9A/" target="_blank" className="icon_content_footer">
 						<FontAwesomeIcon icon={faYoutube} />
 					</a>
 				</div>

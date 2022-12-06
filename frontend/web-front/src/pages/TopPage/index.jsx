@@ -12,13 +12,12 @@ import ContentTitle from '../../components/Atoms/ContentTitle';
 
 const TopPage = () => {
   const { user } = useAuth();
-  console.log(user);
   const navigate = useNavigate();
   const goNextPage = () => {
     if (!user) {
-      window.location.href = 'http://dev.cheercareer.jp:16000';
+      window.location.href = 'http://localhost:16000';
     } else {
-      navigate('/diagnosis')
+      navigate('/diagnosis', window.scrollTo(0, 0))
     }
   }
   return (

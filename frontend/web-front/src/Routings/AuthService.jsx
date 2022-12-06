@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    let query = new URLSearchParams(window.location.search);
+     let query = new URLSearchParams(window.location.search);
     if (sessionStorage.getItem('user') != null){
       setUser(JSON.parse(sessionStorage.getItem('user')));
     }

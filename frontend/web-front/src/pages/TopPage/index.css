@@ -109,8 +109,7 @@
 }
 
 .graph_img img {
-  width: 85%;
-  height: 85%;
+  height: 85vh;
 }
 
 /* help */
@@ -180,7 +179,11 @@
   }
 }
 
-@media all and (max-width: 440px) {}
+@media all and (max-width: 440px) {
+  .Top_title h1 {
+    font-size: 3.8em;
+  }
+}
 
 /* 追加で作成するため、一時コメントアウト */
 /* 
@@ -209,3 +212,19 @@
   clip-path: polygon(0 100%, 50% 0, 100% 100%);
   background: #FFFFFF;
 }  */
+
+@media all and (max-width: 400px) {
+  .Top_title h1 {
+    font-size: 3.4em;
+  }
+}
+
+@media all and (max-width: 390px) {
+  .exp_title h2 {
+    font-size: 1.8em;
+  }
+
+  .help_title h2 {
+    font-size: 1.8em;
+  }
+}
