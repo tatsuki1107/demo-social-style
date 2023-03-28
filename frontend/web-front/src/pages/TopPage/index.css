@@ -109,7 +109,8 @@
 }
 
 .graph_img img {
-  height: 85vh;
+  width: 85%;
+  height: 85%;
 }
 
 /* help */

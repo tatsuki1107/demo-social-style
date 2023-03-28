@@ -14,15 +14,14 @@ const BorderArea = styled.div`
 const Border = styled.div`
   position: absolute;
   width: 100%;
-  height: 4px;
   top: 40%;
-  background-color: #DF7919;
+  border: 2px solid #DF7919;
 `;
 
 const Left = styled.div`
   position: absolute;
   left: -9px;
-  top: -1%;
+  top: 2%;
   display: inline-block;
   width: 18px;
   height: 18px;
@@ -34,8 +33,7 @@ const Left = styled.div`
 
 const Right = styled.div`
   position: absolute;
-  right: -10px;
-  top: -1%;
+  right: -13px;
   display: inline-block;
   width: 18px;
   height: 18px;

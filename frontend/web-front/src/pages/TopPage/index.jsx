@@ -14,8 +14,8 @@ const TopPage = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const goNextPage = () => {
-    if (!user) {
-      window.location.href = 'http://localhost:16000';
+    if (user.token === "") {
+      window.location.href = 'http://localhost/test_auth';
     } else {
       navigate('/diagnosis', window.scrollTo(0, 0))
     }
@@ -34,7 +34,7 @@ const TopPage = () => {
           </div>
 
           <div className='startButton-1'>
-            {!user ?
+            {user.token === "" ?
               <Button onClick={goNextPage} type="start">
                 ログインして診断する
               </Button>
@@ -69,7 +69,7 @@ const TopPage = () => {
           </section>
 
           <div className='startButton-2'>
-            {!user ?
+            {user.token === "" ?
               <Button onClick={goNextPage} type="start">
                 ログインして診断する
               </Button>
@@ -116,7 +116,7 @@ const TopPage = () => {
           </div>
 
           <div className='startButton-3'>
-            {!user ?
+            {user.token === "" ?
               <Button onClick={goNextPage} type="start">
                 ログインして診断する
               </Button>

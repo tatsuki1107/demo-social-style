@@ -2,9 +2,12 @@ import React, { useState, createContext, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
+const defaultValue = {
+  session_ID: '', token: ''
+};
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(defaultValue);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -12,7 +15,7 @@ const AuthProvider = ({ children }) => {
     if (status === 500) {
       alert('セッションが切れました。ログインし直してください');
       sessionStorage.removeItem('user');
-      setUser();
+      setUser(defaultValue);
     } else {
       alert(`エラーが発生しました。再度診断してください。エラーコード: ${status}`);
     };
@@ -20,19 +23,17 @@ const AuthProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    let query = new URLSearchParams(window.location.search);
-    if (sessionStorage.getItem('user') != null) {
-      setUser(JSON.parse(sessionStorage.getItem('user')));
-    }
-    let session = query.get("session_id");
-    let token = query.get("token");
-    if (query.get("session_id") != null && query.get("token") != null) {
-      let dict = { session_id: session, token: token };
-      console.log(dict);
-      sessionStorage.setItem('user', JSON.stringify(dict));
-      setUser(JSON.parse(sessionStorage.getItem('user'))); setLoading(false);
+    const unsubscribed = () => {
+      if (sessionStorage.getItem('user') === null) {
+        setUser(defaultValue);
+      } else {
+        setUser(JSON.parse(sessionStorage.getItem('user')));
+      }
+      setLoading(false);
     };
-    setLoading(false);
+    return () => {
+      unsubscribed()
+    }
   }, [])
 
   if (!loading) {

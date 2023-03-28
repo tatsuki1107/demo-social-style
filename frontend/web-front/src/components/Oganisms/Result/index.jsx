@@ -7,10 +7,10 @@ import ContentTitle from "../../Atoms/ContentTitle";
 // img
 import graph_img from '../../../img/StyleGraph_t.jpg';
 import pointer from '../../../img/point.svg';
-import exp from '../../../img/maru_exp.svg';
-import dri from '../../../img/maru_dri.svg';
-import ana from '../../../img/maru_Ana.svg';
-import emi from '../../../img/maru_emi.svg';
+import hosi from '../../../img/hosi.svg';
+import sikaku from '../../../img/sikaku.svg';
+import sankaku from '../../../img/sankaku.svg';
+import maru from '../../../img/maru.svg';
 // hooks
 import useResult from "../../../Hooks/useResult";
 // transform
@@ -18,8 +18,8 @@ import { toDateTransform } from "../../../js/transform";
 // skeleton
 import ContentLoader from "styled-content-loader";
 
-const border = [emi, exp, dri, ana];
-const allStyle = ["エミアブル", "エクスプレッシブ", "ドライバー", "アナリティカル"];
+const border = [maru, sikaku, sankaku, hosi];
+const allStyle = ["エミアブル", "ドライバー", "アナリティカル", "エクスプレッシブ"];
 
 const ResultArea = styled.div`
   width: 100%;
@@ -36,13 +36,12 @@ const DiaResult = styled.div`
   background-color: #FFFFFF;
   width: 240px;
   height: 125px;
-  padding: 3px 10px 12px 10px;
+  padding: 10px;
   display: inline-block;
-  margin-top: 60px;
-  border-radius: 30px;
+  margin-top: 80px;
   @media all and (max-width: 450px) {
     font-size: 0.8em;
-    width: 200px;
+    width: 220px;
     height: 100px;
   }
 `;
@@ -50,7 +49,7 @@ const DiaResult = styled.div`
 const GraphImage = styled.div`
   position: relative;
   margin: 0 auto;
-  width: 83%;
+  width: 85%;
   @media (max-width: 660px) {
     width: 100%;
     height: 100%;
@@ -139,7 +138,7 @@ const Result = ({ date }) => {
         <Underline />
         <ContentLoader isLoading={loading}>
           <DiaResult>
-            <Typography type="h2" margin={0} style={"margin-top : -6px"}>
+            <Typography type="h2" margin={0}>
               {toDateTransform(result.Time)}<br />診断結果
             </Typography>
           </DiaResult>
