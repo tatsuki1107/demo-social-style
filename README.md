@@ -1,6 +1,11 @@
 # project-social-styles repo
 このプロジェクトはreact、django、nginx、MySQLのコンテナを立ててることで開発環境を構築している。
 
+## developブランチをpullすることで動作確認可能
+アプリのデモ
+![ezgif com-video-to-gif](https://user-images.githubusercontent.com/79680980/228167164-540796d4-4b04-49b9-bc82-f2c76bff5340.gif)
+
+
 ## installation
 上から順に実行
 
